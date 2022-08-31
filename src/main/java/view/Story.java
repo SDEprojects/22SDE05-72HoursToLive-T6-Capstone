@@ -58,7 +58,11 @@ public class Story {
                     titleScreen();
                     break;
                 }
-            }  else {
+            } else if (intro.equalsIgnoreCase("quit")) {
+                System.out.println("Quitting the game...");
+                sleep(1000);
+                System.exit(0);
+            } else {
                 System.out.println("Invalid input. Valid options are play, help, or quit. Please try again.");
             }
         }
