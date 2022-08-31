@@ -47,11 +47,18 @@ public class Story {
                 System.out.println("Starting the game...\n");
                 sleep(1000);
                 break;
-            }  else if (intro.equalsIgnoreCase("quit")) {
-                System.out.println("Quitting the game...");
+            } else if (intro.equalsIgnoreCase("help")) {
+                System.out.println(infoMenu + "\n" + infoBanner + infoMenu);
                 sleep(1000);
-                System.exit(0);
-            } else {
+                System.out.println("Setting: Castle");
+                sleep(1000);
+                System.out.println("Press enter to return to the menu screen...");
+                String readString = scanner.nextLine();
+                if (scanner.hasNextLine()) {
+                    titleScreen();
+                    break;
+                }
+            }  else {
                 System.out.println("Invalid input. Valid options are play, help, or quit. Please try again.");
             }
         }
