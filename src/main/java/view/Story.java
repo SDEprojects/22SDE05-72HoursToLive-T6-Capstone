@@ -65,6 +65,7 @@ public class Story {
             } else {
                 System.out.println("Invalid input. Valid options are play, help, or quit. Please try again.");
             }
+
         }
     }
 
@@ -77,6 +78,7 @@ public class Story {
                 "███████║   ██║   ╚██████╔╝██║  ██║   ██║   ███████╗██║██║ ╚████║███████╗\n" +
                 "╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝\n" +
                 "                                                                        \n";
+
 
         while (true) {
 
