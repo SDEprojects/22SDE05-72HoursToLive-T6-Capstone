@@ -77,7 +77,39 @@ public class Story {
                 "███████║   ██║   ╚██████╔╝██║  ██║   ██║   ███████╗██║██║ ╚████║███████╗\n" +
                 "╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝\n" +
                 "                                                                        \n";
-        System.out.println(storyBanner);
+
+        while (true) {
+
+            String menu = "========================================================================\n";
+            System.out.println(menu + "\n" + storyBanner + menu);
+            System.out.println("Type \"read\" to read the game storyline, or \"skip\" to skip...");
+            String intro = scanner.next();
+            if (intro.equalsIgnoreCase("skip")) {
+                System.out.println(bundle.getString("skip_intro"));
+                sleep(425);
+                System.out.println(bundle.getString("start_game"));
+                sleep(425);
+
+                break;
+            } else if (intro.equalsIgnoreCase("read")) {
+
+                textStream(bundle.getString("story_one"), 120);
+                sleep(650);
+                textStream(bundle.getString("story_two"), 120);
+                textStream(bundle.getString("story_slowTwo"), 210);
+                sleep(650);
+                textStream(bundle.getString("story_three"), 120);
+                sleep(650);
+                textStream(bundle.getString("story_four"), 120);
+                sleep(650);
+                textStream(bundle.getString("story_five"), 120);
+                textStream("forever.\n", 390);
+                break;
+            } else {
+                System.out.println("Invalid input. Please try again.");
+            }
+
+        }
 
     }
 
