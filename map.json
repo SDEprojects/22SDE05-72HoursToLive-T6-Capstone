@@ -1,0 +1,1 @@
+{"Room1":{"name":"Room1","numWereWolves":2,"adjList":{"West":"","South":"Great Room","North":"kitchen","East":"Pantry"}},"greatRoom":{"name":"greatRoom","numWereWolves":0,"adjList":{"West":"","South":"","North":"Room1","East":""}}}
