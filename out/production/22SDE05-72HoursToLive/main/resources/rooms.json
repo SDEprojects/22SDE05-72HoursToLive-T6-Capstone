@@ -4,10 +4,10 @@
     "description": "The castle grounds is normally loud and full of people, but today it's empty...",
     "items": ["sword","shield"],
     "connectedRooms": {
-      "North": "Ballroom",
-      "South": "None",
-      "East": "Granary",
-      "West": "Stable"
+      "north": "Ballroom",
+      "south": "None",
+      "east": "Granary",
+      "west": "Stable"
     }
   },
   "Pantry": {
@@ -15,10 +15,10 @@
     "description": "The pantry is a small, open area with tables and a few chairs.",
     "items": ["health potion"],
     "connectedRooms": {
-      "North": "Kitchen",
-      "South": "Granary",
-      "East": "None",
-      "West": "Ballroom"
+      "north": "Kitchen",
+      "south": "Granary",
+      "east": "None",
+      "west": "Ballroom"
     }
   },
   "Granary": {
@@ -26,10 +26,10 @@
     "description": "The Granary is a room in a barn for threshed grain. It is built above the ground to keep the stored food away from mice, other animals and floods.",
     "items": ["Strength Potion", "Bunker Kit", "Invisibility Potion"],
     "connectedRooms": {
-      "North": "Pantry",
-      "South": "None",
-      "East": "None",
-      "West": "Castle Grounds"
+      "north": "Pantry",
+      "south": "None",
+      "east": "None",
+      "west": "Castle Grounds"
     }
   },
 
@@ -38,10 +38,10 @@
     "description": "The Kitchen is a room for food preparation and cooking. It can serve as a hideout and provide storage for weapons",
     "items": ["Blood Test", "Strength Potion"],
     "connectedRooms": {
-      "North": "Armory",
-      "South": "Pantry",
-      "East": "None",
-      "West": "Dining Room"
+      "north": "Armory",
+      "south": "Pantry",
+      "east": "None",
+      "west": "Dining Room"
     }
   },
   "Ballroom": {
@@ -49,10 +49,10 @@
     "description": "The Ball Room is a large formal room inside a building for holding large parties called balls. ",
     "items": ["Sword", "Invisibility Potion"],
     "connectedRooms": {
-      "North": "Dining Room",
-      "South": "Castle Grounds",
-      "East": "Pantry",
-      "West": "Parapet"
+      "north": "Dining Room",
+      "south": "Castle Grounds",
+      "east": "Pantry",
+      "west": "Parapet"
     }
   },
 
@@ -61,10 +61,10 @@
     "description": "The Dining Room is used for eating meals. Other activities such playing board games may also take place in the dinning room",
     "items": ["Strength Potion", "Wolf Detection Potion"],
     "connectedRooms": {
-      "North": "Great Hall",
-      "South": "Ballroom",
-      "East": "Kitchen",
-      "West": "Garden"
+      "north": "Great Hall",
+      "south": "Ballroom",
+      "east": "Kitchen",
+      "west": "Garden"
     }
   },
 
@@ -73,10 +73,10 @@
     "description": "An Armory is a supply of arms for defending and attacking. It can also be a place where arms are manufactured. It is a well guarded place ",
     "items": ["Sword", "Armor", "Bow", "Invisibility Potion"],
     "connectedRooms": {
-      "North": "Bed Chamber III",
-      "South": "Kitchen",
-      "East": "None",
-      "West": "Great Hall"
+      "north": "Bed Chamber III",
+      "south": "Kitchen",
+      "east": "None",
+      "west": "Great Hall"
     }
   },
 
@@ -85,10 +85,10 @@
     "description": "The Great Hall is the main room in the house. It serves as a safe place for groups to retreat to in times of danger.",
     "items": ["Bunker Kit", "Health Potion", "Wolf Detection Potion"],
     "connectedRooms": {
-      "North": "Hallway",
-      "South": "Dining Room",
-      "East": "Armory",
-      "West": "Throne Room"
+      "north": "Hallway",
+      "south": "Dining Room",
+      "east": "Armory",
+      "west": "Throne Room"
     }
   },
 
@@ -97,10 +97,10 @@
     "description": "The Hallway is the area of the house that connect the bedrooms.",
     "items": ["Bunker Kit", "Bow", "Strength Potion", "Health Potion", "Wolf Detection Potion"],
     "connectedRooms": {
-      "North": "Bed Chamber I",
-      "South": "Great Hall",
-      "East": "Bed Chamber III",
-      "West": "Bed Chamber II"
+      "north": "Bed Chamber I",
+      "south": "Great Hall",
+      "east": "Bed Chamber III",
+      "west": "Bed Chamber II"
     }
   },
 
@@ -109,10 +109,10 @@
     "description": "The Bed Chamber is used for sleeping, resting and healing",
     "items": ["Bunker Kit", "Invisibility Potion","Health Potion", "Wolf Detection Potion"],
     "connectedRooms": {
-      "North": "None",
-      "South": "Hallway",
-      "East": "None",
-      "West": "None"
+      "north": "None",
+      "south": "Hallway",
+      "east": "None",
+      "west": "None"
     }
   },
   "Bed Chamber II": {
@@ -120,10 +120,10 @@
     "description": "The Bed Chamber is used for sleeping, resting and healing",
     "items": [],
     "connectedRooms": {
-      "North": "None",
-      "South": "Throne Room",
-      "East": "Hallway",
-      "West": "None"
+      "north": "None",
+      "south": "Throne Room",
+      "east": "Hallway",
+      "west": "None"
     }
   },
 
@@ -132,10 +132,10 @@
     "description": "The Bed Chamber is used for sleeping, resting and healing",
     "items": ["Bunker Kit", "Invisibility Potion","Health Potion", "Wolf Detection Potion"],
     "connectedRooms": {
-      "North": "None",
-      "South": "Armory",
-      "East": "None",
-      "West": "Hallway"
+      "north": "None",
+      "south": "Armory",
+      "east": "None",
+      "west": "Hallway"
     }
   },
   "Garden": {
@@ -143,10 +143,10 @@
     "description": "The Garden is a large open area with bright flowers and a fountain. It is a place to relax and enjoy the sun.",
     "items": ["Health Potion"],
     "connectedRooms": {
-      "North": "Throne Room",
-      "South": "Parapet",
-      "East": "Dining Room",
-      "West": "None"
+      "north": "Throne Room",
+      "south": "Parapet",
+      "east": "Dining Room",
+      "west": "None"
     }
   },
   "Throne Room": {
@@ -154,10 +154,10 @@
     "description": "The Throne Room is a large room with a throne in the center. It is used for the king to sit and rule the land.",
     "items": ["Golden Key"],
     "connectedRooms": {
-      "North": "Bed Chamber II",
-      "South": "Garden",
-      "East": "Great Hall",
-      "West": "None"
+      "north": "Bed Chamber II",
+      "south": "Garden",
+      "east": "Great Hall",
+      "west": "None"
     }
   },
   "Parapet": {
@@ -165,10 +165,10 @@
     "description": "The Parapet is a large tower with a large gate in the center. It is used for protecting the castle from the outside.",
     "items": ["Health Potion"],
     "connectedRooms": {
-      "North": "Garden",
-      "South": "Stable",
-      "East": "Ballroom",
-      "West": "None"
+      "north": "Garden",
+      "south": "Stable",
+      "east": "Ballroom",
+      "west": "None"
     }
   },
   "Stable": {
@@ -176,10 +176,10 @@
     "description": "The Stable is a large room with a stable in the center. It is used for the stable master to keep the animals in.",
     "items": ["Golden Key"],
     "connectedRooms": {
-      "North": "Parapet",
-      "South": "None",
-      "East": "Castle Grounds",
-      "West": "None"
+      "north": "Parapet",
+      "south": "None",
+      "east": "Castle Grounds",
+      "west": "None"
     }
   }
 }
