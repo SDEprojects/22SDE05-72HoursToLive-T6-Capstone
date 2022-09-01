@@ -18,10 +18,113 @@
       "north": "Ballroom",
       "south": "None",
       "east": "None",
+      "west": "Ballroom"
+    }
+  },
+  "Granary": {
+    "name": "Granary",
+    "description": "The Granary is a room in a barn for threshed grain. It is built above the ground to keep the stored food away from mice, other animals and floods.",
+    "items": ["Strength Potion", "Bunker Kit", "Invisibility Potion"],
+    "exits": {
+      "north": "Pantry",
+      "south": "None",
+      "east": "None",
       "west": "Castle Grounds"
     }
   },
+
+  "Kitchen": {
+    "name": "Kitchen",
+    "description": "The Kitchen is a room for food preparation and cooking. It can serve as a hideout and provide storage for weapons",
+    "items": ["Blood Test", "Strength Potion"],
+    "exits": {
+      "north": "Armory",
+      "south": "Pantry",
+      "east": "None",
+      "west": "Dining Room"
+    }
+  },
+  "Ballroom": {
+    "name": "Ballroom",
+    "description": "The Ball Room is a large formal room inside a building for holding large parties called balls. ",
+    "items": ["Sword", "Invisibility Potion"],
+    "exits": {
+      "north": "Dinning Room",
+      "south": "Castle Grounds",
+      "east": "Pantry",
+      "west": "Parapet"
+    }
+  },
+
+  "Dining Room": {
+    "name": "Dinning Room",
+    "description": "The Dining Room is used for eating meals. Other activities such playing board games may also take place in the dinning room",
+    "items": ["Strength Potion", "Wolf Detection Potion"],
+    "exits": {
+      "north": "Great Hall",
+      "south": "Ballroom",
+      "east": "Kitchen",
+      "west": "Garden"
+    }
+  },
+
+  "Armory": {
+    "name": "Armory",
+    "description": "An Armory is a supply of arms for defending and attacking. It can also be a place where arms are manufactured. It is a well guarded place ",
+    "items": ["Sword", "Armor", "Bow", "Invisibility Potion"],
+    "exits": {
+      "north": "Bed Chamber",
+      "south": "Kitchen",
+      "east": "none",
+      "west": "Great Hall"
+    }
+  },
+
+  "Great Hall": {
+    "name": "Great Hall",
+    "description": "The Great Hall is the main room in the house. It serves as a safe place for groups to retreat to in times of danger.",
+    "items": ["Bunker Kit", "Health Potion", "Wolf Detection Potion"],
+    "exits": {
+      "north": "Hallway",
+      "south": "Dining Room",
+      "east": "Armory",
+      "west": "Throne Room"
+    }
+  },
+
+  "Hallway": {
+    "name": "Hallway",
+    "description": "The Hallway is the area of the house that connect the bedrooms.",
+    "items": ["Bunker Kit", "Bow", "Strength Potion", "Health Potion", "Wolf Detection Potion"],
+    "exits": {
+      "north": "Bed Chamber I",
+      "south": "Great Hall",
+      "east": "Bed Chamber III",
+      "west": "Bed Chamber II"
+    }
+  },
+
+  "Bed Chamber I": {
+    "name": "Bed Chamber I",
+    "description": "The Bed Chamber is used for sleeping, resting and healing",
+    "items": ["Bunker Kit", "Invisibility Potion","Health Potion", "Wolf Detection Potion"],
+    "exits": {
+      "north": "none",
+      "south": "Hallway",
+      "east": "none",
+      "west": "none"
+    }
+  },
+
+  "Bed Chamber III": {
+    "name": "Bed Chamber III",
+    "description": "The Bed Chamber is used for sleeping, resting and healing",
+    "items": ["Bunker Kit", "Invisibility Potion","Health Potion", "Wolf Detection Potion"],
+    "exits": {
+      "north": "none",
+      "south": "Armory",
+      "east": "none",
+      "west": "Hallway"
+    }
   }
-
-
 }

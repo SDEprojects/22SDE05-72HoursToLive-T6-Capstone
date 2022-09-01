@@ -1,4 +1,5 @@
 package main.java.model;
 
-public class Soldier {
+public class Soldier extends Character{
+
 }
