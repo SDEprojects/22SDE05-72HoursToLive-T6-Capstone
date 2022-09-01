@@ -17,8 +17,12 @@ public class GameSettings {
     }
     public void startGame() throws IOException {
         RoomMovement movement = new RoomMovement();
+        GameController gameController = new GameController();
         movement.firstRoom();
-        movement.switchRooms();
+        while (true) {
+            gameController.userChoice();
+        }
+//        movement.switchRooms();
 
     }
 }

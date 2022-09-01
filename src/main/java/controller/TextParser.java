@@ -5,10 +5,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,12 +34,12 @@ public class TextParser {
         commandMap = new ObjectMapper().readValue(new File("actions.json"), typeRef);
 
         itemMap = new ObjectMapper().readValue(new File("items.json"), typeRef);
-        locationMap = new ObjectMapper().readValue(new File("locations.json"), typeRef);
+        locationMap = new ObjectMapper().readValue(new File("src/main/resources/locations.json"), typeRef);
     }
 
     public Response getCommands(String command){
         String[] args = command.toLowerCase().replaceAll("the", "").trim().split("\\s+");
-        System.out.println(Arrays.toString(args));
+//        System.out.println(Arrays.toString(args));
 
         if (args.length < 2){
             return new Response(null, null, null);
