@@ -1,23 +1,16 @@
 package main.java.model;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
->>>>>>> ca55a0e (fixed)
 import java.util.List;
 
 public abstract class Character {
     private String name;
-<<<<<<< HEAD
 
     private String location;
-=======
->>>>>>> ca55a0e (fixed)
     private int health;
     private int attackPower;
     private List<String> inventory;
 
-<<<<<<< HEAD
     public Character(){
         this("", "", 0, 0, new ArrayList<String>());
     }
@@ -29,8 +22,6 @@ public abstract class Character {
         this.attackPower = attackPower;
         this.inventory = inventory;
     }
-=======
->>>>>>> ca55a0e (fixed)
 
 
 
@@ -48,12 +39,9 @@ public abstract class Character {
 
     public void setHealth(int health) {
         this.health = health;
-<<<<<<< HEAD
         if (this.health < 0){
             this.health = 0;
         }
-=======
->>>>>>> ca55a0e (fixed)
     }
 
     public int getAttackPower() {
@@ -72,7 +60,6 @@ public abstract class Character {
         this.inventory = inventory;
     }
 
-<<<<<<< HEAD
 
     public void attack(Character enemy) {
         enemy.gotAttacked(this);
@@ -92,16 +79,4 @@ public abstract class Character {
                 ", inventory=" + inventory +
                 '}';
     }
-=======
-    public
-
-
-
-
-
-
-
-
-
->>>>>>> ca55a0e (fixed)
 }

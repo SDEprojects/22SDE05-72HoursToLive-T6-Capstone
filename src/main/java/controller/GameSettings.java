@@ -1,5 +1,6 @@
 package main.java.controller;
 
+import main.java.model.RoomMovement;
 import main.java.view.Story;
 
 import java.io.IOException;
