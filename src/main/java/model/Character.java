@@ -9,6 +9,8 @@ public abstract class Character {
     private List<String> inventory;
     private int health;
 
+    private int attackPower;
+
 
 
     //Constructors
