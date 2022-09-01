@@ -1,11 +1,6 @@
 package main.java.view;
 
 
-
-
-
-import main.java.controller.GameSettings;
-
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -16,11 +11,11 @@ public class Story {
 
     public void titleScreen() {
 
-        String menu = "===========================================================================================================================================\n\n";
+        String menu = "===========================================================================================================================================\n";
         String infoMenu = "======================================================================\n";
         String titleBanner =
 
-                "███████╗███████╗██╗   ██╗███████╗███╗   ██╗████████╗██╗   ██╗    ████████╗██╗    ██╗ ██████╗     ██╗  ██╗ ██████╗ ██╗   ██╗██████╗ ███████╗\n" +
+                "\n███████╗███████╗██╗   ██╗███████╗███╗   ██╗████████╗██╗   ██╗    ████████╗██╗    ██╗ ██████╗     ██╗  ██╗ ██████╗ ██╗   ██╗██████╗ ███████╗\n" +
                         "██╔════╝██╔════╝██║   ██║██╔════╝████╗  ██║╚══██╔══╝╚██╗ ██╔╝    ╚══██╔══╝██║    ██║██╔═══██╗    ██║  ██║██╔═══██╗██║   ██║██╔══██╗██╔════╝\n" +
                         "███████╗█████╗  ██║   ██║█████╗  ██╔██╗ ██║   ██║    ╚████╔╝        ██║   ██║ █╗ ██║██║   ██║    ███████║██║   ██║██║   ██║██████╔╝███████╗\n" +
                         "╚════██║██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║     ╚██╔╝         ██║   ██║███╗██║██║   ██║    ██╔══██║██║   ██║██║   ██║██╔══██╗╚════██║\n" +
@@ -131,18 +126,5 @@ public class Story {
         }
     }
 
-    public void menu() {
-        String menu = "=================";
-        System.out.println("You have entered the " + GameSettings.roomName);
-        sleep(1500);
-        System.out.printf("%nCurrent Room:%4s %6s North: %2s %5sSouth:%-21.21s %4sEast:%4s", "aa", "", "aa", "", "aa", "", "Location East");
-        System.out.printf("%nConnecting Rooms:%4s %6s North: %2s %5sSouth:%-21.21s %4sEast:%4s %n", "aa", "", "aa", "", "aa", "", "aa");
-        System.out.printf("%s %10d %15d %15d %14sItem: %s\n", "Current Room:", 1, 2, 3, "", "aa");
-        System.out.printf("%s %10d %15d %15d %14sItem: %s\n", "Items:", 1, 2, 3, "", "aa");
-        System.out.printf("%s %12s %12s %12s %12s\n", menu, menu, menu, menu, menu);
-        sleep(500);
-        System.out.printf("%s %10d %15d %15d %14sAction: %s\n", "Enter:", 1, 2, 3, "", "aa");
-        System.out.printf("%s %12s %12s %12s %12s\n", menu, menu, menu, menu, menu);
-    }
 }
 
