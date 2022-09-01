@@ -3,31 +3,31 @@ package main.java.model;
 import java.util.ArrayList;
 import java.util.List;
 
-class Soldier extends Character{
+class Soldier extends Character {
     boolean visible;
     boolean armor;
 
-    public Soldier(){
+    public Soldier() {
         super();
         visible = true;
         armor = false;
     }
 
-    public Soldier(String name, String location, int health, int attackPower, List<String> inventory){
+    public Soldier(String name, String location, int health, int attackPower, List<String> inventory) {
         super(name, location, health, attackPower, inventory);
         visible = true;
         armor = false;
     }
 
     @Override
-    public void gotAttacked(Character enemy){
-        if (!visible){
+    public void gotAttacked(Character enemy) {
+        if (!visible) {
             System.out.println(getName() + " has invisible cloak");
             return;
         }
 
         int attack = enemy.getAttackPower();
-        if (armor == true){
+        if (armor == true) {
             armor = false;
             System.out.println(getName() + "was protect by armor");
             return;
@@ -37,31 +37,30 @@ class Soldier extends Character{
 
     }
 
-    public void pickup(String item){
+    public void pickup(String item) {
         getInventory().add(item);
     }
 
 
-
-    public boolean useItems(String item){
-        if (!getInventory().contains(item)){
+    public boolean useItems(String item) {
+        if (!getInventory().contains(item)) {
             return false;
         }
 
-        if (item.equals("magic potion")){
+        if (item.equals("magic potion")) {
             getInventory().remove("magic potion");
             setHealth(100);
 
-        }else if (item.equals("armor")){
+        } else if (item.equals("armor")) {
             armor = true;
             getInventory().remove("armor");
             return true;
-        }else if (item.equals("invisibility cloak")){
+        } else if (item.equals("invisibility cloak")) {
             visible = false;
             getInventory().remove("invisibility cloak");
             return true;
 
-        }else if (item.equals("sword")){
+        } else if (item.equals("sword")) {
             setAttackPower(getAttackPower() + 50);
             getInventory().remove("sword");
             return true;
@@ -103,8 +102,5 @@ class Soldier extends Character{
         System.out.println("----------------------------------------------------------------------------");
         System.out.println(rob);
     }
-
-
-
 
 }
