@@ -3,6 +3,8 @@ package main.java.controller;
 import main.java.model.RoomMovement;
 import main.java.view.Story;
 
+import java.io.IOException;
+
 public class GameSettings {
     public static String roomName;
 
@@ -13,7 +15,7 @@ public class GameSettings {
 
 
     }
-    public void startGame() {
+    public void startGame() throws IOException {
         RoomMovement movement = new RoomMovement();
         movement.firstRoom();
         movement.switchRooms();

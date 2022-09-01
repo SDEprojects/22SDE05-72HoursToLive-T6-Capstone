@@ -2,10 +2,13 @@ package main.java.model;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import main.java.controller.Response;
+import main.java.controller.TextParser;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+
 
 public class RoomMovement {
     public static String currentRoom;
@@ -39,9 +42,26 @@ public class RoomMovement {
     }
 
 
-    public void switchRooms() {
+    public void switchRooms() throws IOException {
 
         String userDirection = askRoom();
+
+        TextParser textParser = new TextParser();
+        System.out.println(userDirection);
+        Response r1 = textParser.getCommands(userDirection);
+        System.out.println(r1);
+        if (!r1.isValid() || r1.getLocation().length() == 0){
+            System.out.println("invalid response");
+        }
+
+        userDirection = r1.getLocation();
+        userDirection = java.lang.Character.toUpperCase(userDirection.charAt(0)) + userDirection.substring(1);
+//        char ch = java.lang.Character.toUpperCase(direction.charAt(0));
+//        userDirection = ch + direction.substring(1);
+//        System.out.println(direction);
+
+
+
         List<String> match = Arrays.asList("North", "East", "South", "West");
 
         while (true) {
@@ -50,6 +70,8 @@ public class RoomMovement {
                     currentRoom = roomSwitcher.getConnectedRooms().get(userDirection);
                     menu();
                     userDirection = askRoom();
+                    userDirection = textParser.getCommands(userDirection).getLocation();
+                    userDirection = java.lang.Character.toUpperCase(userDirection.charAt(0)) + userDirection.substring(1);
 
                 }
                 else {
