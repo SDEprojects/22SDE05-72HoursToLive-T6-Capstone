@@ -1,5 +1,6 @@
 package main.java.controller;
 
+import main.java.model.RoomMovement;
 import main.java.view.Story;
 
 public class GameSettings {
@@ -12,5 +13,9 @@ public class GameSettings {
 
 
     }
-
+    public void startGame() {
+        RoomMovement movement = new RoomMovement();
+        movement.firstRoom();
+        movement.switchRooms();
+    }
 }

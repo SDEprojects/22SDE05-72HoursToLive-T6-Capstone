@@ -16,7 +16,7 @@ public class RoomMovement {
     public static String roomSouth;
     public static String roomWest;
 
-//    Room room = new Room();
+    //    Room room = new Room();
     ObjectMapper mapper = new ObjectMapper();
     TypeReference<HashMap<String, Room>> typeRef  = new TypeReference<HashMap<String, Room>>() {};
     static HashMap<String, Room> allRooms;
