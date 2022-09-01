@@ -1,4 +1,20 @@
 package main.java.model;
 
-public class Soldier {
+import java.util.List;
+
+class Character{
+    private int health;
+    private String name;
+    private String description;
+    private List<String> inventory;
+    private String location;
+
+
+
+
+
+
+
+
+
 }
