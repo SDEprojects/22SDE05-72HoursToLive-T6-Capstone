@@ -14,12 +14,16 @@ public class RoomDemo {
     private int numWereWolves;
     private HashMap<String, String> adjList;
 
-    public RoomDemo(){
+
+
+
+
+    public RoomDemo() throws IOException {
         name = "";
         numWereWolves = 0;
         adjList = new HashMap<>();
     }
-    public RoomDemo(String name, int numWereWolves, HashMap<String, String> adjList){
+    public RoomDemo(String name, int numWereWolves, HashMap<String, String> adjList) throws IOException {
         this.name = name;
         this.numWereWolves = numWereWolves;
         this.adjList = adjList;
@@ -57,10 +61,21 @@ public class RoomDemo {
 
     public static void main(String[] args) throws IOException {
 
-//        mapper.readValue(new File("src/main/resources/roomsdemo.json"), new TypeReference<HashMap<String, RoomDemo>>() {});
+//        mapper.readValue(new File("src/main/resources/rooms.json"), new TypeReference<HashMap<String, RoomDemo>>() {});
 //        TypeReference<HashMap<String, RoomDemo>> abc = new TypeReference<HashMap<String, RoomDemo>>() {};
-//        HashMap<String, RoomDemo> gameMap1 = new ObjectMapper().readValue(new File("src/main/resources/roomsdemo.json"), abc);
+//        HashMap<String, RoomDemo> gameMap1 = new ObjectMapper().readValue(new File("src/main/resources/rooms.json"), abc);
 //        System.out.println(gameMap1);
+
+
+
+
+
+
+
+
+
+
+
         HashMap<String, String> directions = new HashMap<>();
         directions.put("North", "kitchen");
         directions.put("South", "Great Room");
@@ -89,6 +104,9 @@ public class RoomDemo {
 
         System.out.println(gameMap);
         System.out.println(gameMap.get("Room1"));
+
+
+
 
     }
 

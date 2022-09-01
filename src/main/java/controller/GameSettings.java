@@ -9,5 +9,8 @@ public class GameSettings {
         Story gameStory = new Story();
         gameStory.titleScreen();
         gameStory.introText();
+
+
     }
+
 }
