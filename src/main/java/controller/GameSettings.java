@@ -19,6 +19,6 @@ public class GameSettings {
         RoomMovement movement = new RoomMovement();
         movement.firstRoom();
         movement.switchRooms();
-        //commit
+
     }
 }
