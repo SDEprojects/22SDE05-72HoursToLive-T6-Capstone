@@ -4,12 +4,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class Character {
+public class Character {
     private String description;
     private List<String> inventory;
     private int health;
 
-    private int attackPower;
+    private int damage;
 
 
 
@@ -53,6 +53,13 @@ public abstract class Character {
         this.health = health;
     }
 
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
 
     @Override
     public String toString() {
