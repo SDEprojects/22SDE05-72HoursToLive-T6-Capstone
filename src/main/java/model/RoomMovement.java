@@ -39,6 +39,56 @@ public class RoomMovement {
     }
 
 
+    public void switchRooms() {
+
+        String userDirection = askRoom();
+        List<String> match = Arrays.asList("North", "East", "South", "West");
+
+        while (true) {
+            try {
+                if (match.stream().anyMatch(userDirection::equals) && !Objects.equals(roomSwitcher.getConnectedRooms().get(userDirection), "None")) {
+                    currentRoom = roomSwitcher.getConnectedRooms().get(userDirection);
+                    menu();
+                    userDirection = askRoom();
+
+                }
+                else {
+                    System.out.println("You can't go that way!");
+                    userDirection = askRoom();
+
+                }
+            } catch (NullPointerException e) {
+                System.out.println("That is not a valid input!");
+                userDirection = askRoom();
+            }
+        }
+    }
+
+//    public void switchRooms() {
+//
+//        String userDirection = askRoom();
+//        List<String> match = Arrays.asList("North", "East", "South", "West");
+//        List<String> number = Arrays.asList("1","2","3","4");
+//
+//        while (true) {
+//            try {
+//                if (number.stream().anyMatch(userDirection::equals) && !Objects.equals(roomSwitcher.getConnectedRooms().get(match.get(Integer.parseInt(userDirection)-1)), "None")) {
+//                    currentRoom = roomSwitcher.getConnectedRooms().get(match.get(Integer.parseInt(userDirection)-1));
+//                    menu();
+//                    userDirection = askRoom();
+//
+//                }
+//                else {
+//                    System.out.println("You can't go that way!");
+//                    userDirection = askRoom();
+//
+//                }
+//            } catch (NullPointerException e) {
+//                System.out.println("That is not a valid input!");
+//                userDirection = askRoom();
+//            }
+//        }
+//    }
 
 
 
