@@ -22,7 +22,7 @@ public class GameSettings {
         while (true) {
             gameController.userChoice();
         }
-//        movement.switchRooms();
+
 
     }
 }

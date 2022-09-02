@@ -28,9 +28,9 @@ public class GameController {
                 String choice = (scanner.nextLine()).toLowerCase();
                 TextParser textParser = new TextParser();
                 Response r1 = textParser.getCommands(choice);
-                System.out.println(r1.getVerb()+" THIS IS GET VERB");
+//                System.out.println(r1.getVerb()+" THIS IS GET VERB");
 //                System.out.println(r1.getLocation() + " THIS IS GET LOCATION");
-                System.out.println(r1.getNoun() + "YO THIS IS GETNOUN");
+//                System.out.println(r1.getNoun() + "YO THIS IS GETNOUN");
                 if (!r1.isValid()) {
                     System.out.println("invalid response, try \"go east\"");
                 }
@@ -43,10 +43,12 @@ public class GameController {
                     if (player.getInventory().contains(r1.getNoun())){
                         player.useItems(r1.getNoun());
                         player.getInventory().remove(r1.getNoun());
+                        sleep(1000);
                         RoomMovement.menu();
 
                     }else {
                         System.out.println("You don't have that item");
+                        sleep(1000);
                         RoomMovement.menu();
                     }
                 }
@@ -60,6 +62,7 @@ public class GameController {
                         sleep(1000);
                         System.out.println("You see a "+key + "!");
                     }
+                    sleep(1000);
                     RoomMovement.menu();
                 }
 
@@ -73,6 +76,7 @@ public class GameController {
                     for (String key : room.getConnectedRooms().keySet()){
                         System.out.println(key);
                     }
+                    sleep(2000);
                     RoomMovement.menu();
 
                 }
@@ -83,6 +87,8 @@ public class GameController {
                         player.pickup(r1.getNoun());
                         room.getItems().remove(r1.getNoun());
                         System.out.println("You picked up a " + r1.getNoun()+"! It has been added to your inventory");
+                        sleep(1000);
+                        RoomMovement.menu();
                     }else {
                         System.out.println("That item doesn't exist in this room");
                     }
