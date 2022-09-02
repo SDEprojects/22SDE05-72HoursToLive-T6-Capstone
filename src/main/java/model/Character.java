@@ -1,40 +1,55 @@
 package main.java.model;
 
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Character {
-    private String description;
-    private List<String> inventory;
+public abstract class Character {
+    private String name;
+
+    private String location;
     private int health;
+    private int attackPower;
+    private List<String> inventory;
 
-    private int damage;
-
-
-
-    //Constructors
-    public Character() {
-        description = "";
-        inventory = List.of();
-        health = 0;
-
+    public Character(){
+        this("", "", 100, 10, new ArrayList<String>());
     }
 
-    public Character(String description, String inventory, int health, HashMap<String, String> charList) {
-        this.description = description;
-        this.inventory = Collections.singletonList(inventory);
+    public Character(String name, String location, int health, int attackPower, List<String> inventory) {
+        this.name = name;
+        this.location = location;
         this.health = health;
+        this.attackPower = attackPower;
+        this.inventory = inventory;
     }
 
 
-    //Getters and Setters
-    public String getDescription() {
-        return description;
+
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+        if (this.health < 0){
+            this.health = 0;
+        }
+    }
+
+    public int getAttackPower() {
+        return attackPower;
+    }
+
+    public void setAttackPower(int attackPower) {
+        this.attackPower = attackPower;
     }
 
     public List<String> getInventory() {
@@ -45,28 +60,23 @@ public class Character {
         this.inventory = inventory;
     }
 
-    public int getHealth() {
-        return health;
+
+    public void attack(Character enemy) {
+        enemy.gotAttacked(this);
     }
 
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public int getDamage() {
-        return damage;
-    }
-
-    public void setDamage(int damage) {
-        this.damage = damage;
+    public void gotAttacked(Character enemy){
+        this.health -= enemy.attackPower;
     }
 
     @Override
     public String toString() {
-        return "CharactersDemoEb{" +
-                "description='" + description + '\'' +
-                ", inventory='" + inventory + '\'' +
+        return  this.getClass().getSimpleName() +"{" +
+                "name='" + name + '\'' +
+                ", location='" + location + '\'' +
                 ", health=" + health +
+                ", attackPower=" + attackPower +
+                ", inventory=" + inventory +
                 '}';
     }
 }
