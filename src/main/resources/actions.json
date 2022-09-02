@@ -1,0 +1,9 @@
+{"retreat":["retreat","go back"],
+  "pickup":["pick up","pick","pickup","grab","take","picup","pikup"],
+  "attack":["attack","beat"],
+  "use":["use","heal"],
+  "go":["go","move","sprint","jump","hop","skip","run","walk","dash","direction","crawl","heading","movement"],
+  "help": ["help","info","menu","commands"],
+  "look": ["look","search","find"],
+  "quit": ["quit","exit","leave","stop","end","leave the game"]
+}

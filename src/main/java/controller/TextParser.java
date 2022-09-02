@@ -31,9 +31,9 @@ public class TextParser {
     public TextParser() throws IOException {
         //ObjectMapper mapper = new ObjectMapper();
         TypeReference<HashMap<String, HashSet<String>>> typeRef = new TypeReference<HashMap<String, HashSet<String>>>() {};
-        commandMap = new ObjectMapper().readValue(new File("actions.json"), typeRef);
+        commandMap = new ObjectMapper().readValue(new File("src/main/resources/actions.json"), typeRef);
 
-        itemMap = new ObjectMapper().readValue(new File("items.json"), typeRef);
+        itemMap = new ObjectMapper().readValue(new File("src/main/resources/items.json"), typeRef);
         locationMap = new ObjectMapper().readValue(new File("src/main/resources/locations.json"), typeRef);
     }
 
@@ -41,13 +41,52 @@ public class TextParser {
         String[] args = command.toLowerCase().replaceAll("the", "").trim().split("\\s+");
 //        System.out.println(Arrays.toString(args));
 
-        if (args.length < 2){
+        if (args.length == 0){
             return new Response(null, null, null);
         }
 
+
+//        if (args[0].equals("help")){
+//            return new Response("help", null, null);
+//        }
+//        if (args[0].equals("quit")){
+//            return new Response("quit", null, null);
+//        }
+//        if (args[0].equals("look")){
+//            return new Response(null, null, null);
+//        }
+//        if (args[0].equals("inventory")){
+//            return new Response(null, null, null);
+//        }
+//        if (args[0].equals("take")){
+//            return new Response(null, null, null);
+//        }
+//        if (args[0].equals("drop")){
+//            return new Response(null, null, null);
+//        }
+//        if (args[0].equals("use")){
+//            return new Response(null, null, null);
+//        }
+//        if (args[0].equals("go")){
+//            return new Response(null, null, null);
+//        }
+//        if (args[0].equals("attack")){
+//            return new Response(null, null, null);
+//        }
+//        if (args[0].equals("equip")){
+//            return new Response(null, null, null);
+//        }
+//        if (args[0].equals("unequip")){
+//            return new Response(null, null, null);
+//        }
+//
+//        if (args[0].equals("restart")){
+//            return new Response(null, null, null);
+//        }
+
         String verbInput = args[0];
 
-        String nounInput = args.length == 2 ? args[args.length-1] : args[args.length-2] + args[args.length-1];
+        String nounInput = args[args.length-1];
 
 
         String verbResponse = null;
