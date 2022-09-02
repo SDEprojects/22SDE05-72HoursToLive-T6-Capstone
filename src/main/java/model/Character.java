@@ -12,7 +12,7 @@ public abstract class Character {
     private List<String> inventory;
 
     public Character(){
-        this("", "", 0, 0, new ArrayList<String>());
+        this("", "", 100, 10, new ArrayList<String>());
     }
 
     public Character(String name, String location, int health, int attackPower, List<String> inventory) {

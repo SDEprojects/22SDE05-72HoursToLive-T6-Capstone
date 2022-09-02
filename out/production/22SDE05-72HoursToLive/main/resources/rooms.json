@@ -35,7 +35,7 @@
 
   "Kitchen": {
     "name": "Kitchen",
-    "description": "The Kitchen is a room for food preparation and cooking. It can serve as a hideout and provide storage for weapons",
+    "description": "The Kitchen is a room for food preparation and cooking. It can serve as a hideout and provide storage for weapons.",
     "items": ["health potion"],
     "connectedRooms": {
       "north": "Armory",
