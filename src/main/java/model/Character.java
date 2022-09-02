@@ -10,17 +10,19 @@ public abstract class Character {
     private int health;
     private int attackPower;
     private List<String> inventory;
+    private int armorRating;
 
     public Character(){
-        this("", "", 100, 10, new ArrayList<String>());
+        this("", "", 100, 10, new ArrayList<String>(), 10);
     }
 
-    public Character(String name, String location, int health, int attackPower, List<String> inventory) {
+    public Character(String name, String location, int health, int attackPower, List<String> inventory, int armorRating) {
         this.name = name;
         this.location = location;
         this.health = health;
         this.attackPower = attackPower;
         this.inventory = inventory;
+        this.armorRating = armorRating;
     }
 
 
@@ -78,5 +80,13 @@ public abstract class Character {
                 ", attackPower=" + attackPower +
                 ", inventory=" + inventory +
                 '}';
+    }
+
+    public int getArmorRating() {
+        return armorRating;
+    }
+
+    public void setArmorRating(int armorRating) {
+        this.armorRating = armorRating;
     }
 }
