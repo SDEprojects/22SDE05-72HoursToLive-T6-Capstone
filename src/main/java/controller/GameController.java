@@ -28,9 +28,9 @@ public class GameController {
                 String choice = (scanner.nextLine()).toLowerCase();
                 TextParser textParser = new TextParser();
                 Response r1 = textParser.getCommands(choice);
-                System.out.println(r1.getVerb()+" THIS IS GET VERB");
+//                System.out.println(r1.getVerb()+" THIS IS GET VERB");
 //                System.out.println(r1.getLocation() + " THIS IS GET LOCATION");
-                System.out.println(r1.getNoun() + "YO THIS IS GETNOUN");
+//                System.out.println(r1.getNoun() + "YO THIS IS GETNOUN");
                 if (!r1.isValid()) {
                     System.out.println("invalid response, try \"go east\"");
                 }
