@@ -10,12 +10,12 @@ public class Soldier extends Character{
     boolean armor;
     public Soldier(){
         super();
-        visible = false;
+        visible = true;
         armor = false;
     }
     public Soldier(String name, String location, int health, int attackPower, List<String> inventory, int armorRating) {
         super(name, location, health, attackPower, inventory,armorRating);
-        visible = false;
+        visible = true;
         armor = false;
     }
     @Override
@@ -30,7 +30,8 @@ public class Soldier extends Character{
             System.out.println(getName() + "was protect by armor");
             return;
         }
-        setHealth(getHealth() - attack);
+        // PLACE TO MODIFY DIFFICULTY
+        setHealth(getHealth() - ((attack * 10) / getArmorRating()) + 4);
     }
     public void pickup(String item){
         getInventory().add(item);
