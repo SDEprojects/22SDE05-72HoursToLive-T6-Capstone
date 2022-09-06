@@ -100,6 +100,12 @@ public class RoomMovement {
         System.out.printf("%s %12s %12s %12s %12s %12s\n", menu, menu, menu, menu, menu,menu);
     }
 
+    public static HashMap<String, Room> getAllRooms(){
+
+        return allRooms;
+
+    }
+
     public String textStream(String text, int speed) {
         for (int i = 0; i < text.length(); i++) {
             System.out.printf("%c", text.charAt(i));

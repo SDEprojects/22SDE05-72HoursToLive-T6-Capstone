@@ -3,10 +3,10 @@ package main.java.controller;
 import main.java.model.Room;
 import main.java.model.RoomMovement;
 import main.java.model.Soldier;
+import main.java.model.Werewolf;
 
 import java.io.IOException;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class GameController {
     public static Soldier player = new Soldier();
@@ -15,17 +15,29 @@ public class GameController {
 
 
     public void userChoice() throws IOException {
+        HashMap<String, List<Werewolf>> monsterMap = getMonsterMap();
+        String currentRoom = RoomMovement.currentRoom;
+
         while (true) {
             try {
+                if (!monsterMap.get(currentRoom).isEmpty()){
+                    Werewolf wolf = monsterMap.get(currentRoom).get(0);
+                    wolf.attack(player);
+                    System.out.println("werewolf is attacking you!");
+                }
                 Room room = RoomMovement.roomSwitcher;
 
-                Scanner scanner = new Scanner(System.in);
-                System.out.println("\nWhat would you like to do?");
-                String choice = (scanner.nextLine()).toLowerCase();
-                TextParser textParser = new TextParser();
-                Response r1 = textParser.getCommands(choice);
+//                Scanner scanner = new Scanner(System.in);
+//                System.out.println("\nWhat would you like to do?");
+//                String choice = (scanner.nextLine()).toLowerCase();
+//                TextParser textParser = new TextParser();
+//                Response r1 = textParser.getCommands(choice);
+                Response r1 = getValidResponse();
                 if (!r1.isValid()) {
                     System.out.println("invalid response, try \"go east\"");
+                }
+                else if (r1.getVerb().equalsIgnoreCase("go") && Objects.equals(room.getConnectedRooms().get(r1.getLocation()), "None")){
+                    System.out.println("You can't go that way, try another direction!");
                 }
                 else if (r1.getVerb().equalsIgnoreCase("go")
                         && !Objects.equals(room.getConnectedRooms().get(r1.getLocation()), "None")){
@@ -109,6 +121,44 @@ public class GameController {
 
     }
     }
+    public static Response getValidResponse() throws IOException {
+        Room room = RoomMovement.roomSwitcher;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nWhat would you like to do?");
+        String choice = (scanner.nextLine()).toLowerCase();
+        TextParser textParser = new TextParser();
+        Response r1 = textParser.getCommands(choice);
+        while (true){
+            try {
+                if (!r1.isValid()) {
+                    System.out.println("invalid response, try \"go east\"");
+                } else if (r1.getVerb().equalsIgnoreCase("go") && Objects.equals(room.getConnectedRooms().get(r1.getLocation()), "None")) {
+                    System.out.println("You can't go that way, try another direction!");
+                } else {
+                    break;
+                }
+            }
+            catch (NullPointerException e) {
+                System.out.println("That is not a valid input!");
+            }
+        }
+        return r1;
+    }
+    public static HashMap<String, List<Werewolf>> getMonsterMap(){
+        Random random = new Random();
+        HashMap<String, Room> allMap = RoomMovement.getAllRooms();
+        HashMap<String, List<Werewolf>> monsterMap = new HashMap<>();
+        for (String key : allMap.keySet()){
+            monsterMap.put(key, new LinkedList<Werewolf>());
+            if (random.nextBoolean()){
+                monsterMap.get(key).add(new Werewolf());
+            }
+        }
+
+        System.out.println(monsterMap);
+        return monsterMap;
+    }
+
 
     public void sleep(int timer) {
         try {
