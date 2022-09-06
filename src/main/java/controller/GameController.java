@@ -15,8 +15,9 @@ public class GameController {
 
 
     public void userChoice() throws IOException {
-        HashMap<String, List<Werewolf>> monsterMap = getMonsterMap();
         String currentRoom = RoomMovement.currentRoom;
+        HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
+
 
         while (true) {
             try {
@@ -103,6 +104,11 @@ public class GameController {
                         System.out.println(key);
                     }
 
+                }else if (r1.getVerb().equals("attack")){
+                    //check null case
+                    Werewolf w1 = monsterMap.get(currentRoom).get(0);
+                    player.attack(w1);
+
                 }
                 else if (r1.getVerb().equalsIgnoreCase("quit")) {
                     System.out.println("Quitting the game...Thanks for playing!");
@@ -144,13 +150,13 @@ public class GameController {
         }
         return r1;
     }
-    public static HashMap<String, List<Werewolf>> getMonsterMap(){
+    public static HashMap<String, List<Werewolf>> getMonsterMap(String room){
         Random random = new Random();
         HashMap<String, Room> allMap = RoomMovement.getAllRooms();
         HashMap<String, List<Werewolf>> monsterMap = new HashMap<>();
         for (String key : allMap.keySet()){
             monsterMap.put(key, new LinkedList<Werewolf>());
-            if (random.nextBoolean()){
+            if (random.nextBoolean() && !key.equals(room)){
                 monsterMap.get(key).add(new Werewolf());
             }
         }

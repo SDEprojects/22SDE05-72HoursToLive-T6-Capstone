@@ -18,6 +18,14 @@ public class Soldier extends Character{
         visible = true;
         armor = false;
     }
+
+    @Override
+    public void attack(Character enemy){
+        super.attack(enemy);
+        System.out.println("You are attacking the werewolf");
+        System.out.println("werewolf's health is : " + enemy.getHealth());
+    }
+
     @Override
     public void gotAttacked(Character enemy){
         if (!visible){
