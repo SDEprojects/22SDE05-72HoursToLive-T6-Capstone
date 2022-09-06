@@ -1,16 +1,15 @@
 <component name="ArtifactManager">
-  <artifact name="22SDE05-72HoursToLive:jar">
+
+  <artifact type="jar" name="22SDE05-72HoursToLive:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/22SDE05_72HoursToLive_jar</output-path>
-    <root id="root">
-      <element id="archive" name="22SDE05-72HoursToLive.jar">
-        <element id="directory" name="META-INF">
-          <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
-        </element>
-        <element id="module-output" name="22SDE05-72HoursToLive" />
+    <root id="archive" name="22SDE05-72HoursToLive.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
       </element>
-      <element id="library" level="project" name="fasterxml.jackson.core.annotations" />
-      <element id="library" level="project" name="fasterxml.jackson.core" />
-      <element id="library" level="project" name="fasterxml.jackson.core.databind" />
+      <element id="module-output" name="22SDE05-72HoursToLive" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jackson-databind-2.13.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jackson-annotations-2.13.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jackson-core-2.13.3.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

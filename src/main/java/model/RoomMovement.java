@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import main.java.controller.GameController;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -26,11 +26,15 @@ public class RoomMovement {
 
     {
         try {
-            allRooms = new ObjectMapper().readValue(new File("src/main/resources/rooms.json"), typeRef);
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            InputStream resources = classLoader.getResourceAsStream("main/resources/rooms.json");
+            allRooms = new ObjectMapper().readValue(resources, typeRef);
+            //allRooms = new ObjectMapper().readValue(new File("src/main/resources/rooms.json"), typeRef);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     /**
      * This method generates a random room that will be used as the FIRST room
@@ -79,8 +83,8 @@ public class RoomMovement {
 
 //        sleep(1500);
         System.out.printf("%s %12s %12s %12s %12s %12s", menu, menu, menu, menu, menu,menu);
-        System.out.printf("%nPlayer%-17s Inventory:%-16sHealth:%-17s East:%-18s South:%-17s West:%-16s", ":", player.getInventory(), player.getHealth(),
-                room.getConnectedRooms().get("east"), room.getConnectedRooms().get("south"), room.getConnectedRooms().get("west"));
+        System.out.printf("%nPlayer%-17s Health:%-16s Armor Rating:%-10s Attack Power:%-10s Inventory:%-12s", ":",  player.getHealth(),
+                player.getArmorRating(),player.getAttackPower(),player.getInventory().toString().replace("[","").replace("]",""));
 
         System.out.printf("%nRooms%-18s Current:%-16sNorth:%-17s East:%-18s South:%-17s West:%-16s", ":", room.getName(), room.getConnectedRooms().get("north"),
                 room.getConnectedRooms().get("east"), room.getConnectedRooms().get("south"), room.getConnectedRooms().get("west"));
@@ -88,8 +92,7 @@ public class RoomMovement {
 
 
 // THIS PRINT WILL BE DELETED SOON
-        System.out.printf("%nPlayer%-17s Room Item 1:%-16sNorth:%-17s East:%-18s South:%-17s West:%-16s%n", ":", room.getItems(), room.getConnectedRooms().get("north"),
-                room.getConnectedRooms().get("east"), room.getConnectedRooms().get("south"), room.getConnectedRooms().get("west"));
+        System.out.printf("%nROOM ITEMS%-13s %-16s%n", ":", room.getItems().toString().replace("[","").replace("]",""));
 //        System.out.printf("%s %12s %12s %12s %12s %12s", menu, menu, menu, menu, menu,menu);
 //        System.out.printf("%nMove%-19s Press%-18s %-23d %-23d %-23d %-22d %n",":", ":",1,2,3,4);
 

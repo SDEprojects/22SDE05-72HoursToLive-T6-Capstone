@@ -4,9 +4,9 @@ package main.java.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,61 +28,29 @@ public class TextParser {
     private HashMap<String, HashSet<String>> itemMap;
 
 
-    public TextParser() throws IOException {
-        //ObjectMapper mapper = new ObjectMapper();
-        TypeReference<HashMap<String, HashSet<String>>> typeRef = new TypeReference<HashMap<String, HashSet<String>>>() {};
-        commandMap = new ObjectMapper().readValue(new File("src/main/resources/actions.json"), typeRef);
 
-        itemMap = new ObjectMapper().readValue(new File("src/main/resources/items.json"), typeRef);
-        locationMap = new ObjectMapper().readValue(new File("src/main/resources/locations.json"), typeRef);
+    public TextParser() throws IOException {
+        TypeReference<HashMap<String, HashSet<String>>> typeRef = new TypeReference<HashMap<String, HashSet<String>>>() {};
+
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        InputStream actions = classLoader.getResourceAsStream("main/resources/actions.json");
+        commandMap = new ObjectMapper().readValue(actions, typeRef);
+
+        InputStream items = classLoader.getResourceAsStream("main/resources/items.json");
+        itemMap = new ObjectMapper().readValue(items, typeRef);
+
+        InputStream locations = classLoader.getResourceAsStream("main/resources/locations.json");
+        locationMap = new ObjectMapper().readValue(locations, typeRef);
     }
+
 
     public Response getCommands(String command){
         String[] args = command.toLowerCase().replaceAll("the", "").trim().split("\\s+");
-//        System.out.println(Arrays.toString(args));
 
         if (args.length == 0){
             return new Response(null, null, null);
         }
 
-
-//        if (args[0].equals("help")){
-//            return new Response("help", null, null);
-//        }
-//        if (args[0].equals("quit")){
-//            return new Response("quit", null, null);
-//        }
-//        if (args[0].equals("look")){
-//            return new Response(null, null, null);
-//        }
-//        if (args[0].equals("inventory")){
-//            return new Response(null, null, null);
-//        }
-//        if (args[0].equals("take")){
-//            return new Response(null, null, null);
-//        }
-//        if (args[0].equals("drop")){
-//            return new Response(null, null, null);
-//        }
-//        if (args[0].equals("use")){
-//            return new Response(null, null, null);
-//        }
-//        if (args[0].equals("go")){
-//            return new Response(null, null, null);
-//        }
-//        if (args[0].equals("attack")){
-//            return new Response(null, null, null);
-//        }
-//        if (args[0].equals("equip")){
-//            return new Response(null, null, null);
-//        }
-//        if (args[0].equals("unequip")){
-//            return new Response(null, null, null);
-//        }
-//
-//        if (args[0].equals("restart")){
-//            return new Response(null, null, null);
-//        }
 
         String verbInput = args[0];
 

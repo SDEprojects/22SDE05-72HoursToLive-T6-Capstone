@@ -1,6 +1,3 @@
 Manifest-Version: 1.0
 Main-Class: main.java.client.Client
-Class-Path: jackson-annotations-2.13.3.jar jackson-core-2.13.3.jar jacks
- on-databind-2.13.3.jar jackson-annotations-2.13.3.jar jackson-core-2.13
- .3.jar
 
