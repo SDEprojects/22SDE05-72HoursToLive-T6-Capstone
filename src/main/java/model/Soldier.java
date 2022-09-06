@@ -54,7 +54,7 @@ public class Soldier extends Character{
         }
         else if (damageItems.contains(item)){
             System.out.println("You put on the " + item + ". You feel a new sense of power running through your veins!");
-            setAttackPower(getAttackPower() + r.nextInt(high-low) + low);
+            setAttackPower(getAttackPower() + r.nextInt(high-med) + med);
             getInventory().remove(item);
 
         }

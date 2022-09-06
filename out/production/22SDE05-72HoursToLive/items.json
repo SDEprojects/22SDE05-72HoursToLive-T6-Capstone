@@ -1,0 +1,31 @@
+{
+
+  "health potion":["potion","heath","portion","health","medicine","health potion","pot","heal"],
+  "golden key":["key","golden key","gold key","golden"],
+  "invisibility cloak": ["invis","invisibility","invisibility cloak"],
+
+
+  "breastplate": ["breastplate","breast plate","breast","plate"],
+  "shield": ["shield","sheld","shild","shed","sheid"],
+  "helmet": ["helmet","helm","helment","helmit","helmet"],
+  "greaves": ["greaves"],
+
+    "boots": ["boots","boot","boot","boot","boot"],
+    "gloves": ["gloves","gloves"],
+    "belt": ["belt","belt","belt","belt"],
+    "bracers": ["bracers","bracer","bracer","bracer"],
+    "cloak": ["cloak","cloak","cloak","cloak"],
+    "robe": ["robe","robe","robe","robe"],
+  "shirt": ["shirt"],
+  "pants": ["pants"],
+
+
+  "quiver": ["quiver","quiver","quiver","quiver"],
+
+
+
+  "sword":["sword","sord"],
+  "ring": ["ring","rig","rng"],
+  "amulet": ["amulet","amule","amul","alulet","amlet"],
+  "trinket": ["trinket","triket","trink","trin"]
+}

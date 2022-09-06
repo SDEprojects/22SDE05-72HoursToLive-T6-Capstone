@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import main.java.controller.GameController;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -26,11 +26,15 @@ public class RoomMovement {
 
     {
         try {
-            allRooms = new ObjectMapper().readValue(new File("src/main/resources/rooms.json"), typeRef);
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            InputStream resources = classLoader.getResourceAsStream("main/resources/rooms.json");
+            allRooms = new ObjectMapper().readValue(resources, typeRef);
+            //allRooms = new ObjectMapper().readValue(new File("src/main/resources/rooms.json"), typeRef);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     /**
      * This method generates a random room that will be used as the FIRST room
