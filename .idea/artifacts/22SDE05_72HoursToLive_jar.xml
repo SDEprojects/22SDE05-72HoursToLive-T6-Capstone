@@ -1,4 +1,5 @@
 <component name="ArtifactManager">
+
   <artifact type="jar" name="22SDE05-72HoursToLive:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/22SDE05_72HoursToLive_jar</output-path>
     <root id="archive" name="22SDE05-72HoursToLive.jar">
