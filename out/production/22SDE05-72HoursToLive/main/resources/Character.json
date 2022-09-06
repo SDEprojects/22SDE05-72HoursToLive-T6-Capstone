@@ -1,0 +1,16 @@
+{
+  "Soldier": {
+    "name": "Soldier",
+    "description": "The Soldier is engaged in military service. He fights on the ground, in planes and from boats. In addition to fighting, soldiers perform other functions such as providing medical care, cooking and construction.",
+    "inventory": [],
+    "health": 5,
+    "damage": 3
+      },
+  "Werewolf": {
+    "name": "Werewolf",
+    "description": "The Werewolf is a man who turns into a wolf at night and devours people, corpses and other animals. It turns back into human during the day.",
+    "inventory": [],
+    "health": 5,
+    "damage": 3
+  }
+}

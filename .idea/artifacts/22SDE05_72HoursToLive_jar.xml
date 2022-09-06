@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact name="22SDE05-72HoursToLive:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/22SDE05_72HoursToLive_jar</output-path>
+    <root id="root">
+      <element id="archive" name="22SDE05-72HoursToLive.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="22SDE05-72HoursToLive" />
+      </element>
+      <element id="library" level="project" name="fasterxml.jackson.core.annotations" />
+      <element id="library" level="project" name="fasterxml.jackson.core" />
+      <element id="library" level="project" name="fasterxml.jackson.core.databind" />
+    </root>
+  </artifact>
+</component>
