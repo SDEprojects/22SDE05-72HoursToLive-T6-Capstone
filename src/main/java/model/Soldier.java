@@ -22,8 +22,9 @@ public class Soldier extends Character{
     @Override
     public void attack(Character enemy){
         super.attack(enemy);
-        System.out.println("You are attacking the werewolf");
-        System.out.println("werewolf's health is : " + enemy.getHealth());
+        System.out.println("You strike the werewolf with all your might!");
+        System.out.println("The werewolf's health is : " + enemy.getHealth() + "!\n");
+        sleep(750);
     }
 
     @Override
@@ -39,15 +40,15 @@ public class Soldier extends Character{
             return;
         }
         // PLACE TO MODIFY DIFFICULTY
-        setHealth(getHealth() - ((attack * 10) / getArmorRating()) + 4);
+        setHealth(getHealth() - ((attack * 10) / getArmorRating()) - 4);
     }
     public void pickup(String item){
         getInventory().add(item);
     }
-    public void useItems(String item){
-        ArrayList<String> heavyArmor = new ArrayList<>(Arrays.asList("breastplate", "helmet", "shield","greaves"));
+    public void useItems(String item) {
+        ArrayList<String> heavyArmor = new ArrayList<>(Arrays.asList("breastplate", "helmet", "shield", "greaves"));
         ArrayList<String> lightArmor = new ArrayList<>(Arrays.asList("boots", "gloves",
-                "pants", "shirt","belt","bracers","cloak","robe"));
+                "pants", "shirt", "belt", "bracers", "cloak", "robe"));
         ArrayList<String> damageItems = new ArrayList<>(Arrays.asList("sword", "ring",
                 "amulet", "trinket"));
 
@@ -56,27 +57,28 @@ public class Soldier extends Character{
         int med = 4;
         int high = 6;
 
-        if (heavyArmor.contains(item)){
+        if (heavyArmor.contains(item)) {
             System.out.println("You put on the " + item + ". You feel protected!");
-            setArmorRating(getArmorRating() + r.nextInt(high-low) + low);
+            setArmorRating(getArmorRating() + r.nextInt(high - low) + low);
             getInventory().remove(item);
-        }
-        else if (damageItems.contains(item)){
+        } else if (damageItems.contains(item)) {
             System.out.println("You put on the " + item + ". You feel a new sense of power running through your veins!");
-            setAttackPower(getAttackPower() + r.nextInt(high-med) + med);
+            setAttackPower(getAttackPower() + r.nextInt(high - med) + med);
             getInventory().remove(item);
 
-        }
-        else if (lightArmor.contains(item)){
+        } else if (lightArmor.contains(item)) {
             System.out.println("You put on the " + item + ". You feel a little extra protection.");
-            setArmorRating(getArmorRating() + r.nextInt(med-low) + low);
+            setArmorRating(getArmorRating() + r.nextInt(med - low) + low);
             getInventory().remove(item);
-        }
-        else if (item.equals("health potion")){
+        } else if (item.equals("health potion")) {
             System.out.println("You have used a health potion! You feel invigorated and your health is full!");
             setHealth(100);
             getInventory().remove("health potion");
-        }else if (item.equals("armor")){
+
+        } else if (item.equals("blood sample")) {
+                System.out.println("You need it make to the Time Portal and bring this back safely!");
+        }
+        else if (item.equals("armor")){
             armor = true;
             System.out.println("You equip your armor. You feel stronger!");
             getInventory().remove("armor");
@@ -99,14 +101,12 @@ public class Soldier extends Character{
                 ", armor=" + armor +
                 '}';
     }
-//    public static void main(String[] args) {
-//        Soldier rob = new Soldier("Rob", "Throne Room", 50, 50, new ArrayList<String>());
-//        rob.pickup("key");
-//        System.out.println(rob);
-//        rob.pickup("magic potion");
-//        System.out.println(rob);
-//        Werewolf wolf1 = new Werewolf();
-//        wolf1.attack(rob);
-//        System.out.println(rob);
-//    }
+
+    public void sleep(int timer) {
+        try {
+            Thread.sleep(timer);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

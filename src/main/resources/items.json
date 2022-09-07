@@ -1,7 +1,7 @@
 {
 
   "health potion":["potion","heath","portion","health","medicine","health potion","pot","heal"],
-  "golden key":["key","golden key","gold key","golden"],
+  "blood sample":["blood sample","blood","sample"],
   "invisibility cloak": ["invis","invisibility","invisibility cloak"],
 
 
@@ -27,5 +27,6 @@
   "sword":["sword","sord"],
   "ring": ["ring","rig","rng"],
   "amulet": ["amulet","amule","amul","alulet","amlet"],
-  "trinket": ["trinket","triket","trink","trin"]
+  "trinket": ["trinket","triket","trink","trin"],
+  "Trophy": ["Trophy"]
 }
