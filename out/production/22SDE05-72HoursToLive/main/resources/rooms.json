@@ -152,7 +152,7 @@
   "Throne Room": {
     "name": "Throne Room",
     "description": "The Throne Room is a large room with a throne in the center. It is used for the king to sit and rule the land.",
-    "items": ["blood sample"],
+    "items": [],
     "connectedRooms": {
       "north": "Bed Chamber II",
       "south": "Garden",

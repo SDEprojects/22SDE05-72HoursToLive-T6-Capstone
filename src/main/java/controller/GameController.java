@@ -1,9 +1,6 @@
 package main.java.controller;
 
-import main.java.model.Room;
-import main.java.model.RoomMovement;
-import main.java.model.Soldier;
-import main.java.model.Werewolf;
+import main.java.model.*;
 import main.java.view.View;
 
 import java.io.IOException;
@@ -16,11 +13,13 @@ public class GameController {
     public static Soldier player = new Soldier();
     public static int timer = 0;
     public static boolean trigger = true;
+    private String currentRoom = RoomMovement.currentRoom;
+    private HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
 
 
     public void userChoice() throws IOException {
         String currentRoom = RoomMovement.currentRoom;
-        HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
+//        HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
         boolean werewolfCanAttack = true;
 
         while (player.getHealth() > 0 && timer < 24) {
@@ -54,6 +53,10 @@ public class GameController {
                 if (player.getHealth() <= 0 || timer >= 24) {
                     break;
                 }
+                if (timer>19){
+                    System.out.println("You only have " + (72-(timer*3)) + " hours left to escape! Hurry!");
+                    sleep(750);
+                }
                 View.menu();
                 Room room = RoomMovement.roomSwitcher;
                 Response r1 = InputScanner.getValidResponse();
@@ -83,7 +86,7 @@ public class GameController {
                         } else {
                             System.out.println("That item doesn't exist in this room");
                         }
-                        sleep(1000);
+                        sleep(500);
                         werewolfCanAttack = false;
                         break;
                     case "look":
@@ -119,24 +122,17 @@ public class GameController {
                         if (w1.getHealth() <= 0) {
                             monsterMap.get(currentRoom).remove(0);
                             System.out.println("You killed the werewolf!");
+                            if (w1.getInventory().size() >0){
+                            for (String item : w1.getInventory()){
+                                System.out.println("The Werewolf King is dead! A sample of his blood spills on the floor!");
+                                room.getItems().add(item); }
+                            }
                             sleep(1000);
                         }
                         werewolfCanAttack = true;
                         break;
 
-                    case "inventory":
-                        if (player.getInventory().size() < 1) {
-                            System.out.println("You don't have any items in your inventory.");
-                        } else {
-                            System.out.println("You have the following items in your inventory:");
-                            for (String key : player.getInventory()) {
-                                sleep(300);
-                                System.out.println(key);
-                            }
-                        }
-                        sleep(500);
-                        werewolfCanAttack = false;
-                        break;
+
                     case "help":
                         System.out.println("\nYou can go to a room by typing \"go [direction]\"\n" +
 
@@ -180,6 +176,9 @@ public class GameController {
         HashMap<String, List<Werewolf>> monsterMap = new HashMap<>();
         for (String key : allMap.keySet()) {
             monsterMap.put(key, new LinkedList<Werewolf>());
+            if (key.equals("Throne Room")) {
+                monsterMap.get(key).add(new WerewolfKing());
+            }
             if (random.nextBoolean() && !key.equals(room)) {
                 monsterMap.get(key).add(new Werewolf());
             }

@@ -13,14 +13,13 @@ public class RoomMovement {
     public static String currentRoom;
     public static Room roomSwitcher;
 
-    public static String roomNorth;
-    public static String roomEast;
-    public static String roomSouth;
-    public static String roomWest;
 
     //    Room room = new Room();
     ObjectMapper mapper = new ObjectMapper();
     TypeReference<HashMap<String, Room>> typeRef  = new TypeReference<HashMap<String, Room>>() {};
+//    TypeReference<HashMap<String, HashSet<String>>> typeRef2 = new TypeReference<HashMap<String, HashSet<String>>>() {};
+//
+//    private static HashMap<String, HashSet<String>> itemMap;
     static HashMap<String, Room> allRooms;
 
     {

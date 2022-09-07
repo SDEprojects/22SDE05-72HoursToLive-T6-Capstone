@@ -25,9 +25,9 @@ public class View {
             System.out.print("Oh no! You look into the sky and see that tonight");
             textStream("...is a....\n\n", 290);
             System.out.println(fullMoon);
-            sleep(1000);
+            sleep(500);
             System.out.println("The werewolves are more powerful tonight! Be careful!\n");
-            sleep(1000);
+            sleep(750);
         }
 
         sleep(1000);
@@ -40,9 +40,6 @@ public class View {
         System.out.printf("%nRoom Info%-18s Current:%-20sNorth:%-21s East:%-22s South:%-21s West:%-16s", ":", room.getName(), room.getConnectedRooms().get("north"),
                 room.getConnectedRooms().get("east"), room.getConnectedRooms().get("south"), room.getConnectedRooms().get("west"));
 
-
-
-// THIS PRINT WILL BE DELETED SOON
         System.out.printf("%nROOM ITEMS%-13s %-16s%n", ":", room.getItems().toString().replace("[","").replace("]",""));
         System.out.printf("%s %12s %12s %12s %12s %12s\n", menu, menu, menu, menu, menu,menu);
     sleep(500);
