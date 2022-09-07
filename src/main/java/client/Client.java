@@ -12,6 +12,7 @@ public class Client {
         GameSettings gameSettings = new GameSettings();
 //        gameSettings.readGameStory();
         gameSettings.startGame();
+        gameSettings.endGame();
 
 
 

@@ -110,7 +110,7 @@ public class Story {
 
     }
 
-    public String textStream(String text, int speed) {
+    private String textStream(String text, int speed) {
         for (int i = 0; i < text.length(); i++) {
             System.out.printf("%c", text.charAt(i));
             sleep(speed);
@@ -118,7 +118,7 @@ public class Story {
         return text;
     }
 
-    public void sleep(int timer) {
+    private void sleep(int timer) {
         try {
             Thread.sleep(timer);
         } catch (InterruptedException e) {

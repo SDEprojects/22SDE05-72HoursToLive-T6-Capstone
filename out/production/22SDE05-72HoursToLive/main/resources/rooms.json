@@ -6,7 +6,7 @@
     "connectedRooms": {
       "north": "Ballroom",
       "south": "None",
-      "east": "Granary",
+      "east": "Time Portal",
       "west": "Stable"
     }
   },
@@ -16,14 +16,14 @@
     "items": ["pants"],
     "connectedRooms": {
       "north": "Kitchen",
-      "south": "Granary",
+      "south": "Time Portal",
       "east": "None",
       "west": "Ballroom"
     }
   },
-  "Granary": {
-    "name": "Granary",
-    "description": "The Granary is a room in a barn for threshed grain. It is built above the ground to keep the stored food away from mice, other animals and floods.",
+  "Time Portal": {
+    "name": "Time Portal",
+    "description": "Whatever this room was before, is now gone. All that remains is the portal back to your time - but you can't go back until you have the blood sample!",
     "items": ["health potion"],
     "connectedRooms": {
       "north": "Pantry",
@@ -152,7 +152,7 @@
   "Throne Room": {
     "name": "Throne Room",
     "description": "The Throne Room is a large room with a throne in the center. It is used for the king to sit and rule the land.",
-    "items": ["golden key"],
+    "items": ["blood sample"],
     "connectedRooms": {
       "north": "Bed Chamber II",
       "south": "Garden",

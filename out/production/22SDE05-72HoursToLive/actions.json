@@ -5,5 +5,6 @@
   "go":["go","move","sprint","jump","hop","skip","run","walk","dash","direction","crawl","heading","movement"],
   "help": ["help","info","menu","commands"],
   "look": ["look","search","find"],
-  "quit": ["quit","exit","leave","stop","end","leave the game"]
+  "quit": ["quit","exit","leave","stop","end","leave the game"],
+  "inventory": ["inventory","inven","invetory","inventor"]
 }
