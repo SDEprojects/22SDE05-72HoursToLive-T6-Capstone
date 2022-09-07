@@ -14,9 +14,6 @@ public class Client {
         gameSettings.startGame();
         gameSettings.endGame();
 
-
-
-
     }
 
 

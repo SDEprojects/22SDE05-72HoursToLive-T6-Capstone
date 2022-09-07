@@ -1,5 +1,7 @@
 package main.java.model;
 
+import main.java.controller.GameController;
+
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -8,7 +10,6 @@ public class WerewolfKing extends Werewolf{
 
     public WerewolfKing(){
         super("Wolf king", "Throne Room", 10, 40, new LinkedList<String>(), 10);
-        //etInventory().add("golden key");
         random = new Random();
         this.getInventory().add("blood sample");
     }
@@ -37,6 +38,8 @@ public class WerewolfKing extends Werewolf{
 
     public void specialAttack(Character enemy){
         enemy.getInventory().clear();
-        System.out.println("The Wolf King has caused you lost all the items!");
-    }
+        if(GameController.player.getInventory().size()>0) {
+            System.out.println("The Wolf King reaches for your inventory bag and crushes it with his bare hands. All items you had are now lost!");
+        }
+        }
 }
