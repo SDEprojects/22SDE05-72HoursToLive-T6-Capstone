@@ -29,11 +29,11 @@ public class View {
             System.out.println("The werewolves are more powerful tonight! Be careful!\n");
             sleep(750);
         }
+        Room room = RoomMovement.roomSwitcher;
 
         sleep(1000);
         String menu = "===========================";
         Soldier player = GameController.player;
-        Room room = RoomMovement.roomSwitcher;
         System.out.printf("%s %12s %12s %12s %12s %12s", menu, menu, menu, menu, menu,menu);
         System.out.printf("%nPlayer Info%-16s Health:%-20s Armor Rating:%-14s Attack Power:%-14s Hours Remaining:%-11s Inventory:%-13s ", ":",  player.getHealth(),
                 player.getArmorRating(),player.getAttackPower(),72-(GameController.timer*3)+".00",player.getInventory().toString().replace("[","").replace("]",""));

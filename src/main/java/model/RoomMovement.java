@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Scanner;
 
 
 public class RoomMovement {
@@ -39,13 +38,15 @@ public class RoomMovement {
      * the user starts in.
      */
     public void firstRoom(){
-        currentRoom = allRooms.keySet().toArray()[(int) (Math.random() * allRooms.size())] + "";
+        do {
+            currentRoom = allRooms.keySet().toArray()[(int) (Math.random() * allRooms.size())] + "";
+        } while (currentRoom.equalsIgnoreCase("Throne Room"));
         Room room = allRooms.get(currentRoom);
         roomSwitcher = room;
         System.out.println("\nYou have entered the " + room.getName()+ ".");
         sleep(750);
         System.out.println(room.getDescription() + "\n");
-        sleep(150);
+        sleep(550);
 
     }
 
@@ -54,27 +55,12 @@ public class RoomMovement {
         currentRoom = roomSwitcher.getConnectedRooms().get(location);
         Room room = allRooms.get(currentRoom);
         roomSwitcher = room;
-        System.out.println("\nYou have entered the " + room.getName()+ ".");
-        sleep(750);
-        System.out.println(room.getDescription() + "\n");
-        sleep(150);
     }
-
-
-
-    public static String askRoom() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("\nWhich room do you want to go to?");
-        return scanner.nextLine();
-    }
-
 
 
 
     public static HashMap<String, Room> getAllRooms(){
-
         return allRooms;
-
     }
 
 
