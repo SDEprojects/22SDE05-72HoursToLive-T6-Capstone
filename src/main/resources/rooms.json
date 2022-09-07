@@ -58,7 +58,7 @@
 
   "Dining Room": {
     "name": "Dining Room",
-    "description": "The Dining Room is used for eating meals. Other activities such playing board games may also take place in the dinning room",
+    "description": "The Dining Room is used for eating meals. Other activities such playing board games may also take place in the dining room",
     "items": ["ring"],
     "connectedRooms": {
       "north": "Great Hall",

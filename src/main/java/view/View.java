@@ -20,7 +20,7 @@ public class View {
                     "                                                                           \n";
 
     public static void menu() {
-        if (GameController.timer % 7 == 0 && GameController.timer > 0) {
+        if (GameController.timer % 7 == 0 && GameController.timer > 0 && GameController.trigger) {
             textStream("\nAHHHHHHHH-WOOOOOOOOO!!\n\n", 140);
             System.out.print("Oh no! You look into the sky and see that tonight");
             textStream("...is a....\n\n", 290);

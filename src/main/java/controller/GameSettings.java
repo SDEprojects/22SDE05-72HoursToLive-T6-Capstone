@@ -29,7 +29,7 @@ public class GameSettings {
                 break;
             }
             else if (GameController.player.getInventory().contains("Trophy")) {
-                System.out.println("You have won the game!");
+                System.out.println("The room begins to shake as you step through the time portal!");
                 break;
             }
             else {
@@ -41,5 +41,7 @@ public class GameSettings {
     }
     public void endGame() {
         System.out.println("Game Over!");
+        System.out.println("Thanks for playing!");
+        System.out.println("Play again?");
     }
 }

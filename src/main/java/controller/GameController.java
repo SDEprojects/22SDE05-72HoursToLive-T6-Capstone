@@ -15,15 +15,13 @@ import java.util.Random;
 public class GameController {
     public static Soldier player = new Soldier();
     public static int timer = 0;
+    public static boolean trigger = true;
 
 
     public void userChoice() throws IOException {
         String currentRoom = RoomMovement.currentRoom;
         HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
         boolean werewolfCanAttack = true;
-
-
-
 
         while (player.getHealth() > 0 && timer < 24) {
             try {
@@ -52,21 +50,23 @@ public class GameController {
                     sleep(750);
                     werewolfCanAttack = false;
                 }
+                /* Will end the loop if players health hits 0 or timer runs out. */
+                if (player.getHealth() <= 0 || timer >= 24) {
+                    break;
+                }
                 View.menu();
                 Room room = RoomMovement.roomSwitcher;
                 Response r1 = InputScanner.getValidResponse();
-                if (player.getHealth() <= 0 || timer == 24) {
-                    break;
-                }
-                else if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal")){
+
+                if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal")){
                     if (r1.getNoun().equalsIgnoreCase("blood sample")){
                         player.pickup("Trophy");
-
                         break;
                     }
                 }
                 switch (r1.getVerb()) {
                     case "go":
+                        trigger = true;
                         werewolfCanAttack = true;
                         RoomMovement.switchRooms(r1.getLocation());
                         timer++;
@@ -113,6 +113,7 @@ public class GameController {
                         werewolfCanAttack = false;
                         break;
                     case "attack":
+                        trigger = false;
                         Werewolf w1 = monsterMap.get(currentRoom).get(0);
                         player.attack(w1);
                         if (w1.getHealth() <= 0) {
@@ -183,10 +184,8 @@ public class GameController {
                 monsterMap.get(key).add(new Werewolf());
             }
         }
-
         return monsterMap;
     }
-
 
     public void sleep(int timer) {
         try {
