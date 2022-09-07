@@ -132,7 +132,19 @@ public class GameController {
                         werewolfCanAttack = true;
                         break;
 
-
+                    case "inventory":
+                        if (player.getInventory().size() < 1) {
+                            System.out.println("You don't have any items in your inventory.");
+                        } else {
+                            System.out.println("You have the following items in your inventory:");
+                            for (String key : player.getInventory()) {
+                                sleep(300);
+                                System.out.println(key);
+                            }
+                        }
+                        sleep(500);
+                        werewolfCanAttack = false;
+                        break;
                     case "help":
                         System.out.println("\nYou can go to a room by typing \"go [direction]\"\n" +
 
