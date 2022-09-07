@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Story {
     Scanner scanner = new Scanner(System.in);
     public static int difficulty;
+    private static boolean isRunning = true;
 
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
 
@@ -105,7 +106,6 @@ public class Story {
 
     }
 
-
     public void introText() {
 
         String storyBanner = "███████╗████████╗ ██████╗ ██████╗ ██╗   ██╗██╗     ██╗███╗   ██╗███████╗\n" +
@@ -115,7 +115,6 @@ public class Story {
                 "███████║   ██║   ╚██████╔╝██║  ██║   ██║   ███████╗██║██║ ╚████║███████╗\n" +
                 "╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝\n" +
                 "                                                                        \n";
-
 
         while (true) {
 
@@ -132,20 +131,21 @@ public class Story {
                 for (int i = 0; i < 50; ++i) System.out.println();
                 break;
             } else if (intro.equalsIgnoreCase("read")) {
-
-                textStream(bundle.getString("story_one"), 120);
-                sleep(650);
-                textStream(bundle.getString("story_two"), 120);
-                textStream(bundle.getString("story_slowTwo"), 210);
-                sleep(650);
-                textStream(bundle.getString("story_three"), 120);
-                sleep(650);
-                textStream(bundle.getString("story_four"), 120);
-                sleep(650);
-                textStream(bundle.getString("story_five"), 120);
-                textStream("forever.\n\n", 390);
-                System.out.println(bundle.getString("start_game"));
+                System.out.println("Press enter at any point to skip the intro.\n");
                 sleep(1000);
+                runThread();
+                while (true){
+                    String readString = scanner.nextLine();
+                    if (scanner.hasNextLine()) {
+                        isRunning = false;
+                        break;
+                    }
+                }
+                sleep(400);
+                System.out.println("\nSkipping intro...\n");
+                sleep(1000);
+                System.out.println(bundle.getString("start_game"));
+                sleep(1425);
                 for (int i = 0; i < 50; ++i) System.out.println();
                 break;
             } else {
@@ -154,6 +154,17 @@ public class Story {
         }
     }
 
+    public void runThread(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(isRunning){
+                    storyline(bundle.getString("storyline"), 120);
+                    }
+            }
+        });
+        thread.start();
+    }
 
     private String textStream(String text, int speed) {
         for (int i = 0; i < text.length(); i++) {
@@ -162,14 +173,26 @@ public class Story {
         }
         return text;
     }
+    private void storyline(String text, int speed) {
+        for (int i = 0; i < text.length(); i++) {
+            System.out.printf("%c", text.charAt(i));
+            if (!isRunning) {
+                try {
+                    Thread.currentThread().interrupt();
+                    break;
+                } catch (Exception ignored) {
+                    break;
+                }
+            }
+            sleep(speed);
+        }
+    }
 
     private void sleep(int timer) {
         try {
             Thread.sleep(timer);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        } catch (InterruptedException ignored) {
         }
     }
-
 }
 
