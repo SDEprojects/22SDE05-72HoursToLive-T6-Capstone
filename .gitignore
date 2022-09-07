@@ -25,7 +25,7 @@
 hs_err_pid*
 
 src/main/resources/META-INF/
-out/*
+out/
 
 .DS_STORE
 
