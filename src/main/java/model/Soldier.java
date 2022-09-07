@@ -1,5 +1,7 @@
 package main.java.model;
 
+import main.java.view.Story;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,8 +44,7 @@ public class Soldier extends Character{
         Random r = new Random();
         int low = 1;
         int high = 6;
-        // PLACE TO MODIFY DIFFICULTY
-        setHealth(getHealth() - ((attack * 10) / getArmorRating()) - (r.nextInt(high-low) + low)+4);
+        setHealth(getHealth() - ((attack * 10) / getArmorRating()) - (r.nextInt(high-low) + low)+4 - Story.difficulty);
     }
     public void pickup(String item){
         getInventory().add(item);

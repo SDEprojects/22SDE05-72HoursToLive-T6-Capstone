@@ -11,9 +11,8 @@ public class GameSettings {
     public void readGameStory() {
         Story gameStory = new Story();
         gameStory.titleScreen();
+        gameStory.selectDifficulty();
         gameStory.introText();
-
-
     }
     public void startGame() throws IOException {
         RoomMovement movement = new RoomMovement();

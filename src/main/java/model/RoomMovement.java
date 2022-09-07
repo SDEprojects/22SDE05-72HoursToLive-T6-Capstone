@@ -26,7 +26,6 @@ public class RoomMovement {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             InputStream resources = classLoader.getResourceAsStream("main/resources/rooms.json");
             allRooms = new ObjectMapper().readValue(resources, typeRef);
-            //allRooms = new ObjectMapper().readValue(new File("src/main/resources/rooms.json"), typeRef);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -43,7 +42,13 @@ public class RoomMovement {
         } while (currentRoom.equalsIgnoreCase("Throne Room"));
         Room room = allRooms.get(currentRoom);
         roomSwitcher = room;
-        System.out.println("\nYou have entered the " + room.getName()+ ".");
+        textStream("You wake up in a daze...\n",110);
+        sleep(1000);
+        System.out.println("You look around to collect your bearings...Nothing seems quite real.\n");
+        sleep(1000);
+        System.out.println("You suddenly remember your mission, you were sent back in time to collect the blood of the first werewolf and return home!\n");
+        sleep(2350);
+        System.out.println("You are in the " + room.getName()+ ".");
         sleep(750);
         System.out.println(room.getDescription() + "\n");
         sleep(550);
@@ -70,5 +75,12 @@ public class RoomMovement {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+    private String textStream(String text, int speed) {
+        for (int i = 0; i < text.length(); i++) {
+            System.out.printf("%c", text.charAt(i));
+            sleep(speed);
+        }
+        return text;
     }
 }
