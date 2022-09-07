@@ -8,7 +8,7 @@ public class Story {
     Scanner scanner = new Scanner(System.in);
     public static int difficulty;
 
-    public static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
 
     public void titleScreen() {
 
@@ -36,11 +36,11 @@ public class Story {
 
         System.out.println(menu + titleBanner + menu);
         sleep(1); //change to 3000
-        System.out.println(("Welcome to Seventy Two Hours!\nType \"play\" to play, \"help\" for more information, or \"quit\" to quit.\n\n"));
+        System.out.println(bundle.getString("title_screen"));
         while (true) {
             String intro = scanner.next();
             if (intro.equalsIgnoreCase("play")) {
-                System.out.println("Starting the game...\n");
+                System.out.println(bundle.getString("start_game"));
                 sleep(1000);
                 break;
             } else if (intro.equalsIgnoreCase("help")) {
@@ -144,7 +144,7 @@ public class Story {
                 sleep(650);
                 textStream(bundle.getString("story_five"), 120);
                 textStream("forever.\n\n", 390);
-                System.out.println("Game is starting...");
+                System.out.println(bundle.getString("start_game"));
                 sleep(1000);
                 for (int i = 0; i < 50; ++i) System.out.println();
                 break;

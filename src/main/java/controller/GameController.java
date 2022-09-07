@@ -12,13 +12,21 @@ public class GameController {
     public static boolean moonTrigger = true;
     private String currentRoom = RoomMovement.currentRoom;
     private HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
 
 
     public void userChoice() throws IOException {
         boolean werewolfCanAttack = true;
 
+
+
+
         while (player.getHealth() > 0 && timer < 24) {
             try {
+                Random ran = new Random();
+
+                String[] werewolfAttack = {bundle.getString("werewolf_attack1"), bundle.getString("werewolf_attack2"), bundle.getString("werewolf_attack3")};
+                String werewolfAttackResponse = werewolfAttack[ran.nextInt(werewolfAttack.length)];
                 if (timer>0 && (timer%7==0 || timer%8==0)) {
                     monsterMap.values().forEach(monsters -> {
                         monsters.forEach(monster -> {
@@ -38,7 +46,7 @@ public class GameController {
                     Werewolf wolf = monsterMap.get(currentRoom).get(0);
                     wolf.attack(player);
                     sleep(300);
-                    System.out.println("A werewolf is attacking you!");
+                    System.out.println(werewolfAttackResponse);
                     System.out.println("Your health is now " + player.getHealth()+"!\n");
                     sleep(750);
                     werewolfCanAttack = false;
