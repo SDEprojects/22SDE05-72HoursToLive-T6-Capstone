@@ -9,7 +9,7 @@ import java.util.*;
 public class GameController {
     public static Soldier player = new Soldier();
     public static int timer = 0;
-    public static boolean trigger = true;
+    public static boolean moonTrigger = true;
     private String currentRoom = RoomMovement.currentRoom;
     private HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
 
@@ -65,7 +65,7 @@ public class GameController {
                 }
                 switch (r1.getVerb()) {
                     case "go":
-                        trigger = true;
+                        moonTrigger = true;
                         werewolfCanAttack = true;
                         RoomMovement.switchRooms(r1.getLocation());
                         room = RoomMovement.roomSwitcher;
@@ -120,7 +120,6 @@ public class GameController {
                         werewolfCanAttack = false;
                         break;
                     case "attack":
-                        trigger = false;
                         if (monsterMap.get(currentRoom).isEmpty()) {
                             System.out.println("This is no werewolf to attack!\n");
                             break;

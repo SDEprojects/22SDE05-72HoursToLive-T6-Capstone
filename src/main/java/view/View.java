@@ -20,7 +20,7 @@ public class View {
                     "                                                                           \n";
 
     public static void menu() {
-        if (GameController.timer % 7 == 0 && GameController.timer > 0 && GameController.trigger) {
+        if (GameController.timer % 7 == 0 && GameController.timer > 0 && GameController.moonTrigger) {
             textStream("\nAHHHHHHHH-WOOOOOOOOO!!\n\n", 140);
             System.out.print("Oh no! You look into the sky and see that tonight");
             textStream("...is a....\n\n", 290);
@@ -28,6 +28,7 @@ public class View {
             sleep(500);
             System.out.println("The werewolves are more powerful tonight! Be careful!\n");
             sleep(750);
+            GameController.moonTrigger = false;
         }
         Room room = RoomMovement.roomSwitcher;
 
