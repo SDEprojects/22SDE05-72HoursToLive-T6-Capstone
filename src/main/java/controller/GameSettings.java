@@ -20,9 +20,28 @@ public class GameSettings {
         GameController gameController = new GameController();
         movement.firstRoom();
         while (true) {
-            gameController.userChoice();
+            if (GameController.player.getHealth() <= 0) {
+                System.out.println("You have died!");
+                break;
+            }
+            else if (GameController.timer== 24){
+                System.out.println("You have run out of time!");
+                break;
+            }
+            else if (GameController.player.getInventory().contains("Trophy")) {
+                System.out.println("The room begins to shake as you step through the time portal!");
+                break;
+            }
+            else {
+                gameController.userChoice();
+            }
         }
 
 
+    }
+    public void endGame() {
+        System.out.println("Game Over!");
+        System.out.println("Thanks for playing!");
+        System.out.println("Play again?");
     }
 }
