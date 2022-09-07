@@ -39,8 +39,11 @@ public class Soldier extends Character{
             System.out.println(getName() + "was protect by armor");
             return;
         }
+        Random r = new Random();
+        int low = 1;
+        int high = 6;
         // PLACE TO MODIFY DIFFICULTY
-        setHealth(getHealth() - ((attack * 10) / getArmorRating()) - 4);
+        setHealth(getHealth() - ((attack * 10) / getArmorRating()) - (r.nextInt(high-low) + low)+4);
     }
     public void pickup(String item){
         getInventory().add(item);

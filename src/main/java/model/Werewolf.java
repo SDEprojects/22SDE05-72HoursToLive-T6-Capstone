@@ -2,6 +2,7 @@ package main.java.model;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Werewolf extends Character{
 
@@ -15,8 +16,10 @@ public class Werewolf extends Character{
     public void gotAttacked(Character enemy){
 
         int attack = enemy.getAttackPower();
-
-        this.setHealth(this.getHealth() - attack);
+        Random r = new Random();
+        int low = 1;
+        int high = 6;
+        this.setHealth(this.getHealth() - (attack - (r.nextInt(high-low) + low - 4)));
 
     }
 

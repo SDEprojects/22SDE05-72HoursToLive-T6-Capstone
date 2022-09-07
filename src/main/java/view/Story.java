@@ -45,8 +45,10 @@ public class Story {
             } else if (intro.equalsIgnoreCase("help")) {
                 System.out.println(infoMenu + "\n" + infoBanner + infoMenu);
                 sleep(1000);
-                System.out.println("\nYou can go to a room by typing \"go [direction]\"\n" +
-
+                System.out.println("\nYou have been selected to go back in time and save humanity, you must" +
+                        "find the first werewolf, collect his blood and escape through the Time Portal before " +
+                        "72 hours runs out and the portal closes. \n" +
+                        "You can go to a room by typing \"go [direction]\"\n" +
                         "You can use an item by typing \"use [item]\"\n" +
                         "You can equip armor and weapons by typing \"equip [item]\"\n" +
                         "You can attack a werewolf by typing \"attack wolf\"\n" +

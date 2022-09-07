@@ -68,7 +68,8 @@ public class GameController {
                         trigger = true;
                         werewolfCanAttack = true;
                         RoomMovement.switchRooms(r1.getLocation());
-                        System.out.println("\nYou have entered the " + room.getConnectedRooms().get(r1.getLocation()));
+                        room = RoomMovement.roomSwitcher;
+                        System.out.println("\nYou have entered the " + room.getName() + ".");
                         sleep(750);
                         System.out.println(room.getDescription() + "\n");
                         sleep(750);
@@ -128,11 +129,15 @@ public class GameController {
                         player.attack(w1);
                         if (w1.getHealth() <= 0) {
                             monsterMap.get(currentRoom).remove(0);
-                            System.out.println("You killed the werewolf!");
+
                             if (w1.getInventory().size() >0){
                             for (String item : w1.getInventory()){
                                 System.out.println("The Werewolf King is dead! A sample of his blood spills on the floor!");
                                 room.getItems().add(item); }
+                            }
+                            else {
+                                System.out.println("You killed the werewolf!\n");
+
                             }
                             sleep(1000);
                         }
