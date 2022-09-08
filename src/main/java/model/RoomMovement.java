@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
+import java.util.HashSet;
+import java.util.Random;
 
 
 public class RoomMovement {
@@ -17,10 +19,11 @@ public class RoomMovement {
     //    Room room = new Room();
     ObjectMapper mapper = new ObjectMapper();
     TypeReference<HashMap<String, Room>> typeRef  = new TypeReference<HashMap<String, Room>>() {};
-//    TypeReference<HashMap<String, HashSet<String>>> typeRef2 = new TypeReference<HashMap<String, HashSet<String>>>() {};
-//
-//    private static HashMap<String, HashSet<String>> itemMap;
+    TypeReference<HashMap<String, HashSet<String>>> typeRef2 = new TypeReference<HashMap<String, HashSet<String>>>() {};
+
+    private static HashMap<String, HashSet<String>> itemMap;
     static HashMap<String, Room> allRooms;
+
 
     {
         try {
@@ -28,8 +31,28 @@ public class RoomMovement {
             InputStream resources = classLoader.getResourceAsStream("main/resources/rooms.json");
             allRooms = new ObjectMapper().readValue(resources, typeRef);
             //allRooms = new ObjectMapper().readValue(new File("src/main/resources/rooms.json"), typeRef);
+            InputStream items = classLoader.getResourceAsStream("main/resources/items.json");
+            itemMap = new ObjectMapper().readValue(items, typeRef2);
+
+            populateRoomWithItems(2);
+
+
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+    private static void populateRoomWithItems(int numItems){
+        ArrayList<String> keyList = new ArrayList<>(itemMap.keySet());
+        Random random = new Random();
+        keyList.remove("Trophy");
+        keyList.remove("blood sample");
+        for (String key : allRooms.keySet()){
+            HashSet<String> itemSet = new HashSet<>();
+            while (itemSet.size() < numItems){
+                int pos = random.nextInt(keyList.size());
+                itemSet.add(keyList.get(pos));
+            }
+            allRooms.get(key).getItems().addAll(itemSet);
         }
     }
 
@@ -39,14 +62,21 @@ public class RoomMovement {
      * the user starts in.
      */
     public void firstRoom(){
-        currentRoom = allRooms.keySet().toArray()[(int) (Math.random() * allRooms.size())] + "";
+        do {
+            currentRoom = allRooms.keySet().toArray()[(int) (Math.random() * allRooms.size())] + "";
+        } while (currentRoom.equalsIgnoreCase("Throne Room"));
         Room room = allRooms.get(currentRoom);
         roomSwitcher = room;
-        System.out.println("\nYou have entered the " + room.getName()+ ".");
+        textStream("You wake up in a daze...\n",110);
+        sleep(1000);
+        System.out.println("You look around to collect your bearings...Nothing seems quite real.\n");
+        sleep(2000);
+        System.out.println("You suddenly remember your mission, you were sent back in time to collect the blood of the first werewolf and return home!\n");
+        sleep(2350);
+        System.out.println("You are in the " + room.getName()+ ".");
         sleep(750);
         System.out.println(room.getDescription() + "\n");
-        sleep(150);
-
+        sleep(550);
     }
 
 
@@ -54,27 +84,12 @@ public class RoomMovement {
         currentRoom = roomSwitcher.getConnectedRooms().get(location);
         Room room = allRooms.get(currentRoom);
         roomSwitcher = room;
-        System.out.println("\nYou have entered the " + room.getName()+ ".");
-        sleep(750);
-        System.out.println(room.getDescription() + "\n");
-        sleep(150);
     }
-
-
-
-    public static String askRoom() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("\nWhich room do you want to go to?");
-        return scanner.nextLine();
-    }
-
 
 
 
     public static HashMap<String, Room> getAllRooms(){
-
         return allRooms;
-
     }
 
 
@@ -84,5 +99,12 @@ public class RoomMovement {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+    private String textStream(String text, int speed) {
+        for (int i = 0; i < text.length(); i++) {
+            System.out.printf("%c", text.charAt(i));
+            sleep(speed);
+        }
+        return text;
     }
 }

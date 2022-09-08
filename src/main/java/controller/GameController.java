@@ -1,51 +1,43 @@
 package main.java.controller;
 
 import main.java.model.*;
+import main.java.view.GameMap;
+import main.java.view.Music;
 import main.java.view.View;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class GameController {
     public static Soldier player = new Soldier();
     public static int timer = 0;
-    public static boolean trigger = true;
+    public static boolean moonTrigger = true;
     private String currentRoom = RoomMovement.currentRoom;
     private HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
+    private static boolean werewolfCanAttack = true;
+    public static boolean wolfKingPrompt = true;
 
 
     public void userChoice() throws IOException {
-        String currentRoom = RoomMovement.currentRoom;
-//        HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
-        boolean werewolfCanAttack = true;
-
         while (player.getHealth() > 0 && timer < 24) {
             try {
-                if (timer>0 && (timer%7==0 || timer%8==0)) {
-                    monsterMap.values().forEach(monsters -> {
-                        monsters.forEach(monster -> {
-                            monster.setAttackPower(15);
-                        });
-                    });
-                }
-                else {
-                    monsterMap.values().forEach(monsters -> {
-                        monsters.forEach(monster -> {
-                            monster.setAttackPower(10);
-                        });
-                    });
-                }
+                Random ran = new Random();
+
+                String[] werewolfAttack = {bundle.getString("werewolf_attack1"), bundle.getString("werewolf_attack2"), bundle.getString("werewolf_attack3")};
+                String werewolfAttackResponse = werewolfAttack[ran.nextInt(werewolfAttack.length)];
+
+                checkFullMoon();
 
                 currentRoom = RoomMovement.currentRoom;
                 if (!monsterMap.get(currentRoom).isEmpty() && werewolfCanAttack) {
                     Werewolf wolf = monsterMap.get(currentRoom).get(0);
                     wolf.attack(player);
                     sleep(300);
-                    System.out.println("A werewolf is attacking you!");
-                    System.out.println("Your health is now " + player.getHealth()+"!\n");
+                    System.out.println(wolf.getName() + " " + werewolfAttackResponse);
+                    System.out.println("Your health is: " + player.getHealth()+"!\n");
                     sleep(750);
                     werewolfCanAttack = false;
                 }
@@ -57,9 +49,11 @@ public class GameController {
                     System.out.println("You only have " + (72-(timer*3)) + " hours left to escape! Hurry!");
                     sleep(750);
                 }
+
                 View.menu();
                 Room room = RoomMovement.roomSwitcher;
                 Response r1 = InputScanner.getValidResponse();
+                for (int i = 0; i < 50; ++i) System.out.println();
 
                 if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal")){
                     if (r1.getNoun().equalsIgnoreCase("blood sample")){
@@ -69,10 +63,20 @@ public class GameController {
                 }
                 switch (r1.getVerb()) {
                     case "go":
-                        trigger = true;
+                        moonTrigger = true;
                         werewolfCanAttack = true;
                         RoomMovement.switchRooms(r1.getLocation());
+                        room = RoomMovement.roomSwitcher;
+                        System.out.println("\nYou have entered the " + room.getName() + ".");
+                        sleep(750);
+                        System.out.println(room.getDescription() + "\n");
+                        sleep(750);
                         timer++;
+                        if (room.getName().equalsIgnoreCase("Throne Room") && wolfKingPrompt){
+                            System.out.println("You see The Werewolf King sitting on the throne. He looks at you with a menacing glare as he moves with lightning speed lunging toward you!\n");
+                            sleep(2000);
+                            wolfKingPrompt = false;
+                        }
 
                         break;
                     case "pickup":
@@ -87,12 +91,14 @@ public class GameController {
                             System.out.println("That item doesn't exist in this room");
                         }
                         sleep(500);
-                        werewolfCanAttack = false;
+                        werewolfCanAttack = true;
                         break;
                     case "look":
-                        System.out.println(room.getDescription());
+                        System.out.println("\n"+room.getDescription());
+                        sleep(500);
                         System.out.println("\nYou look around the room to see if you can find anything...");
-                        System.out.println("Looking...");
+                        sleep(500);
+                        System.out.println("\nLooking...\n");
                         sleep(500);
                         if (room.getItems().size() < 1) {
                             System.out.println("You don't see anything of interest.");
@@ -101,9 +107,10 @@ public class GameController {
                                 sleep(1000);
                                 System.out.println("You see the " + key + "!");
                             }
+                            System.out.println("\n");
                         }
                         sleep(1000);
-                        werewolfCanAttack = false;
+                        werewolfCanAttack = true;
                         break;
                     case "use":
                         if (player.getInventory().contains(r1.getNoun())) {
@@ -116,16 +123,23 @@ public class GameController {
                         werewolfCanAttack = false;
                         break;
                     case "attack":
-                        trigger = false;
+                        if (monsterMap.get(currentRoom).isEmpty()) {
+                            System.out.println("This is no werewolf to attack!\n");
+                            break;
+                        }
                         Werewolf w1 = monsterMap.get(currentRoom).get(0);
                         player.attack(w1);
                         if (w1.getHealth() <= 0) {
                             monsterMap.get(currentRoom).remove(0);
-                            System.out.println("You killed the werewolf!");
+
                             if (w1.getInventory().size() >0){
                             for (String item : w1.getInventory()){
                                 System.out.println("The Werewolf King is dead! A sample of his blood spills on the floor!");
                                 room.getItems().add(item); }
+                            }
+                            else {
+                                System.out.println("You killed the werewolf!\n");
+
                             }
                             sleep(1000);
                         }
@@ -146,36 +160,56 @@ public class GameController {
                         werewolfCanAttack = false;
                         break;
                     case "help":
-                        System.out.println("\nYou can go to a room by typing \"go [direction]\"\n" +
-
-                                "You can use an item by typing \"use [item]\"\n" +
-                                "You can look at the room by typing \"look\"\n" +
-                                "You can check your inventory by typing \"inventory\"\n" +
-                                "You can quit the game by typing \"quit\"\n");
-                        System.out.println("Directions are:");
-                        for (String key : room.getConnectedRooms().keySet()) {
-                            System.out.println(key);
-                        }
-                        sleep(1200);
-                        System.out.println("\nReturning to game...\n");
                         werewolfCanAttack = false;
+                        System.out.println("\nYou can go to a room by typing \"go [direction]\".\n" +
+                                "You can use an item by typing \"use [item]\".\n" +
+                                "You can equip armor and weapons by typing \"equip [item]\".\n" +
+                                "You can attack a werewolf by typing \"attack wolf\".\n" +
+                                "You can look for items in a room by typing \"look\".\n" +
+                                "You can check your inventory by typing \"inventory\".\n" +
+                                "You can check your map by typing \"map\".\n" +
+                                "You can turn music on or off with \"music\".\n" +
+                                "You can quit the game by typing \"quit\".\n");
+                        System.out.println("Directions are: North, East, South, West.\n");
+                        System.out.println("Tip: It is not recommended to look for or pickup items when you are being attacked by a werewolf!");
+
+                        System.out.println("\nPress enter to return to the game...");
+                        Scanner helpScanner = new Scanner(System.in);
+                        if (helpScanner.hasNextLine()) {
+                            for (int i = 0; i < 50; ++i) System.out.println();
+                            break;
+                        }
+                    case "map":
+                        werewolfCanAttack = false;
+                        System.out.println("You open the map and see the following rooms:");
                         sleep(1500);
-                        for (int i = 0; i < 50; ++i) System.out.println();
-                        break;
+                        GameMap.showMap();
+                        System.out.println("\n\nPress enter to return to the game...");
+                        Scanner mapScanner = new Scanner(System.in);
+                        if (mapScanner.hasNextLine()) {
+                            for (int i = 0; i < 50; ++i) System.out.println();
+                            break;
+                        }
                     case "quit":
                         System.out.println("Quitting the game...Thanks for playing!");
                         System.exit(0);
                         break;
+                    case "music":
+                        Music.playerSelectMusic();
+                        break;
 
                     default:
-                        System.out.println("That is not a valid input! YOOOOO");
+                        System.out.println("That is not a valid input!");
                         werewolfCanAttack = false;
                         break;
                 }
 
             } catch (NullPointerException e) {
-                System.out.println("That is not a valid input!");
                 break;
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
             }
 
 
@@ -191,11 +225,27 @@ public class GameController {
             if (key.equals("Throne Room")) {
                 monsterMap.get(key).add(new WerewolfKing());
             }
-            if (random.nextBoolean() && !key.equals(room)) {
+            else if (random.nextBoolean() && !key.equals(room)) {
                 monsterMap.get(key).add(new Werewolf());
             }
         }
         return monsterMap;
+    }
+    public void checkFullMoon(){
+        if (timer>0 && (timer%7==0 || timer%8==0)) {
+            monsterMap.values().forEach(monsters -> {
+                monsters.forEach(monster -> {
+                    monster.setAttackPower(15);
+                });
+            });
+        }
+        else {
+            monsterMap.values().forEach(monsters -> {
+                monsters.forEach(monster -> {
+                    monster.setAttackPower(10);
+                });
+            });
+        }
     }
 
     public void sleep(int timer) {

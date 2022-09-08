@@ -1,5 +1,7 @@
 package main.java.model;
 
+import main.java.controller.GameController;
+
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -7,8 +9,7 @@ public class WerewolfKing extends Werewolf{
     private Random random;
 
     public WerewolfKing(){
-        super("Wolf king", "Throne Room", 10, 40, new LinkedList<String>(), 10);
-        //etInventory().add("golden key");
+        super("The Wolf King", "Throne Room", 100, 12, new LinkedList<String>(), 10);
         random = new Random();
         this.getInventory().add("blood sample");
     }
@@ -16,8 +17,6 @@ public class WerewolfKing extends Werewolf{
     @Override
     public void attack(Character enemy){
         super.attack(enemy);
-        System.out.println("The Wolf King is attacking!");
-
         if (random.nextBoolean()){
             specialAttack(enemy);
         }
@@ -26,9 +25,10 @@ public class WerewolfKing extends Werewolf{
 
     @Override
     public void gotAttacked(Character enemy){
+        int val = random.nextInt(5) + 1;
 
-        if (getHealth() < 30 && random.nextBoolean()){
-            System.out.println("The Wolf King has deflected your attack");
+        if (getHealth() < 70 && val == 1){
+            System.out.println("The mighty Wolf King has deflected your attack!\n");
             return;
         }
         super.gotAttacked(enemy);
@@ -37,6 +37,8 @@ public class WerewolfKing extends Werewolf{
 
     public void specialAttack(Character enemy){
         enemy.getInventory().clear();
-        System.out.println("The Wolf King has caused you lost all the items!");
-    }
+        if(GameController.player.getInventory().size() > 0) {
+            System.out.println("The Wolf King reaches for your inventory bag and crushes it with his bare hands. All items you had are now lost!");
+        }
+        }
 }

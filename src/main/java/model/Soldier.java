@@ -1,5 +1,7 @@
 package main.java.model;
 
+import main.java.view.Story;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,9 +23,9 @@ public class Soldier extends Character{
 
     @Override
     public void attack(Character enemy){
-        super.attack(enemy);
         System.out.println("You strike the werewolf with all your might!");
-        System.out.println("The werewolf's health is : " + enemy.getHealth() + "!\n");
+        super.attack(enemy);
+        System.out.println("The werewolf's health is: " + enemy.getHealth() + "!\n");
         sleep(750);
     }
 
@@ -39,8 +41,10 @@ public class Soldier extends Character{
             System.out.println(getName() + "was protect by armor");
             return;
         }
-        // PLACE TO MODIFY DIFFICULTY
-        setHealth(getHealth() - ((attack * 10) / getArmorRating()) - 4);
+        Random r = new Random();
+        int low = 1;
+        int high = 6;
+        setHealth(getHealth() - ((attack * 10) / getArmorRating()) - (r.nextInt(high-low) + low)+4 - Story.difficulty);
     }
     public void pickup(String item){
         getInventory().add(item);
