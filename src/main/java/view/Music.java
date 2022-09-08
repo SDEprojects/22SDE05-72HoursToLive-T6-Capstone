@@ -40,10 +40,10 @@ public class Music {
         Music music = new Music();
         if (Music.musicOn) {
             Music.musicOn = false;
-            System.out.println("Music turned off.\n");
+            System.out.println("\nMusic turned off.\n");
         } else {
             Music.musicOn = true;
-            System.out.println("Music turned on.\n");
+            System.out.println("\nMusic turned on.\n");
             music.playMusic();
         }
     }
