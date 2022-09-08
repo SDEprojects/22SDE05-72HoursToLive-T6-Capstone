@@ -1,12 +1,16 @@
 package main.java.model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 public class Werewolf extends Character{
 
+
     public Werewolf() {
+        this("A werewolf", "", 100, 10, new ArrayList<String>(), 10);
+
     }
 
     public Werewolf(String name, String location, int health, int attackPower, List<String> inventory, int armorRating){

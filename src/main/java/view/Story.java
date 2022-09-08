@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Story {
     Scanner scanner = new Scanner(System.in);
-    public static int difficulty;
+    public static int difficulty = 0;
     private static boolean isRunning = true;
 
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
