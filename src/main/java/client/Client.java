@@ -9,6 +9,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
 public class Client {
+
+    /* This is the main class of the game. It is responsible for starting the game. */
     public static void main(String[] args) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         GameSettings gameSettings = new GameSettings();
         Music music = new Music();
