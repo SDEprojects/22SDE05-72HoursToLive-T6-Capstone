@@ -67,17 +67,16 @@ public class RoomMovement {
         } while (currentRoom.equalsIgnoreCase("Throne Room"));
         Room room = allRooms.get(currentRoom);
         roomSwitcher = room;
-//        textStream("You wake up in a daze...\n",110);
-//        sleep(1000);
+        textStream("You wake up in a daze...\n",110);
+        sleep(1000);
         System.out.println("You look around to collect your bearings...Nothing seems quite real.\n");
-//        sleep(2000);
+        sleep(2000);
         System.out.println("You suddenly remember your mission, you were sent back in time to collect the blood of the first werewolf and return home!\n");
-//        sleep(2350);
+        sleep(2350);
         System.out.println("You are in the " + room.getName()+ ".");
-//        sleep(750);
+        sleep(750);
         System.out.println(room.getDescription() + "\n");
-//        sleep(550);
-
+        sleep(550);
     }
 
 
