@@ -20,6 +20,7 @@ public class GameSettings {
     }
     public void startGame() throws IOException {
         List<String> emptyInventory = new ArrayList<>();
+        GameController.wolfKingPrompt = true;
         GameController.player.setHealth(100);
         GameController.player.setAttackPower(10);
         GameController.player.setArmorRating(10);
@@ -31,14 +32,14 @@ public class GameSettings {
         GameController gameController = new GameController();
         while (true) {
             if (GameController.player.getHealth() <= 0) {
-                System.out.println("You have been eaten by the werewolf!");
+                System.out.println("You have been eaten by the werewolves!");
                 sleep(1000);
                 break;
             }
             else if (GameController.timer== 24){
                 System.out.println("You have run out of time!");
                 sleep(1000);
-                System.out.println("The Time Portal begins to shake and closes. You are trapped in the past forever!");
+                System.out.println("The whole castle begins to shake as the Time Portal closes. You are trapped in the past forever!");
                 break;
             }
             else if (GameController.player.getInventory().contains("Trophy")) {

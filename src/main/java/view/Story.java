@@ -56,6 +56,7 @@ public class Story {
                         "You can attack a werewolf by typing \"attack wolf\"\n" +
                         "You can look for items in a room by typing \"look\"\n" +
                         "You can check your inventory by typing \"inventory\"\n" +
+                        "You can turn music on or off with \"music\".\n" +
                         "You can quit the game by typing \"quit\"\n");
                 System.out.println("Directions are: North, East, South, West\n");
                 sleep(1500);
@@ -77,11 +78,11 @@ public class Story {
     }
     public void selectDifficulty(){
         while(true){
-            System.out.println("Select a difficulty: Easy, Medium, Hard, or Impossible.\n");
+            System.out.println("Select a difficulty: Easy, Medium, Hard, or Impossible.");
             String choice = scanner.next();
             if(choice.equalsIgnoreCase("easy")){
                 System.out.println("You have selected easy mode.");
-                difficulty = 1;
+                difficulty = -2;
                 sleep(1000);
                 break;
             } else if(choice.equalsIgnoreCase("medium")){
@@ -141,8 +142,6 @@ public class Story {
                         break;
                     }
                 }
-                sleep(400);
-                System.out.println("\nSkipping intro...\n");
                 sleep(1000);
                 System.out.println(bundle.getString("start_game"));
                 sleep(1425);
@@ -160,6 +159,12 @@ public class Story {
             public void run() {
                 while(isRunning){
                     storyline(bundle.getString("storyline"), 120);
+
+                    if (isRunning){
+                        sleep(700);
+                        System.out.println("\n\nPress enter when you are ready to start the game...Good luck!");
+                    }
+                    break;
                     }
             }
         });

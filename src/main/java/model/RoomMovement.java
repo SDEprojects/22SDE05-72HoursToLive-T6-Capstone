@@ -24,6 +24,7 @@ public class RoomMovement {
     private static HashMap<String, HashSet<String>> itemMap;
     static HashMap<String, Room> allRooms;
 
+
     {
         try {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -76,7 +77,6 @@ public class RoomMovement {
         sleep(750);
         System.out.println(room.getDescription() + "\n");
         sleep(550);
-
     }
 
 
