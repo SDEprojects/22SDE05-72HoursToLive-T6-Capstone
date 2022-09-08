@@ -7,10 +7,12 @@ import main.java.view.Story;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class GameSettings {
     public static String roomName;
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
 
     public void readGameStory() {
         Story gameStory = new Story();
@@ -32,21 +34,21 @@ public class GameSettings {
         GameController gameController = new GameController();
         while (true) {
             if (GameController.player.getHealth() <= 0) {
-                System.out.println("You have been eaten by the werewolves!");
+                System.out.println(bundle.getString("player_dead1"));
                 sleep(1000);
                 break;
             }
             else if (GameController.timer== 24){
-                System.out.println("You have run out of time!");
+                System.out.println(bundle.getString("time_out1"));
                 sleep(1000);
-                System.out.println("The whole castle begins to shake as the Time Portal closes. You are trapped in the past forever!");
+                System.out.println(bundle.getString("time_out2"));
                 break;
             }
             else if (GameController.player.getInventory().contains("Trophy")) {
                 sleep(500);
-                System.out.println("The room begins to shake as you step through the time portal!");
-                sleep(2000);
-                System.out.println("You have won the game!");
+                System.out.println(bundle.getString("trophy_response1"));
+                sleep(1500);
+                System.out.println(bundle.getString("trophy_response2"));
                 break;
             }
             else {
@@ -55,8 +57,8 @@ public class GameSettings {
         }
     }
     public void endGame() {
-        System.out.println("\nThanks for playing!");
-        System.out.println("\nPlay again? Enter yes or no.\n");
+        System.out.println(bundle.getString("game_over1"));
+        System.out.println(bundle.getString("game_over2"));
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();

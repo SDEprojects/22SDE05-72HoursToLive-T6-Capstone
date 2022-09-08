@@ -47,62 +47,48 @@ public class Story {
             } else if (intro.equalsIgnoreCase("help")) {
                 System.out.println(infoMenu + "\n" + infoBanner + infoMenu);
                 sleep(1800);
-                System.out.println("You have been selected to go back in time and save humanity, you must\n" +
-                        "find the first werewolf, collect his blood and escape through the\nTime Portal before" +
-                        " 72 hours runs out and the portal closes.\n");
-                System.out.println("You can go to a room by typing \"go [direction]\"\n" +
-                        "You can use an item by typing \"use [item]\"\n" +
-                        "You can equip armor and weapons by typing \"equip [item]\"\n" +
-                        "You can attack a werewolf by typing \"attack wolf\"\n" +
-                        "You can look for items in a room by typing \"look\"\n" +
-                        "You can check your inventory by typing \"inventory\"\n" +
-                        "You can turn music on or off with \"music\".\n" +
-                        "You can quit the game by typing \"quit\"\n");
-                System.out.println("Directions are: North, East, South, West\n");
-                sleep(1500);
-                System.out.println("Press enter to return to the menu screen...");
+                System.out.println(bundle.getString("help_intro"));
+                System.out.println(bundle.getString("help_menu1"));
                 String readString = scanner.nextLine();
                 if (scanner.hasNextLine()) {
                     titleScreen();
                     break;
                 }
             } else if (intro.equalsIgnoreCase("quit")) {
-                System.out.println("Quitting the game...");
+                System.out.println("quit_menu1");
                 sleep(1000);
                 System.exit(0);
             } else {
-                System.out.println("Invalid input. Valid options are play, help, or quit. Please try again.");
-            }
+                System.out.println(bundle.getString("invalid_input3"));            }
 
         }
     }
     public void selectDifficulty(){
         while(true){
-            System.out.println("Select a difficulty: Easy, Medium, Hard, or Impossible.");
+            System.out.println(bundle.getString("select_level"));
             String choice = scanner.next();
             if(choice.equalsIgnoreCase("easy")){
-                System.out.println("You have selected easy mode.");
+                System.out.println(bundle.getString("level_easy"));
                 difficulty = -2;
                 sleep(1000);
                 break;
             } else if(choice.equalsIgnoreCase("medium")){
-                System.out.println("You have selected medium mode.");
+                System.out.println(bundle.getString("level_medium"));
                 sleep(1000);
                 difficulty = 5;
                 break;
             } else if(choice.equalsIgnoreCase("hard")){
-                System.out.println("You have selected hard mode.");
+                System.out.println(bundle.getString("level_hard"));
                 sleep(1000);
                 difficulty = 10;
                 break;
             } else if(choice.equalsIgnoreCase("impossible")){
-                System.out.println("You have selected impossible mode.");
+                System.out.println(bundle.getString("level_impossible"));
                 sleep(1000);
                 difficulty = 15;
                 break;
             } else {
-                System.out.println("Invalid input. Valid options are easy, medium, hard, or impossible. Please try again.");
-            }
+                System.out.println(bundle.getString("invalid_input4"));            }
         }
 
     }
@@ -121,8 +107,7 @@ public class Story {
 
             String menu = "========================================================================\n";
             System.out.println("\n"+menu + "\n" + storyBanner + menu);
-            System.out.println("Type \"read\" to read the game storyline, or \"skip\" to skip...");
-            String intro = scanner.next();
+            System.out.println(bundle.getString("intro_text1"));            String intro = scanner.next();
             if (intro.equalsIgnoreCase("skip")) {
 
                 System.out.println(bundle.getString("skip_intro"));
@@ -148,7 +133,7 @@ public class Story {
                 for (int i = 0; i < 50; ++i) System.out.println();
                 break;
             } else {
-                System.out.println("Invalid input. Please try again.");
+                System.out.println(bundle.getString("invalid_input2"));
             }
         }
     }

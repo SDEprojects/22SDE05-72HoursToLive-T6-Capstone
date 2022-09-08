@@ -37,7 +37,7 @@ public class GameController {
                     wolf.attack(player);
                     sleep(300);
                     System.out.println(wolf.getName() + " " + werewolfAttackResponse);
-                    System.out.println("Your health is: " + player.getHealth()+"!\n");
+                    System.out.println(bundle.getString("health_status1") + player.getHealth()+"!\n");
                     sleep(750);
                     werewolfCanAttack = false;
                 }
@@ -46,7 +46,8 @@ public class GameController {
                     break;
                 }
                 if (timer>19){
-                    System.out.println("You only have " + (72-(timer*3)) + " hours left to escape! Hurry!");
+//                    System.out.println("You only have " + (72-(timer*3)) + " hours left to escape! Hurry!");
+                    System.out.println(bundle.getString("hours_status1") + (72-(timer*3)) + bundle.getString("hours_status2"));
                     sleep(750);
                 }
 
@@ -67,7 +68,8 @@ public class GameController {
                         werewolfCanAttack = true;
                         RoomMovement.switchRooms(r1.getLocation());
                         room = RoomMovement.roomSwitcher;
-                        System.out.println("\nYou have entered the " + room.getName() + ".");
+//                        System.out.println("\nYou have entered the " + room.getName() + ".");
+                        System.out.println(bundle.getString("go1")+ room.getName() + ".");
                         sleep(750);
                         System.out.println(room.getDescription() + "\n");
                         sleep(750);
@@ -81,14 +83,17 @@ public class GameController {
                         break;
                     case "pickup":
                         if (player.getInventory().size() > 2) {
-                            System.out.println("You can't carry anymore items! Try using an item in your inventory.");
+//                            System.out.println("You can't carry anymore items! Try using an item in your inventory.");
+                            System.out.println(bundle.getString("pickup1"));
 
                         } else if (room.getItems().contains(r1.getNoun())) {
                             player.pickup(r1.getNoun());
                             room.getItems().remove(r1.getNoun());
-                            System.out.println("You picked up the " + r1.getNoun() + "! It has been added to your inventory.");
+//                            System.out.println("You picked up the " + r1.getNoun() + "! It has been added to your inventory.");
+                            System.out.println(bundle.getString("pickup2") + r1.getNoun() + bundle.getString("pickup3"));
                         } else {
-                            System.out.println("That item doesn't exist in this room");
+//                            System.out.println("That item doesn't exist in this room");
+                            System.out.println(bundle.getString("pickup4"));
                         }
                         sleep(500);
                         werewolfCanAttack = true;
@@ -96,16 +101,20 @@ public class GameController {
                     case "look":
                         System.out.println("\n"+room.getDescription());
                         sleep(500);
-                        System.out.println("\nYou look around the room to see if you can find anything...");
+//                        System.out.println("\nYou look around the room to see if you can find anything...");
+                        System.out.println(bundle.getString("look1"));
                         sleep(500);
-                        System.out.println("\nLooking...\n");
+//                        System.out.println("\nLooking...\n");
+                        System.out.println(bundle.getString("look2"));
                         sleep(500);
                         if (room.getItems().size() < 1) {
-                            System.out.println("You don't see anything of interest.");
+//                            System.out.println("You don't see anything of interest.");
+                            System.out.println(bundle.getString("look3"));
                         } else {
                             for (String key : room.getItems()) {
                                 sleep(1000);
-                                System.out.println("You see the " + key + "!");
+//                                System.out.println("You see the " + key + "!");
+                                System.out.println(bundle.getString("look4") + key + "!");
                             }
                             System.out.println("\n");
                         }
@@ -117,14 +126,16 @@ public class GameController {
                             player.useItems(r1.getNoun());
                             sleep(1000);
                         } else {
-                            System.out.println("You don't have that item!");
+//                            System.out.println("You don't have that item!");
+                            System.out.println(bundle.getString("use1"));
                             sleep(1000);
                         }
                         werewolfCanAttack = false;
                         break;
                     case "attack":
                         if (monsterMap.get(currentRoom).isEmpty()) {
-                            System.out.println("This is no werewolf to attack!\n");
+//                            System.out.println("This is no werewolf to attack!\n");
+                            System.out.println(bundle.getString("attack1"));
                             break;
                         }
                         Werewolf w1 = monsterMap.get(currentRoom).get(0);
@@ -134,11 +145,17 @@ public class GameController {
 
                             if (w1.getInventory().size() >0){
                             for (String item : w1.getInventory()){
-                                System.out.println("The Werewolf King is dead! A sample of his blood spills on the floor!");
+//                                System.out.println("The Werewolf King is dead! A sample of his blood spills on the floor!");
+                                String[] werewolfKingDead = {bundle.getString("werewolfKing_dead1"), bundle.getString("werewolfKing_dead2"), bundle.getString("werewolfKing_dead3")};
+                                String werewolfKing_deadResponse = werewolfKingDead[ran.nextInt(werewolfKingDead.length)];
+                                System.out.println(werewolfKing_deadResponse);
                                 room.getItems().add(item); }
                             }
                             else {
-                                System.out.println("You killed the werewolf!\n");
+//                                System.out.println("You killed the werewolf!\n");
+                                String[] werewolfDead = {bundle.getString("werewolf_dead1"), bundle.getString("werewolf_dead2"), bundle.getString("werewolf_dead3")};
+                                String werewolf_deadResponse = werewolfDead[ran.nextInt(werewolfDead.length)];
+                                System.out.println(werewolf_deadResponse);
 
                             }
                             sleep(1000);
@@ -148,9 +165,11 @@ public class GameController {
 
                     case "inventory":
                         if (player.getInventory().size() < 1) {
-                            System.out.println("You don't have any items in your inventory.");
+//                            System.out.println("You don't have any items in your inventory.");
+                            System.out.println(bundle.getString("inventory_0"));
                         } else {
-                            System.out.println("You have the following items in your inventory:");
+//                            System.out.println("You have the following items in your inventory:");
+                            System.out.println(bundle.getString("inventory_items"));
                             for (String key : player.getInventory()) {
                                 sleep(300);
                                 System.out.println(key);
@@ -161,19 +180,7 @@ public class GameController {
                         break;
                     case "help":
                         werewolfCanAttack = false;
-                        System.out.println("\nYou can go to a room by typing \"go [direction]\".\n" +
-                                "You can use an item by typing \"use [item]\".\n" +
-                                "You can equip armor and weapons by typing \"equip [item]\".\n" +
-                                "You can attack a werewolf by typing \"attack wolf\".\n" +
-                                "You can look for items in a room by typing \"look\".\n" +
-                                "You can check your inventory by typing \"inventory\".\n" +
-                                "You can check your map by typing \"map\".\n" +
-                                "You can turn music on or off with \"music\".\n" +
-                                "You can quit the game by typing \"quit\".\n");
-                        System.out.println("Directions are: North, East, South, West.\n");
-                        System.out.println("Tip: It is not recommended to look for or pickup items when you are being attacked by a werewolf!");
-
-                        System.out.println("\nPress enter to return to the game...");
+                        System.out.println(bundle.getString("help_menu"));
                         Scanner helpScanner = new Scanner(System.in);
                         if (helpScanner.hasNextLine()) {
                             for (int i = 0; i < 50; ++i) System.out.println();
@@ -191,7 +198,8 @@ public class GameController {
                             break;
                         }
                     case "quit":
-                        System.out.println("Quitting the game...Thanks for playing!");
+//                        System.out.println("Quitting the game...Thanks for playing!");
+                        System.out.println(bundle.getString("quit_menu1"));
                         System.exit(0);
                         break;
                     case "music":
@@ -199,7 +207,8 @@ public class GameController {
                         break;
 
                     default:
-                        System.out.println("That is not a valid input!");
+//                        System.out.println("That is not a valid input!");
+                        System.out.println(bundle.getString("invalid_input1"));
                         werewolfCanAttack = false;
                         break;
                 }

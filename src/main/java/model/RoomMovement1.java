@@ -7,12 +7,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.ResourceBundle;
 
 
 public class RoomMovement1 {
     public static String currentRoom;
     public static Room roomSwitcher;
-
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
 
     //    Room room = new Room();
     ObjectMapper mapper = new ObjectMapper();
@@ -43,13 +44,13 @@ public class RoomMovement1 {
         } while (currentRoom.equalsIgnoreCase("Throne Room"));
         Room room = allRooms.get(currentRoom);
         roomSwitcher = room;
-        textStream("You wake up in a daze...\n",110);
+        textStream(bundle.getString("firstRoom_text1"),110);
         sleep(1000);
-        System.out.println("You look around to collect your bearings...Nothing seems quite real.\n");
+        System.out.println(bundle.getString("firstRoom_text2"));
         sleep(2000);
-        System.out.println("You suddenly remember your mission, you were sent back in time to collect the blood of the first werewolf and return home!\n");
+        System.out.println(bundle.getString("firstRoom_text3"));
         sleep(2350);
-        System.out.println("You are in the " + room.getName()+ ".");
+        System.out.println(bundle.getString("firstRoom_text4") + room.getName()+ ".");
         sleep(750);
         System.out.println(room.getDescription() + "\n");
         sleep(550);
