@@ -23,9 +23,9 @@ public class Soldier extends Character{
 
     @Override
     public void attack(Character enemy){
-        super.attack(enemy);
         System.out.println("You strike the werewolf with all your might!");
-        System.out.println("The werewolf's health is : " + enemy.getHealth() + "!\n");
+        super.attack(enemy);
+        System.out.println("The werewolf's health is: " + enemy.getHealth() + "!\n");
         sleep(750);
     }
 

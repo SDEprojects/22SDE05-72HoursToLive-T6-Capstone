@@ -5,13 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Random;
 
 
-public class RoomMovement {
+public class RoomMovement1 {
     public static String currentRoom;
     public static Room roomSwitcher;
 
@@ -27,31 +25,10 @@ public class RoomMovement {
     {
         try {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            InputStream resources = classLoader.getResourceAsStream("main/resources/rooms.json");
+            InputStream resources = classLoader.getResourceAsStream("rooms_with_items.json");
             allRooms = new ObjectMapper().readValue(resources, typeRef);
-            //allRooms = new ObjectMapper().readValue(new File("src/main/resources/rooms.json"), typeRef);
-            InputStream items = classLoader.getResourceAsStream("main/resources/items.json");
-            itemMap = new ObjectMapper().readValue(items, typeRef2);
-
-            populateRoomWithItems(2);
-
-
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-    }
-    private static void populateRoomWithItems(int numItems){
-        ArrayList<String> keyList = new ArrayList<>(itemMap.keySet());
-        Random random = new Random();
-        keyList.remove("Trophy");
-        keyList.remove("blood sample");
-        for (String key : allRooms.keySet()){
-            HashSet<String> itemSet = new HashSet<>();
-            while (itemSet.size() < numItems){
-                int pos = random.nextInt(keyList.size());
-                itemSet.add(keyList.get(pos));
-            }
-            allRooms.get(key).getItems().addAll(itemSet);
         }
     }
 

@@ -13,41 +13,26 @@ public class GameController {
     private String currentRoom = RoomMovement.currentRoom;
     private HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
+    private static boolean werewolfCanAttack = true;
 
 
     public void userChoice() throws IOException {
-        boolean werewolfCanAttack = true;
-
-
-
-
         while (player.getHealth() > 0 && timer < 24) {
             try {
                 Random ran = new Random();
 
                 String[] werewolfAttack = {bundle.getString("werewolf_attack1"), bundle.getString("werewolf_attack2"), bundle.getString("werewolf_attack3")};
                 String werewolfAttackResponse = werewolfAttack[ran.nextInt(werewolfAttack.length)];
-                if (timer>0 && (timer%7==0 || timer%8==0)) {
-                    monsterMap.values().forEach(monsters -> {
-                        monsters.forEach(monster -> {
-                            monster.setAttackPower(15);
-                        });
-                    });
-                }
-                else {
-                    monsterMap.values().forEach(monsters -> {
-                        monsters.forEach(monster -> {
-                            monster.setAttackPower(10);
-                        });
-                    });
-                }
+
+                checkFullMoon();
+
                 currentRoom = RoomMovement.currentRoom;
                 if (!monsterMap.get(currentRoom).isEmpty() && werewolfCanAttack) {
                     Werewolf wolf = monsterMap.get(currentRoom).get(0);
                     wolf.attack(player);
                     sleep(300);
-                    System.out.println(werewolfAttackResponse);
-                    System.out.println("Your health is now " + player.getHealth()+"!\n");
+                    System.out.println(wolf.getName() + " " + werewolfAttackResponse);
+                    System.out.println("Your health is: " + player.getHealth()+"!\n");
                     sleep(750);
                     werewolfCanAttack = false;
                 }
@@ -103,7 +88,7 @@ public class GameController {
                         sleep(500);
                         System.out.println("\nYou look around the room to see if you can find anything...");
                         sleep(500);
-                        System.out.println("\nLooking...");
+                        System.out.println("\nLooking...\n");
                         sleep(500);
                         if (room.getItems().size() < 1) {
                             System.out.println("You don't see anything of interest.");
@@ -112,10 +97,10 @@ public class GameController {
                                 sleep(1000);
                                 System.out.println("You see the " + key + "!");
                             }
+                            System.out.println("\n");
                         }
                         sleep(1000);
                         werewolfCanAttack = false;
-                        System.out.println("\n");
                         break;
                     case "use":
                         if (player.getInventory().contains(r1.getNoun())) {
@@ -186,13 +171,12 @@ public class GameController {
                         break;
 
                     default:
-                        System.out.println("That is not a valid input! YOOOOO");
+                        System.out.println("That is not a valid input!");
                         werewolfCanAttack = false;
                         break;
                 }
 
             } catch (NullPointerException e) {
-                System.out.println("That is not a valid input!");
                 break;
             }
 
@@ -214,6 +198,22 @@ public class GameController {
             }
         }
         return monsterMap;
+    }
+    public void checkFullMoon(){
+        if (timer>0 && (timer%7==0 || timer%8==0)) {
+            monsterMap.values().forEach(monsters -> {
+                monsters.forEach(monster -> {
+                    monster.setAttackPower(15);
+                });
+            });
+        }
+        else {
+            monsterMap.values().forEach(monsters -> {
+                monsters.forEach(monster -> {
+                    monster.setAttackPower(10);
+                });
+            });
+        }
     }
 
     public void sleep(int timer) {
