@@ -224,7 +224,7 @@ public class GameController {
             if (key.equals("Throne Room")) {
                 monsterMap.get(key).add(new WerewolfKing());
             }
-            if (random.nextBoolean() && !key.equals(room)) {
+            else if (random.nextBoolean() && !key.equals(room)) {
                 monsterMap.get(key).add(new Werewolf());
             }
         }
