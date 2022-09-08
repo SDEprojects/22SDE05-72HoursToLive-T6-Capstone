@@ -3,6 +3,7 @@ package main.java.controller;
 import main.java.model.*;
 import main.java.view.GameMap;
 import main.java.view.Music;
+import main.java.view.Story;
 import main.java.view.View;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -54,7 +55,7 @@ public class GameController {
                 View.menu();
                 Room room = RoomMovement.roomSwitcher;
                 Response r1 = InputScanner.getValidResponse();
-                for (int i = 0; i < 50; ++i) System.out.println();
+                for (int i = 0; i < 70; ++i) System.out.println();
 
                 if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal")){
                     if (r1.getNoun().equalsIgnoreCase("blood sample")){
@@ -180,10 +181,11 @@ public class GameController {
                         break;
                     case "help":
                         werewolfCanAttack = false;
+                        System.out.println(Story.infoMenu + "\n" + Story.infoBanner + Story.infoMenu);
                         System.out.println(bundle.getString("help_menu"));
                         Scanner helpScanner = new Scanner(System.in);
                         if (helpScanner.hasNextLine()) {
-                            for (int i = 0; i < 50; ++i) System.out.println();
+                            for (int i = 0; i < 70; ++i) System.out.println();
                             break;
                         }
                     case "map":
@@ -194,7 +196,7 @@ public class GameController {
                         System.out.println("\n\nPress enter to return to the game...");
                         Scanner mapScanner = new Scanner(System.in);
                         if (mapScanner.hasNextLine()) {
-                            for (int i = 0; i < 50; ++i) System.out.println();
+                            for (int i = 0; i < 70; ++i) System.out.println();
                             break;
                         }
                     case "quit":

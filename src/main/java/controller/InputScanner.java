@@ -16,7 +16,7 @@ public class InputScanner {
         Room room = RoomMovement.roomSwitcher;
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nWhat would you like to do?");
-        for (int i = 0; i < 15; ++i) System.out.println();
+        for (int i = 0; i < 5; ++i) System.out.println();
         String choice = (scanner.nextLine()).toLowerCase();
         TextParser textParser = new TextParser();
         Response r1 = textParser.getCommands(choice);

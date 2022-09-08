@@ -4,6 +4,8 @@ import main.java.client.Client;
 import main.java.model.RoomMovement;
 import main.java.view.Story;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,7 @@ public class GameSettings {
     public static String roomName;
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
 
-    public void readGameStory() {
+    public void readGameStory() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         Story gameStory = new Story();
         gameStory.titleScreen();
         gameStory.selectDifficulty();

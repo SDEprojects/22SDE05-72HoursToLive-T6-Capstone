@@ -1,6 +1,9 @@
 package main.java.view;
 
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -11,10 +14,20 @@ public class Story {
 
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
 
-    public void titleScreen() {
+
+    public static String infoBanner =
+            " ██████╗  █████╗ ███╗   ███╗███████╗    ██╗███╗   ██╗███████╗ ██████╗ \n" +
+                    "██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██║████╗  ██║██╔════╝██╔═══██╗\n" +
+                    "██║  ███╗███████║██╔████╔██║█████╗      ██║██╔██╗ ██║█████╗  ██║   ██║\n" +
+                    "██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║██║╚██╗██║██╔══╝  ██║   ██║\n" +
+                    "╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ██║██║ ╚████║██║     ╚██████╔╝\n" +
+                    " ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝    ╚═╝╚═╝  ╚═══╝╚═╝      ╚═════╝ \n" +
+                    "                                                                      \n";
+
+    public static String infoMenu = "======================================================================\n";
+    public void titleScreen() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 
         String menu = "===========================================================================================================================================\n";
-        String infoMenu = "======================================================================\n";
         String titleBanner =
 
                 "\n███████╗███████╗██╗   ██╗███████╗███╗   ██╗████████╗██╗   ██╗    ████████╗██╗    ██╗ ██████╗     ██╗  ██╗ ██████╗ ██╗   ██╗██████╗ ███████╗\n" +
@@ -25,14 +38,7 @@ public class Story {
                         "╚══════╝╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝      ╚═╝          ╚═╝    ╚══╝╚══╝  ╚═════╝     ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚══════╝\n" +
                         "                                                                                                                                           \n";
 
-        String infoBanner =
-                " ██████╗  █████╗ ███╗   ███╗███████╗    ██╗███╗   ██╗███████╗ ██████╗ \n" +
-                        "██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██║████╗  ██║██╔════╝██╔═══██╗\n" +
-                        "██║  ███╗███████║██╔████╔██║█████╗      ██║██╔██╗ ██║█████╗  ██║   ██║\n" +
-                        "██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║██║╚██╗██║██╔══╝  ██║   ██║\n" +
-                        "╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ██║██║ ╚████║██║     ╚██████╔╝\n" +
-                        " ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝    ╚═╝╚═╝  ╚═══╝╚═╝      ╚═════╝ \n" +
-                        "                                                                      \n";
+
 
 
         System.out.println(menu + titleBanner + menu);
@@ -40,21 +46,28 @@ public class Story {
         System.out.println(bundle.getString("title_screen"));
         while (true) {
             String intro = scanner.next();
+            for (int i = 0; i < 70; ++i) System.out.println();
             if (intro.equalsIgnoreCase("play")) {
                 System.out.println(bundle.getString("start_game"));
                 sleep(1000);
                 break;
             } else if (intro.equalsIgnoreCase("help")) {
                 System.out.println(infoMenu + "\n" + infoBanner + infoMenu);
-                sleep(1800);
                 System.out.println(bundle.getString("help_intro"));
-                System.out.println(bundle.getString("help_menu1"));
+                System.out.println(bundle.getString("help_menu"));
                 String readString = scanner.nextLine();
                 if (scanner.hasNextLine()) {
+                    for (int i = 0; i < 70; ++i) System.out.println();
                     titleScreen();
                     break;
                 }
-            } else if (intro.equalsIgnoreCase("quit")) {
+            }else if (intro.equalsIgnoreCase("music")){
+                Music.playerSelectMusic();
+                sleep(1000);
+                titleScreen();
+                break;
+            }
+            else if (intro.equalsIgnoreCase("quit")) {
                 System.out.println("quit_menu1");
                 sleep(1000);
                 System.exit(0);
@@ -65,7 +78,9 @@ public class Story {
     }
     public void selectDifficulty(){
         while(true){
+            for (int i = 0; i < 70; ++i) System.out.println();
             System.out.println(bundle.getString("select_level"));
+            for (int i = 0; i < 3; ++i) System.out.println();
             String choice = scanner.next();
             if(choice.equalsIgnoreCase("easy")){
                 System.out.println(bundle.getString("level_easy"));
@@ -89,6 +104,7 @@ public class Story {
                 break;
             } else {
                 System.out.println(bundle.getString("invalid_input4"));            }
+                    for (int i = 0; i < 70; ++i) System.out.println();
         }
 
     }
@@ -104,6 +120,7 @@ public class Story {
                 "                                                                        \n";
 
         while (true) {
+            for (int i = 0; i < 70; ++i) System.out.println();
 
             String menu = "========================================================================\n";
             System.out.println("\n"+menu + "\n" + storyBanner + menu);
@@ -114,9 +131,10 @@ public class Story {
                 sleep(1425);
                 System.out.println(bundle.getString("start_game"));
                 sleep(1425);
-                for (int i = 0; i < 50; ++i) System.out.println();
+                for (int i = 0; i < 70; ++i) System.out.println();
                 break;
             } else if (intro.equalsIgnoreCase("read")) {
+                for (int i = 0; i < 70; ++i) System.out.println();
                 System.out.println("Press enter at any point to skip the intro.\n");
                 sleep(1000);
                 runThread();
@@ -130,7 +148,7 @@ public class Story {
                 sleep(1000);
                 System.out.println(bundle.getString("start_game"));
                 sleep(1425);
-                for (int i = 0; i < 50; ++i) System.out.println();
+                for (int i = 0; i < 70; ++i) System.out.println();
                 break;
             } else {
                 System.out.println(bundle.getString("invalid_input2"));
