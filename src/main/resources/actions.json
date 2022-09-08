@@ -6,5 +6,10 @@
   "help": ["help","info","menu","commands"],
   "look": ["look","search","find"],
   "quit": ["quit","exit","leave","stop","end","leave the game"],
-  "inventory": ["inventory","inven","invetory","inventor"]
+  "inventory": ["inventory","inven","invetory","inventor"],
+  "map": ["map","show map","show the map","showmap"],
+    "save": ["save","save game","save the game"],
+    "load": ["load","load game","load the game"],
+  "talk": ["talk","speak","chat","converse","conversate","conversate with","converse with","talk to","speak to","chat with","chat to","conversate to","converse to"],
+  "music": ["music","play music","play the music","playmusic","playthemusic", "sound", "play sound", "play the sound", "playsound", "playthesound"]
 }

@@ -160,6 +160,7 @@ public class Story {
             public void run() {
                 while(isRunning){
                     storyline(bundle.getString("storyline"), 120);
+                    break;
                     }
             }
         });

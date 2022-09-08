@@ -23,7 +23,7 @@
   },
   "Time Portal": {
     "name": "Time Portal",
-    "description": "The Time Portal is a room in a barn for threshed grain. It is built above the ground to keep the stored food away from mice, other animals and floods.",
+    "description": "Whatever this room was before, is now gone. All that remains is the portal back to your time - but you can't go back until you have the blood sample!",
     "items": [],
     "connectedRooms": {
       "north": "Pantry",

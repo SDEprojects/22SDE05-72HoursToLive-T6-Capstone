@@ -1,6 +1,8 @@
 package main.java.controller;
 
 import main.java.model.*;
+import main.java.view.GameMap;
+import main.java.view.Music;
 import main.java.view.View;
 
 import java.io.IOException;
@@ -14,6 +16,7 @@ public class GameController {
     private HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
     private static boolean werewolfCanAttack = true;
+    private static boolean wolfKingPrompt = true;
 
 
     public void userChoice() throws IOException {
@@ -67,6 +70,11 @@ public class GameController {
                         System.out.println(room.getDescription() + "\n");
                         sleep(750);
                         timer++;
+                        if (room.getName().equalsIgnoreCase("Throne Room") && wolfKingPrompt){
+                            System.out.println("You see The Werewolf King sitting on the throne. He looks at you with a menacing glare as he moves with lightning speed lunging toward you!\n");
+                            sleep(2000);
+                            wolfKingPrompt = false;
+                        }
 
                         break;
                     case "pickup":
@@ -81,7 +89,7 @@ public class GameController {
                             System.out.println("That item doesn't exist in this room");
                         }
                         sleep(500);
-                        werewolfCanAttack = false;
+                        werewolfCanAttack = true;
                         break;
                     case "look":
                         System.out.println("\n"+room.getDescription());
@@ -100,7 +108,7 @@ public class GameController {
                             System.out.println("\n");
                         }
                         sleep(1000);
-                        werewolfCanAttack = false;
+                        werewolfCanAttack = true;
                         break;
                     case "use":
                         if (player.getInventory().contains(r1.getNoun())) {
@@ -157,17 +165,41 @@ public class GameController {
                                 "You can attack a werewolf by typing \"attack wolf\".\n" +
                                 "You can look for items in a room by typing \"look\".\n" +
                                 "You can check your inventory by typing \"inventory\".\n" +
+                                "You can check your map by typing \"map\".\n" +
                                 "You can quit the game by typing \"quit\".\n");
-                        System.out.println("Directions are: North, East, South, West.");
-                        System.out.println("\nPress enter to return to the menu screen...");
-                        Scanner scanner = new Scanner(System.in);
-                        if (scanner.hasNextLine()) {
+                        System.out.println("Directions are: North, East, South, West.\n");
+                        System.out.println("Tip: It is not recommended to look for or pickup items when you are being attacked by a werewolf!");
+
+                        System.out.println("\nPress enter to return to the game...");
+                        Scanner helpScanner = new Scanner(System.in);
+                        if (helpScanner.hasNextLine()) {
+                            for (int i = 0; i < 50; ++i) System.out.println();
+                            break;
+                        }
+                    case "map":
+                        werewolfCanAttack = false;
+                        System.out.println("You open the map and see the following rooms:");
+                        sleep(1500);
+                        GameMap.showMap();
+                        System.out.println("\n\nPress enter to return to the game...");
+                        Scanner mapScanner = new Scanner(System.in);
+                        if (mapScanner.hasNextLine()) {
                             for (int i = 0; i < 50; ++i) System.out.println();
                             break;
                         }
                     case "quit":
                         System.out.println("Quitting the game...Thanks for playing!");
                         System.exit(0);
+                        break;
+                    case "music":
+                        if (Music.musicOn){
+                            Music.musicOn = false;
+                            System.out.println("Music turned off.");
+                        }
+                        else {
+                            Music.musicOn = true;
+                            System.out.println("Music turned on.");
+                        }
                         break;
 
                     default:
