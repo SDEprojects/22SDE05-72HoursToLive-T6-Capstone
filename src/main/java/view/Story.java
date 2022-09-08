@@ -77,7 +77,7 @@ public class Story {
     }
     public void selectDifficulty(){
         while(true){
-            System.out.println("Select a difficulty: Easy, Medium, Hard, or Impossible.\n");
+            System.out.println("Select a difficulty: Easy, Medium, Hard, or Impossible.");
             String choice = scanner.next();
             if(choice.equalsIgnoreCase("easy")){
                 System.out.println("You have selected easy mode.");
@@ -141,8 +141,6 @@ public class Story {
                         break;
                     }
                 }
-                sleep(400);
-                System.out.println("\nSkipping intro...\n");
                 sleep(1000);
                 System.out.println(bundle.getString("start_game"));
                 sleep(1425);
@@ -160,6 +158,11 @@ public class Story {
             public void run() {
                 while(isRunning){
                     storyline(bundle.getString("storyline"), 120);
+
+                    if (isRunning){
+                        sleep(700);
+                        System.out.println("\n\nPress enter when you are ready to start the game...Good luck!");
+                    }
                     break;
                     }
             }
