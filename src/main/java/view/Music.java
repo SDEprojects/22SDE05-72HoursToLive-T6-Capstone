@@ -1,18 +1,26 @@
 package main.java.view;
 
 import javax.sound.sampled.*;
-import java.io.File;
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 
 public class Music {
     public static boolean musicOn = true;
 
+    public Music() throws UnsupportedAudioFileException, IOException {
+    }
+
     public void playMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        File musicPath = new File("src/main/resources/sound.wav");
-        AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+
+
+        InputStream music = classLoader.getResourceAsStream("main/resources/sound.wav");
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(music));
+
         Clip clip = AudioSystem.getClip();
-        clip.open(audioInput);
+        clip.open(audioInputStream);
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

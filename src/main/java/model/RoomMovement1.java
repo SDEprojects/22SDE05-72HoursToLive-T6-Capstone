@@ -25,7 +25,7 @@ public class RoomMovement1 {
     {
         try {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            InputStream resources = classLoader.getResourceAsStream("rooms_with_items.json");
+            InputStream resources = classLoader.getResourceAsStream("rooms.json");
             allRooms = new ObjectMapper().readValue(resources, typeRef);
         } catch (IOException e) {
             throw new RuntimeException(e);
