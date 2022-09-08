@@ -56,6 +56,7 @@ public class Story {
                         "You can attack a werewolf by typing \"attack wolf\"\n" +
                         "You can look for items in a room by typing \"look\"\n" +
                         "You can check your inventory by typing \"inventory\"\n" +
+                        "You can turn music on or off with \"music\".\n" +
                         "You can quit the game by typing \"quit\"\n");
                 System.out.println("Directions are: North, East, South, West\n");
                 sleep(1500);

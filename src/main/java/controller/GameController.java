@@ -168,6 +168,7 @@ public class GameController {
                                 "You can look for items in a room by typing \"look\".\n" +
                                 "You can check your inventory by typing \"inventory\".\n" +
                                 "You can check your map by typing \"map\".\n" +
+                                "You can turn music on or off with \"music\".\n" +
                                 "You can quit the game by typing \"quit\".\n");
                         System.out.println("Directions are: North, East, South, West.\n");
                         System.out.println("Tip: It is not recommended to look for or pickup items when you are being attacked by a werewolf!");
