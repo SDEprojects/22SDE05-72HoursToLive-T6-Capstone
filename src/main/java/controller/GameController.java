@@ -5,6 +5,8 @@ import main.java.view.GameMap;
 import main.java.view.Music;
 import main.java.view.View;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.*;
 
@@ -16,7 +18,7 @@ public class GameController {
     private HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
     private static boolean werewolfCanAttack = true;
-    private static boolean wolfKingPrompt = true;
+    public static boolean wolfKingPrompt = true;
 
 
     public void userChoice() throws IOException {
@@ -192,14 +194,7 @@ public class GameController {
                         System.exit(0);
                         break;
                     case "music":
-                        if (Music.musicOn){
-                            Music.musicOn = false;
-                            System.out.println("Music turned off.");
-                        }
-                        else {
-                            Music.musicOn = true;
-                            System.out.println("Music turned on.");
-                        }
+                        Music.playerSelectMusic();
                         break;
 
                     default:
@@ -210,6 +205,10 @@ public class GameController {
 
             } catch (NullPointerException e) {
                 break;
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
             }
 
 

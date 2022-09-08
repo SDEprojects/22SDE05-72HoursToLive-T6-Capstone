@@ -13,7 +13,7 @@ public class Client {
         GameSettings gameSettings = new GameSettings();
         Music music = new Music();
         music.playMusic();
-//        gameSettings.readGameStory();
+        gameSettings.readGameStory();
         gameSettings.startGame();
         gameSettings.endGame();
 

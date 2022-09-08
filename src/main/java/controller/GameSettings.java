@@ -20,6 +20,7 @@ public class GameSettings {
     }
     public void startGame() throws IOException {
         List<String> emptyInventory = new ArrayList<>();
+        GameController.wolfKingPrompt = true;
         GameController.player.setHealth(100);
         GameController.player.setAttackPower(10);
         GameController.player.setArmorRating(10);

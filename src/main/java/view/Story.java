@@ -81,7 +81,7 @@ public class Story {
             String choice = scanner.next();
             if(choice.equalsIgnoreCase("easy")){
                 System.out.println("You have selected easy mode.");
-                difficulty = 1;
+                difficulty = -2;
                 sleep(1000);
                 break;
             } else if(choice.equalsIgnoreCase("medium")){
