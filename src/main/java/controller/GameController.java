@@ -48,7 +48,7 @@ public class GameController {
                 }
                 if (timer>19){
 //                    System.out.println("You only have " + (72-(timer*3)) + " hours left to escape! Hurry!");
-                    System.out.println(bundle.getString("hours_status1") + (72-(timer*3)) + bundle.getString("hours_status2"));
+                    System.out.println(bundle.getString("hours_status1") + (72-(timer*3)) + " " + bundle.getString("hours_status2"));
                     sleep(750);
                 }
 
@@ -57,7 +57,7 @@ public class GameController {
                 Response r1 = InputScanner.getValidResponse();
                 for (int i = 0; i < 70; ++i) System.out.println();
 
-                if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal")){
+                if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal") && player.getInventory().contains(r1.getNoun())){
                     if (r1.getNoun().equalsIgnoreCase("blood sample")){
                         player.pickup("Trophy");
                         break;
@@ -84,20 +84,19 @@ public class GameController {
                         break;
                     case "pickup":
                         if (player.getInventory().size() > 2) {
-//                            System.out.println("You can't carry anymore items! Try using an item in your inventory.");
+                            werewolfCanAttack = false;
                             System.out.println(bundle.getString("pickup1"));
 
                         } else if (room.getItems().contains(r1.getNoun())) {
                             player.pickup(r1.getNoun());
                             room.getItems().remove(r1.getNoun());
-//                            System.out.println("You picked up the " + r1.getNoun() + "! It has been added to your inventory.");
+                            werewolfCanAttack = true;
                             System.out.println(bundle.getString("pickup2") + r1.getNoun() + bundle.getString("pickup3"));
                         } else {
-//                            System.out.println("That item doesn't exist in this room");
+                            werewolfCanAttack = false;
                             System.out.println(bundle.getString("pickup4"));
                         }
                         sleep(500);
-                        werewolfCanAttack = true;
                         break;
                     case "look":
                         System.out.println("\n"+room.getDescription());
@@ -190,8 +189,6 @@ public class GameController {
                         }
                     case "map":
                         werewolfCanAttack = false;
-                        System.out.println("You open the map and see the following rooms:");
-                        sleep(1500);
                         GameMap.showMap();
                         System.out.println("\n\nPress enter to return to the game...");
                         Scanner mapScanner = new Scanner(System.in);

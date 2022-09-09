@@ -51,6 +51,7 @@ public class GameSettings {
                 System.out.println(bundle.getString("trophy_response1"));
                 sleep(1500);
                 System.out.println(bundle.getString("trophy_response2"));
+                sleep(1500);
                 break;
             }
             else {
@@ -60,13 +61,14 @@ public class GameSettings {
     }
     public void endGame() {
         System.out.println(bundle.getString("game_over1"));
+        sleep(1000);
         System.out.println(bundle.getString("game_over2"));
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("yes")) {
                 try {
-                    for (int i = 0; i < 50; ++i) System.out.println();
+                    for (int i = 0; i < 70; ++i) System.out.println();
                     Client.repeatGame();
                     break;
                 } catch (IOException e) {
@@ -75,6 +77,7 @@ public class GameSettings {
             }
             else if (input.equalsIgnoreCase("no")) {
                 System.out.println("\nGoodbye!");
+                System.exit(0);
                 break;
             }
             else {

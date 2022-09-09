@@ -25,7 +25,9 @@ public class Story {
                     "                                                                      \n";
 
     public static String infoMenu = "======================================================================\n";
+
     public void titleScreen() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        for (int i = 0; i < 70; ++i) System.out.println();
 
         String menu = "===========================================================================================================================================\n";
         String titleBanner =
@@ -37,8 +39,6 @@ public class Story {
                         "███████║███████╗ ╚████╔╝ ███████╗██║ ╚████║   ██║      ██║          ██║   ╚███╔███╔╝╚██████╔╝    ██║  ██║╚██████╔╝╚██████╔╝██║  ██║███████║\n" +
                         "╚══════╝╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝      ╚═╝          ╚═╝    ╚══╝╚══╝  ╚═════╝     ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚══════╝\n" +
                         "                                                                                                                                           \n";
-
-
 
 
         System.out.println(menu + titleBanner + menu);
@@ -61,50 +61,54 @@ public class Story {
                     titleScreen();
                     break;
                 }
-            }else if (intro.equalsIgnoreCase("music")){
+            } else if (intro.equalsIgnoreCase("music")) {
                 Music.playerSelectMusic();
-                sleep(1000);
+                sleep(700);
                 titleScreen();
                 break;
-            }
-            else if (intro.equalsIgnoreCase("quit")) {
-                System.out.println("quit_menu1");
+            } else if (intro.equalsIgnoreCase("quit")) {
+                System.out.println(bundle.getString("quit_menu1"));
                 sleep(1000);
                 System.exit(0);
             } else {
-                System.out.println(bundle.getString("invalid_input3"));            }
+                System.out.println(bundle.getString("invalid_input3"));
+                sleep(1600);
+                titleScreen();
+                break;
+            }
 
         }
     }
-    public void selectDifficulty(){
-        while(true){
+
+    public void selectDifficulty() {
+        while (true) {
             for (int i = 0; i < 70; ++i) System.out.println();
             System.out.println(bundle.getString("select_level"));
             for (int i = 0; i < 3; ++i) System.out.println();
             String choice = scanner.next();
-            if(choice.equalsIgnoreCase("easy")){
+            if (choice.equalsIgnoreCase("easy")) {
                 System.out.println(bundle.getString("level_easy"));
-                difficulty = -2;
+                difficulty = 0;
                 sleep(1000);
-                break;
-            } else if(choice.equalsIgnoreCase("medium")){
+            } else if (choice.equalsIgnoreCase("medium")) {
                 System.out.println(bundle.getString("level_medium"));
                 sleep(1000);
-                difficulty = 5;
-                break;
-            } else if(choice.equalsIgnoreCase("hard")){
+                difficulty = 4;
+            } else if (choice.equalsIgnoreCase("hard")) {
                 System.out.println(bundle.getString("level_hard"));
                 sleep(1000);
-                difficulty = 10;
-                break;
-            } else if(choice.equalsIgnoreCase("impossible")){
+                difficulty = 7;
+            } else if (choice.equalsIgnoreCase("impossible")) {
                 System.out.println(bundle.getString("level_impossible"));
                 sleep(1000);
-                difficulty = 15;
-                break;
+                difficulty = 11;
             } else {
-                System.out.println(bundle.getString("invalid_input4"));            }
-                    for (int i = 0; i < 70; ++i) System.out.println();
+                System.out.println(bundle.getString("invalid_input4"));
+                sleep(1500);
+                continue;
+            }
+            for (int i = 0; i < 70; ++i) System.out.println();
+            break;
         }
 
     }
@@ -123,8 +127,10 @@ public class Story {
             for (int i = 0; i < 70; ++i) System.out.println();
 
             String menu = "========================================================================\n";
-            System.out.println("\n"+menu + "\n" + storyBanner + menu);
-            System.out.println(bundle.getString("intro_text1"));            String intro = scanner.next();
+            System.out.println("\n" + menu + "\n" + storyBanner + menu);
+            System.out.println(bundle.getString("intro_text1"));
+            for (int i = 0; i < 5; ++i) System.out.println();
+            String intro = scanner.next();
             if (intro.equalsIgnoreCase("skip")) {
 
                 System.out.println(bundle.getString("skip_intro"));
@@ -135,40 +141,41 @@ public class Story {
                 break;
             } else if (intro.equalsIgnoreCase("read")) {
                 for (int i = 0; i < 70; ++i) System.out.println();
-                System.out.println("Press enter at any point to skip the intro.\n");
+                System.out.println(bundle.getString("press_enter"));
                 sleep(1000);
                 runThread();
-                while (true){
+                while (true) {
                     String readString = scanner.nextLine();
                     if (scanner.hasNextLine()) {
                         isRunning = false;
                         break;
                     }
                 }
-                sleep(1000);
+                sleep(100);
                 System.out.println(bundle.getString("start_game"));
-                sleep(1425);
+                sleep(425);
                 for (int i = 0; i < 70; ++i) System.out.println();
                 break;
             } else {
                 System.out.println(bundle.getString("invalid_input2"));
+                sleep(1500);
             }
         }
     }
 
-    public void runThread(){
+    public void runThread() {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while(isRunning){
+                while (isRunning) {
                     storyline(bundle.getString("storyline"), 120);
 
-                    if (isRunning){
+                    if (isRunning) {
                         sleep(700);
-                        System.out.println("\n\nPress enter when you are ready to start the game...Good luck!");
+                        System.out.println(bundle.getString("press_enter1"));
                     }
                     break;
-                    }
+                }
             }
         });
         thread.start();
@@ -181,6 +188,7 @@ public class Story {
         }
         return text;
     }
+
     private void storyline(String text, int speed) {
         for (int i = 0; i < text.length(); i++) {
             System.out.printf("%c", text.charAt(i));

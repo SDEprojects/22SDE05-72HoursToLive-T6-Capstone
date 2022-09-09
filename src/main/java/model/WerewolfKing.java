@@ -1,7 +1,5 @@
 package main.java.model;
 
-import main.java.controller.GameController;
-
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -36,9 +34,18 @@ public class WerewolfKing extends Werewolf{
 
 
     public void specialAttack(Character enemy){
-        enemy.getInventory().clear();
-        if(GameController.player.getInventory().size() > 0) {
-            System.out.println("The Wolf King reaches for your inventory bag and crushes it with his bare hands. All items you had are now lost!");
+        if(enemy.getInventory().size() > 0) {
+            System.out.println("The Wolf King reaches for your inventory bag and crushes it with his bare hands. All items you had are now lost!\n");
+            enemy.getInventory().clear();
+            sleep(1500);
         }
         }
+
+    private static void sleep(int timer) {
+        try {
+            Thread.sleep(timer);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
