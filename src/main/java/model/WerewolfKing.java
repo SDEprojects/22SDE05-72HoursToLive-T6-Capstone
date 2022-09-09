@@ -2,9 +2,11 @@ package main.java.model;
 
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 public class WerewolfKing extends Werewolf{
     private Random random;
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
 
     public WerewolfKing(){
         super("The Wolf King", "Throne Room", 100, 12, new LinkedList<String>(), 10);
@@ -26,7 +28,7 @@ public class WerewolfKing extends Werewolf{
         int val = random.nextInt(5) + 1;
 
         if (getHealth() < 70 && val == 1){
-            System.out.println("The mighty Wolf King has deflected your attack!\n");
+            System.out.println(bundle.getString("werewolfKing_deflects1"));
             return;
         }
         super.gotAttacked(enemy);
@@ -35,7 +37,7 @@ public class WerewolfKing extends Werewolf{
 
     public void specialAttack(Character enemy){
         if(enemy.getInventory().size() > 0) {
-            System.out.println("The Wolf King reaches for your inventory bag and crushes it with his bare hands. All items you had are now lost!\n");
+            System.out.println(bundle.getString("werewolfKing_destroys1"));
             enemy.getInventory().clear();
             sleep(1500);
         }

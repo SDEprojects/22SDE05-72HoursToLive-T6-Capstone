@@ -80,20 +80,20 @@ public class Soldier extends Character{
             setArmorRating(getArmorRating() + r.nextInt(med - low) + low);
             getInventory().remove(item);
         } else if (item.equals("health potion")) {
-            System.out.println("You have used a health potion! You feel invigorated and your health is full!");
+            System.out.println(bundle.getString("health_potion"));
             setHealth(100);
             getInventory().remove("health potion");
 
         } else if (item.equals("blood sample")) {
-                System.out.println("You need it make to the Time Portal and bring this back safely!\n");
+                System.out.println(bundle.getString("blood_sample"));
         }
         else if (item.equals("armor")){
             armor = true;
-            System.out.println("You equip your armor. You feel stronger!");
+            System.out.println(bundle.getString("armor_eq"));
             getInventory().remove("armor");
         }else if (item.equals("invisibility cloak")){
             visible = false;
-            System.out.println("You vanish into the shadows...");
+            System.out.println(bundle.getString("vanish"));
             getInventory().remove("invisibility cloak");
         }else if (item.equals("sword")){
             setAttackPower(getAttackPower() + 20);
