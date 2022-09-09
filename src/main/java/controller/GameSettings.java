@@ -81,7 +81,7 @@ public class GameSettings {
                 break;
             }
             else {
-                System.out.println("Please enter yes or no.");
+                System.out.println(bundle.getString("replay"));
             }
         }
     }

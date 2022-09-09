@@ -2,6 +2,7 @@ package main.java.model;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import main.java.view.TextColor;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -69,7 +70,7 @@ public class RoomMovement {
         sleep(1000);
         System.out.println(bundle.getString("firstRoom_text2"));
         sleep(2000);
-        System.out.println(bundle.getString("firstRoom_text3"));
+        System.out.println(TextColor.RED + bundle.getString("firstRoom_text3"));
         sleep(2350);
         System.out.println(bundle.getString("firstRoom_text4") + room.getName()+ ".");
         sleep(750);
