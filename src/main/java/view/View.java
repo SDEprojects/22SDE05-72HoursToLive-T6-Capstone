@@ -7,24 +7,14 @@ import main.java.model.Soldier;
 
 public class View {
 
-    private static String fullMoon =
-            "  █████▒█    ██  ██▓     ██▓        ███▄ ▄███▓ ▒█████   ▒█████   ███▄    █ \n" +
-                    "▓██   ▒ ██  ▓██▒▓██▒    ▓██▒       ▓██▒▀█▀ ██▒▒██▒  ██▒▒██▒  ██▒ ██ ▀█   █ \n" +
-                    "▒████ ░▓██  ▒██░▒██░    ▒██░       ▓██    ▓██░▒██░  ██▒▒██░  ██▒▓██  ▀█ ██▒\n" +
-                    "░▓█▒  ░▓▓█  ░██░▒██░    ▒██░       ▒██    ▒██ ▒██   ██░▒██   ██░▓██▒  ▐▌██▒\n" +
-                    "░▒█░   ▒▒█████▓ ░██████▒░██████▒   ▒██▒   ░██▒░ ████▓▒░░ ████▓▒░▒██░   ▓██░\n" +
-                    " ▒ ░   ░▒▓▒ ▒ ▒ ░ ▒░▓  ░░ ▒░▓  ░   ░ ▒░   ░  ░░ ▒░▒░▒░ ░ ▒░▒░▒░ ░ ▒░   ▒ ▒ \n" +
-                    " ░     ░░▒░ ░ ░ ░ ░ ▒  ░░ ░ ▒  ░   ░  ░      ░  ░ ▒ ▒░   ░ ▒ ▒░ ░ ░░   ░ ▒░\n" +
-                    " ░ ░    ░░░ ░ ░   ░ ░     ░ ░      ░      ░   ░ ░ ░ ▒  ░ ░ ░ ▒     ░   ░ ░ \n" +
-                    "          ░         ░  ░    ░  ░          ░       ░ ░      ░ ░           ░ \n" +
-                    "                                                                           \n";
 
     public static void menu() {
         if (GameController.timer % 7 == 0 && GameController.timer > 0 && GameController.moonTrigger) {
             textStream("\nAHHHHHHHH-WOOOOOOOOO!!\n\n", 140);
-            System.out.print("Oh no! You look into the sky and see that tonight");
+            System.out.println(Art.wolfHowl);
+            System.out.print("\nOh no! You look into the sky and see that tonight");
             textStream("...is a....\n\n", 290);
-            System.out.println(fullMoon);
+            System.out.println(Art.fullMoon);
             sleep(500);
             System.out.println("The werewolves are more powerful tonight! Be careful!\n");
             sleep(750);

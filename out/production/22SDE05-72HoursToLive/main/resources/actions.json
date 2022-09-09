@@ -1,6 +1,6 @@
 {"retreat":["retreat","go back"],
   "pickup":["pick up","pick","pickup","grab","take","picup","pikup","get"],
-  "attack":["attack","beat"],
+  "attack":["attack","beat","strike"],
   "use":["use","equip"],
   "go":["go","move","sprint","jump","hop","skip","run","walk","dash","direction","crawl","heading","movement"],
   "help": ["help","info","menu","commands"],

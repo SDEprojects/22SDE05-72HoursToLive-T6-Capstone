@@ -4,18 +4,15 @@ import main.java.model.Room;
 import main.java.model.RoomMovement;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class InputScanner {
-
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
 
     public static Response getValidResponse() throws IOException {
         Room room = RoomMovement.roomSwitcher;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\nWhat would you like to do?");
+        System.out.println(bundle.getString("input_scanner_ask"));
         for (int i = 0; i < 5; ++i) System.out.println();
         String choice = (scanner.nextLine()).toLowerCase();
         TextParser textParser = new TextParser();
@@ -24,23 +21,27 @@ public class InputScanner {
         while (true) {
             try {
                 if (!r1.isValid()) {
-                    System.out.println("invalid response, try \"go east\"");
+                    System.out.println(bundle.getString("invalid_input1"));
+                    sleep(1000);
+                    r1 = getValidResponse();
                     break;
                 } else if (r1.getVerb().equals("go") && Objects.equals(room.getConnectedRooms().get(r1.getLocation()), "None")) {
-                    System.out.println("You can't go that way, try another direction!");
+                    System.out.println(bundle.getString("invalid_input6"));
                     sleep(1000);
                     r1 = getValidResponse();
                     break;
                 }
                 else if (r1.getVerb().equals("go") && !(validDirections.contains(r1.getLocation()))) {
-                    System.out.println("You must choose a valid direction! Valid directions are: north, south, east, and west.");
+                    System.out.println(bundle.getString("invalid_input5"));
                     r1 = getValidResponse();
                     break;
                 }
                 return r1;
 
             } catch (NullPointerException e) {
-                System.out.println("That is not a valid input! INSIDE RESPONSE");
+                System.out.println(bundle.getString("invalid_input1"));
+                sleep(1000);
+                r1 = getValidResponse();
                 break;
             }
         }
