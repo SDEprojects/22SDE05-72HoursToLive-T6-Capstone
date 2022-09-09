@@ -3,6 +3,7 @@ package main.java.client;
 
 import main.java.controller.GameSettings;
 import main.java.view.Music;
+import main.java.view.Story;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -22,6 +23,8 @@ public class Client {
     }
     public static void repeatGame() throws IOException {
         GameSettings gameSettings = new GameSettings();
+        Story story = new Story();
+        story.selectDifficulty();
         gameSettings.startGame();
         gameSettings.endGame();
     }

@@ -1,7 +1,7 @@
 {
   "Castle Grounds": {
     "name": "Castle Grounds",
-    "description": "The castle grounds is normally loud and full of people, but today it's empty...",
+    "description": "The castle grounds is normally loud and full of people, but today it looks empty...",
     "items": [],
     "connectedRooms": {
       "north": "Ballroom",
@@ -58,7 +58,7 @@
 
   "Dining Room": {
     "name": "Dining Room",
-    "description": "The Dining Room is used for eating meals. Other activities such playing board games may also take place in the dinning room",
+    "description": "The Dining Room is used for eating meals. Other activities such playing board games may also take place in the dinning room.",
     "items": [],
     "connectedRooms": {
       "north": "Great Hall",
@@ -70,7 +70,7 @@
 
   "Armory": {
     "name": "Armory",
-    "description": "An Armory is a supply of arms for defending and attacking. It can also be a place where arms are manufactured. It is a well guarded place ",
+    "description": "An Armory is a supply of arms for defending and attacking. It can also be a place where arms are manufactured. It is a well guarded place.",
     "items": [],
     "connectedRooms": {
       "north": "Bed Chamber III",
@@ -106,7 +106,7 @@
 
   "Bed Chamber I": {
     "name": "Bed Chamber I",
-    "description": "The Bed Chamber is used for sleeping, resting and healing",
+    "description": "The Bed Chamber is used for sleeping, resting and healing.",
     "items": [],
     "connectedRooms": {
       "north": "None",
@@ -117,7 +117,7 @@
   },
   "Bed Chamber II": {
     "name": "Bed Chamber II",
-    "description": "The Bed Chamber is used for sleeping, resting and healing",
+    "description": "The Bed Chamber is used for sleeping, resting and healing.",
     "items": [],
     "connectedRooms": {
       "north": "None",
@@ -129,7 +129,7 @@
 
   "Bed Chamber III": {
     "name": "Bed Chamber III",
-    "description": "The Bed Chamber is used for sleeping, resting and healing",
+    "description": "The Bed Chamber is used for sleeping, resting and healing.",
     "items": [],
     "connectedRooms": {
       "north": "None",

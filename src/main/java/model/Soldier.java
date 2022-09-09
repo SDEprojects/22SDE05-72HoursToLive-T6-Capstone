@@ -2,14 +2,12 @@ package main.java.model;
 
 import main.java.view.Story;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Soldier extends Character{
     boolean visible;
     boolean armor;
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
     public Soldier(){
         super();
         visible = true;
@@ -44,7 +42,7 @@ public class Soldier extends Character{
         Random r = new Random();
         int low = 1;
         int high = 6;
-        setHealth(getHealth() - ((attack * 10) / getArmorRating()) - (r.nextInt(high-low) + low)+4 - Story.difficulty);
+        setHealth(getHealth() - (((attack * 10) / getArmorRating()) - (r.nextInt(high-low) + low)+4) - Story.difficulty);
     }
     public void pickup(String item){
         getInventory().add(item);
@@ -61,17 +59,24 @@ public class Soldier extends Character{
         int med = 4;
         int high = 6;
 
+
+        String[] armorRandom = {bundle.getString("armor_use1"), bundle.getString("armor_use2"), bundle.getString("armor_use3"),bundle.getString("armor_use4"), bundle.getString("armor_use5"), bundle.getString("armor_use6"),bundle.getString("armor_use7")};
+        String armorRandomResponse = armorRandom[r.nextInt(armorRandom.length)];
+
+        String[] weaponRandom = {bundle.getString("weapon_use1"), bundle.getString("weapon_use2"), bundle.getString("weapon_use3"),bundle.getString("weapon_use4"), bundle.getString("weapon_use5"), bundle.getString("weapon_use6"),bundle.getString("weapon_use7")};
+        String weaponRandomResponse = weaponRandom[r.nextInt(weaponRandom.length)];
+
         if (heavyArmor.contains(item)) {
-            System.out.println("You put on the " + item + ". You feel protected!");
+            System.out.println(bundle.getString("armor_use0") + item + armorRandomResponse);
             setArmorRating(getArmorRating() + r.nextInt(high - low) + low);
             getInventory().remove(item);
         } else if (damageItems.contains(item)) {
-            System.out.println("You put on the " + item + ". You feel a new sense of power running through your veins!");
+            System.out.println(bundle.getString("weapon_use0") + item + weaponRandomResponse);
             setAttackPower(getAttackPower() + r.nextInt(high - med) + med);
             getInventory().remove(item);
 
         } else if (lightArmor.contains(item)) {
-            System.out.println("You put on the " + item + ". You feel a little extra protection.");
+            System.out.println(bundle.getString("armor_use0") + item + armorRandomResponse);
             setArmorRating(getArmorRating() + r.nextInt(med - low) + low);
             getInventory().remove(item);
         } else if (item.equals("health potion")) {
@@ -80,7 +85,7 @@ public class Soldier extends Character{
             getInventory().remove("health potion");
 
         } else if (item.equals("blood sample")) {
-                System.out.println("You need it make to the Time Portal and bring this back safely!");
+                System.out.println("You need it make to the Time Portal and bring this back safely!\n");
         }
         else if (item.equals("armor")){
             armor = true;

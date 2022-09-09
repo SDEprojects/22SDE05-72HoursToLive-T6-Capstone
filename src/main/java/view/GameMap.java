@@ -5,10 +5,24 @@ import main.java.model.RoomMovement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 public class GameMap {
+    static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
 
     public static void showMap(){
+        String mapBanner = "\n███╗   ███╗ █████╗ ██████╗ \n" +
+                "████╗ ████║██╔══██╗██╔══██╗\n" +
+                "██╔████╔██║███████║██████╔╝\n" +
+                "██║╚██╔╝██║██╔══██║██╔═══╝ \n" +
+                "██║ ╚═╝ ██║██║  ██║██║     \n" +
+                "╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     \n" +
+                "                           \n";
+
+        String mapMenu = "===========================\n";
+        System.out.println(mapMenu + mapBanner + mapMenu);
+        System.out.println(bundle.getString("map"));
+
         String room = RoomMovement.currentRoom;
         HashMap<String, Room> allRooms = RoomMovement.getAllRooms();
         ArrayList<String> roomList = new ArrayList<>(allRooms.keySet());
