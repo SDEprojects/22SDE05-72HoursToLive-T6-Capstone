@@ -13,6 +13,7 @@ public class Soldier extends Character{
         visible = true;
         armor = false;
     }
+
     public Soldier(String name, String location, int health, int attackPower, List<String> inventory, int armorRating) {
         super(name, location, health, attackPower, inventory,armorRating);
         visible = true;
