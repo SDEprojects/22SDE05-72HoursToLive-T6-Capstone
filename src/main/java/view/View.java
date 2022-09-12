@@ -4,6 +4,7 @@ import main.java.controller.GameController;
 import main.java.model.Room;
 import main.java.model.RoomMovement;
 import main.java.model.Soldier;
+import org.w3c.dom.Text;
 
 public class View {
 
@@ -11,13 +12,13 @@ public class View {
     public static void menu() {
         String cyan = TextColor.CYAN;
         if (GameController.timer % 7 == 0 && GameController.timer > 0 && GameController.moonTrigger) {
-            textStream("\nAHHHHHHHH-WOOOOOOOOO!!\n\n", 140);
-            System.out.println(Art.wolfHowl);
+            textStream("\n\u001B[31mAHHHHHHHH-WOOOOOOOOO!!\n\n", 140);
+            System.out.println(Art.wolfHowl + TextColor.RESET);
             System.out.print("\nOh no! You look into the sky and see that tonight");
             textStream("...is a....\n\n", 290);
-            System.out.println(Art.fullMoon);
+            System.out.println(TextColor.RED + Art.fullMoon);
             sleep(500);
-            System.out.println("The werewolves are more powerful tonight! Be careful!\n");
+            System.out.println(TextColor.YELLOW + "The werewolves are more powerful tonight! Be careful!\n" + TextColor.RESET);
             sleep(750);
             GameController.moonTrigger = false;
         }

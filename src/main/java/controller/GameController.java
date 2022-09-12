@@ -94,7 +94,7 @@ public class GameController {
                         sleep(500);
                         break;
                     case "look":
-                        System.out.println("\n"+room.getDescription());
+                        System.out.println("\n" + TextColor.BLUE + room.getDescription());
                         sleep(500);
                         System.out.println(bundle.getString("look1"));
                         sleep(500);
@@ -107,7 +107,7 @@ public class GameController {
                                 sleep(1000);
                                 System.out.println(bundle.getString("look4") + key + "!");
                             }
-                            System.out.println("\n");
+                            System.out.println("\n" + TextColor.RESET);
                         }
                         sleep(1000);
                         werewolfCanAttack = true;
