@@ -35,7 +35,7 @@ public class GameController {
                     wolf.attack(player);
                     sleep(300);
                     System.out.println(TextColor.RED + wolf.getName() + " " + werewolfAttackResponse + TextColor.RESET);
-                    System.out.println(bundle.getString("health_status1") + player.getHealth()+"!\n");
+                    System.out.println(TextColor.YELLOW + bundle.getString("health_status1") + player.getHealth() + "!\n" + TextColor.RESET);
                     sleep(750);
                     werewolfCanAttack = false;
                 }
@@ -43,8 +43,8 @@ public class GameController {
                 if (player.getHealth() <= 0 || timer >= 24) {
                     break;
                 }
-                if (timer>19){
-                    System.out.println(bundle.getString("hours_status1") + (72-(timer*3)) + " " + bundle.getString("hours_status2"));
+                if (timer > 19) {
+                    System.out.println(TextColor.RED + bundle.getString("hours_status1") + (72 - (timer * 3)) + " " + bundle.getString("hours_status2") + TextColor.RESET);
                     sleep(750);
                 }
 
@@ -53,8 +53,8 @@ public class GameController {
                 Response r1 = InputScanner.getValidResponse();
                 for (int i = 0; i < 70; ++i) System.out.println();
 
-                if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal") && player.getInventory().contains(r1.getNoun())){
-                    if (r1.getNoun().equalsIgnoreCase("blood sample")){
+                if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal") && player.getInventory().contains(r1.getNoun())) {
+                    if (r1.getNoun().equalsIgnoreCase("blood sample")) {
                         player.pickup("Trophy");
                         break;
                     }
@@ -65,12 +65,12 @@ public class GameController {
                         werewolfCanAttack = true;
                         RoomMovement.switchRooms(r1.getLocation());
                         room = RoomMovement.roomSwitcher;
-                        System.out.println(TextColor.BLUE + bundle.getString("go1")+ room.getName() + "." + TextColor.RESET);
+                        System.out.println(TextColor.BLUE + bundle.getString("go1") + room.getName() + "." + TextColor.RESET);
                         sleep(750);
                         System.out.println(TextColor.BLUE + room.getDescription() + "\n" + TextColor.RESET);
                         sleep(750);
                         timer++;
-                        if (room.getName().equalsIgnoreCase("Throne Room") && wolfKingPrompt){
+                        if (room.getName().equalsIgnoreCase("Throne Room") && wolfKingPrompt) {
                             System.out.println(TextColor.RED + bundle.getString("werewolfKing_attack1") + TextColor.RESET);
                             sleep(2000);
                             wolfKingPrompt = false;
@@ -80,7 +80,7 @@ public class GameController {
                     case "pickup":
                         if (player.getInventory().size() > 2) {
                             werewolfCanAttack = false;
-                            System.out.println(bundle.getString("pickup1"));
+                            System.out.println(TextColor.RED + bundle.getString("pickup1") + TextColor.RESET);
 
                         } else if (room.getItems().contains(r1.getNoun())) {
                             player.pickup(r1.getNoun());
@@ -89,23 +89,23 @@ public class GameController {
                             System.out.println(TextColor.GREEN + bundle.getString("pickup2") + r1.getNoun() + bundle.getString("pickup3") + TextColor.RESET);
                         } else {
                             werewolfCanAttack = false;
-                            System.out.println(bundle.getString("pickup4"));
+                            System.out.println(TextColor.RED + bundle.getString("pickup4") + TextColor.RESET);
                         }
                         sleep(500);
                         break;
                     case "look":
                         System.out.println("\n" + TextColor.BLUE + room.getDescription());
                         sleep(500);
-                        System.out.println(bundle.getString("look1"));
+                        System.out.println(TextColor.WHITE + bundle.getString("look1"));
                         sleep(500);
-                        System.out.println(bundle.getString("look2"));
+                        System.out.println(TextColor.WHITE + bundle.getString("look2"));
                         sleep(500);
                         if (room.getItems().size() < 1) {
-                            System.out.println(bundle.getString("look3"));
+                            System.out.println(TextColor.WHITE + bundle.getString("look3") + TextColor.RESET);
                         } else {
                             for (String key : room.getItems()) {
                                 sleep(1000);
-                                System.out.println(bundle.getString("look4") + key + "!");
+                                System.out.println(TextColor.WHITE + bundle.getString("look4") + key + "!");
                             }
                             System.out.println("\n" + TextColor.RESET);
                         }
@@ -117,7 +117,7 @@ public class GameController {
                             player.useItems(r1.getNoun());
                             sleep(1000);
                         } else {
-                            System.out.println(bundle.getString("use1"));
+                            System.out.println(TextColor.RED + bundle.getString("use1") + TextColor.RESET);
                             sleep(1000);
                         }
                         werewolfCanAttack = false;
@@ -132,14 +132,14 @@ public class GameController {
                         if (w1.getHealth() <= 0) {
                             monsterMap.get(currentRoom).remove(0);
 
-                            if (w1.getInventory().size() >0){
-                            for (String item : w1.getInventory()){
-                                String[] werewolfKingDead = {bundle.getString("werewolfKing_dead1"), bundle.getString("werewolfKing_dead2"), bundle.getString("werewolfKing_dead3")};
-                                String werewolfKing_deadResponse = werewolfKingDead[ran.nextInt(werewolfKingDead.length)];
-                                System.out.println(werewolfKing_deadResponse);
-                                room.getItems().add(item); }
-                            }
-                            else {
+                            if (w1.getInventory().size() > 0) {
+                                for (String item : w1.getInventory()) {
+                                    String[] werewolfKingDead = {bundle.getString("werewolfKing_dead1"), bundle.getString("werewolfKing_dead2"), bundle.getString("werewolfKing_dead3")};
+                                    String werewolfKing_deadResponse = werewolfKingDead[ran.nextInt(werewolfKingDead.length)];
+                                    System.out.println(werewolfKing_deadResponse);
+                                    room.getItems().add(item);
+                                }
+                            } else {
                                 String[] werewolfDead = {bundle.getString("werewolf_dead1"), bundle.getString("werewolf_dead2"), bundle.getString("werewolf_dead3")};
                                 String werewolf_deadResponse = werewolfDead[ran.nextInt(werewolfDead.length)];
                                 System.out.println(werewolf_deadResponse);
@@ -165,8 +165,8 @@ public class GameController {
                         break;
                     case "help":
                         werewolfCanAttack = false;
-                        System.out.println(Story.infoMenu + "\n" + Story.infoBanner + Story.infoMenu);
-                        System.out.println(bundle.getString("help_menu"));
+                        System.out.println(TextColor.RED + Story.infoMenu + "\n" + Story.infoBanner + Story.infoMenu);
+                        System.out.println(TextColor.WHITE + bundle.getString("help_menu"));
                         Scanner helpScanner = new Scanner(System.in);
                         if (helpScanner.hasNextLine()) {
                             for (int i = 0; i < 70; ++i) System.out.println();
@@ -175,7 +175,7 @@ public class GameController {
                     case "map":
                         werewolfCanAttack = false;
                         GameMap.showMap();
-                        System.out.println("\n\n" + bundle.getString("return_to_game"));
+                        System.out.println(TextColor.YELLOW + "\n\n" + bundle.getString("return_to_game"));
                         Scanner mapScanner = new Scanner(System.in);
                         if (mapScanner.hasNextLine()) {
                             for (int i = 0; i < 70; ++i) System.out.println();
@@ -183,7 +183,7 @@ public class GameController {
                         }
                     case "quit":
 //                        System.out.println("Quitting the game...Thanks for playing!");
-                        System.out.println(bundle.getString("quit_menu1"));
+                        System.out.println(TextColor.WHITE + bundle.getString("quit_menu1"));
                         System.exit(0);
                         break;
                     case "music":
@@ -192,7 +192,7 @@ public class GameController {
 
                     default:
 //                        System.out.println("That is not a valid input!");
-                        System.out.println(bundle.getString("invalid_input1"));
+                        System.out.println(TextColor.RED + bundle.getString("invalid_input1"));
                         werewolfCanAttack = false;
                         break;
                 }
@@ -217,22 +217,21 @@ public class GameController {
             monsterMap.put(key, new LinkedList<Werewolf>());
             if (key.equals("Throne Room")) {
                 monsterMap.get(key).add(new WerewolfKing());
-            }
-            else if (random.nextBoolean() && !key.equals(room)) {
+            } else if (random.nextBoolean() && !key.equals(room)) {
                 monsterMap.get(key).add(new Werewolf());
             }
         }
         return monsterMap;
     }
-    public void checkFullMoon(){
-        if (timer>0 && (timer%7==0 || timer%8==0)) {
+
+    public void checkFullMoon() {
+        if (timer > 0 && (timer % 7 == 0 || timer % 8 == 0)) {
             monsterMap.values().forEach(monsters -> {
                 monsters.forEach(monster -> {
                     monster.setAttackPower(15);
                 });
             });
-        }
-        else {
+        } else {
             monsterMap.values().forEach(monsters -> {
                 monsters.forEach(monster -> {
                     monster.setAttackPower(10);
