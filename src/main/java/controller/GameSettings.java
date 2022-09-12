@@ -3,6 +3,7 @@ package main.java.controller;
 import main.java.client.Client;
 import main.java.model.RoomMovement;
 import main.java.view.Story;
+import main.java.view.TextColor;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -36,21 +37,21 @@ public class GameSettings {
         GameController gameController = new GameController();
         while (true) {
             if (GameController.player.getHealth() <= 0) {
-                System.out.println(bundle.getString("player_dead1"));
+                System.out.println(TextColor.RED+bundle.getString("player_dead1")+TextColor.RESET);
                 sleep(1000);
                 break;
             }
             else if (GameController.timer== 24){
-                System.out.println(bundle.getString("time_out1"));
+                System.out.println(TextColor.RED+bundle.getString("time_out1"));
                 sleep(1000);
-                System.out.println(bundle.getString("time_out2"));
+                System.out.println(TextColor.RED+bundle.getString("time_out2")+TextColor.RESET);
                 break;
             }
             else if (GameController.player.getInventory().contains("Trophy")) {
                 sleep(500);
-                System.out.println(bundle.getString("trophy_response1"));
+                System.out.println(TextColor.GREEN+bundle.getString("trophy_response1"));
                 sleep(1500);
-                System.out.println(bundle.getString("trophy_response2"));
+                System.out.println(TextColor.GREEN+bundle.getString("trophy_response2")+TextColor.RESET);
                 sleep(1500);
                 break;
             }
@@ -60,9 +61,9 @@ public class GameSettings {
         }
     }
     public void endGame() {
-        System.out.println(bundle.getString("game_over1"));
+        System.out.println(TextColor.WHITE+bundle.getString("game_over1"));
         sleep(1000);
-        System.out.println(bundle.getString("game_over2"));
+        System.out.println(TextColor.WHITE+bundle.getString("game_over2") +TextColor.RESET);
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
@@ -76,12 +77,12 @@ public class GameSettings {
                 }
             }
             else if (input.equalsIgnoreCase("no")) {
-                System.out.println("\nGoodbye!");
+                System.out.println(TextColor.WHITE+"\nGoodbye!");
                 System.exit(0);
                 break;
             }
             else {
-                System.out.println("Please enter yes or no.");
+                System.out.println(TextColor.RED+bundle.getString("replay")+TextColor.RESET);
             }
         }
     }

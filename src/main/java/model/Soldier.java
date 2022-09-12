@@ -1,6 +1,7 @@
 package main.java.model;
 
 import main.java.view.Story;
+import main.java.view.TextColor;
 
 import java.util.*;
 
@@ -13,6 +14,7 @@ public class Soldier extends Character{
         visible = true;
         armor = false;
     }
+
     public Soldier(String name, String location, int health, int attackPower, List<String> inventory, int armorRating) {
         super(name, location, health, attackPower, inventory,armorRating);
         visible = true;
@@ -21,9 +23,9 @@ public class Soldier extends Character{
 
     @Override
     public void attack(Character enemy){
-        System.out.println("You strike the werewolf with all your might!");
+        System.out.println(TextColor.GREEN+"You strike the werewolf with all your might!");
         super.attack(enemy);
-        System.out.println("The werewolf's health is: " + enemy.getHealth() + "!\n");
+        System.out.println(TextColor.GREEN+"The werewolf's health is: " + enemy.getHealth() + "!\n");
         sleep(750);
     }
 
@@ -67,33 +69,33 @@ public class Soldier extends Character{
         String weaponRandomResponse = weaponRandom[r.nextInt(weaponRandom.length)];
 
         if (heavyArmor.contains(item)) {
-            System.out.println(bundle.getString("armor_use0") + item + armorRandomResponse);
+            System.out.println(TextColor.GREEN+bundle.getString("armor_use0") + item + armorRandomResponse+TextColor.RESET);
             setArmorRating(getArmorRating() + r.nextInt(high - low) + low);
             getInventory().remove(item);
         } else if (damageItems.contains(item)) {
-            System.out.println(bundle.getString("weapon_use0") + item + weaponRandomResponse);
+            System.out.println(TextColor.GREEN+bundle.getString("weapon_use0") + item + weaponRandomResponse+TextColor.RESET);
             setAttackPower(getAttackPower() + r.nextInt(high - med) + med);
             getInventory().remove(item);
 
         } else if (lightArmor.contains(item)) {
-            System.out.println(bundle.getString("armor_use0") + item + armorRandomResponse);
+            System.out.println(TextColor.GREEN+bundle.getString("armor_use0") + item + armorRandomResponse+TextColor.RESET);
             setArmorRating(getArmorRating() + r.nextInt(med - low) + low);
             getInventory().remove(item);
         } else if (item.equals("health potion")) {
-            System.out.println("You have used a health potion! You feel invigorated and your health is full!");
+            System.out.println(TextColor.GREEN+bundle.getString("health_potion")+TextColor.RESET);
             setHealth(100);
             getInventory().remove("health potion");
 
         } else if (item.equals("blood sample")) {
-                System.out.println("You need it make to the Time Portal and bring this back safely!\n");
+                System.out.println(TextColor.GREEN+bundle.getString("blood_sample"));
         }
         else if (item.equals("armor")){
             armor = true;
-            System.out.println("You equip your armor. You feel stronger!");
+            System.out.println(bundle.getString("armor_eq"));
             getInventory().remove("armor");
         }else if (item.equals("invisibility cloak")){
             visible = false;
-            System.out.println("You vanish into the shadows...");
+            System.out.println(bundle.getString("vanish"));
             getInventory().remove("invisibility cloak");
         }else if (item.equals("sword")){
             setAttackPower(getAttackPower() + 20);

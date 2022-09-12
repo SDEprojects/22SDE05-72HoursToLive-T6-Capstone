@@ -14,11 +14,6 @@ public class Room {
 
     public static String currentRoom;
 
-
-
-
-
-
     public Room() {
     connectedRooms = new HashMap<>();
     items = new ArrayList<>();
