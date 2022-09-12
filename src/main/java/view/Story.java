@@ -42,7 +42,7 @@ public class Story {
 
 
         System.out.println(TextColor.RED+menu + titleBanner + menu);
-        sleep(1); //change to 3000
+        sleep(1000);
         System.out.println( TextColor.WHITE+bundle.getString("title_screen") +TextColor.RESET);
         while (true) {
             String intro = scanner.next();
