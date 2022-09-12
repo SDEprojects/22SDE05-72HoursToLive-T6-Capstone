@@ -72,9 +72,9 @@ public class RoomMovement {
         sleep(2000);
         System.out.println(TextColor.RED + bundle.getString("firstRoom_text3"));
         sleep(2350);
-        System.out.println(bundle.getString("firstRoom_text4") + room.getName()+ ".");
+        System.out.println(TextColor.BLUE + bundle.getString("firstRoom_text4") + room.getName()+ "." );
         sleep(750);
-        System.out.println(room.getDescription() + "\n");
+        System.out.println(TextColor.BLUE + room.getDescription() + TextColor.RESET + "\n");
         sleep(550);
     }
 
