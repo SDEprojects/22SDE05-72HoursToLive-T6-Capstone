@@ -35,7 +35,7 @@ public class GameController {
                     wolf.attack(player);
                     sleep(300);
                     System.out.println(TextColor.RED + wolf.getName() + " " + werewolfAttackResponse + TextColor.RESET);
-                    System.out.println(bundle.getString("health_status1") + player.getHealth()+"!\n");
+                    System.out.println(TextColor.YELLOW+bundle.getString("health_status1") + player.getHealth()+"!\n"+TextColor.RESET);
                     sleep(750);
                     werewolfCanAttack = false;
                 }
@@ -44,7 +44,7 @@ public class GameController {
                     break;
                 }
                 if (timer>19){
-                    System.out.println(bundle.getString("hours_status1") + (72-(timer*3)) + " " + bundle.getString("hours_status2"));
+                    System.out.println(TextColor.RED+bundle.getString("hours_status1") + (72-(timer*3)) + " " + bundle.getString("hours_status2")+TextColor.RESET);
                     sleep(750);
                 }
 
@@ -80,7 +80,7 @@ public class GameController {
                     case "pickup":
                         if (player.getInventory().size() > 2) {
                             werewolfCanAttack = false;
-                            System.out.println(bundle.getString("pickup1"));
+                            System.out.println(TextColor.RED+bundle.getString("pickup1")+TextColor.RESET);
 
                         } else if (room.getItems().contains(r1.getNoun())) {
                             player.pickup(r1.getNoun());
@@ -89,23 +89,23 @@ public class GameController {
                             System.out.println(TextColor.GREEN + bundle.getString("pickup2") + r1.getNoun() + bundle.getString("pickup3") + TextColor.RESET);
                         } else {
                             werewolfCanAttack = false;
-                            System.out.println(bundle.getString("pickup4"));
+                            System.out.println(TextColor.RED+bundle.getString("pickup4")+TextColor.RESET);
                         }
                         sleep(500);
                         break;
                     case "look":
                         System.out.println("\n" + TextColor.BLUE + room.getDescription());
                         sleep(500);
-                        System.out.println(bundle.getString("look1"));
+                        System.out.println(TextColor.WHITE+bundle.getString("look1"));
                         sleep(500);
-                        System.out.println(bundle.getString("look2"));
+                        System.out.println(TextColor.WHITE+bundle.getString("look2"));
                         sleep(500);
                         if (room.getItems().size() < 1) {
-                            System.out.println(bundle.getString("look3"));
+                            System.out.println(TextColor.WHITE+bundle.getString("look3")+TextColor.RESET);
                         } else {
                             for (String key : room.getItems()) {
                                 sleep(1000);
-                                System.out.println(bundle.getString("look4") + key + "!");
+                                System.out.println(TextColor.WHITE+bundle.getString("look4") + key + "!");
                             }
                             System.out.println("\n" + TextColor.RESET);
                         }
@@ -117,7 +117,7 @@ public class GameController {
                             player.useItems(r1.getNoun());
                             sleep(1000);
                         } else {
-                            System.out.println(bundle.getString("use1"));
+                            System.out.println(bundle.getString(TextColor.RED+"use1"+TextColor.RESET));
                             sleep(1000);
                         }
                         werewolfCanAttack = false;
@@ -165,8 +165,8 @@ public class GameController {
                         break;
                     case "help":
                         werewolfCanAttack = false;
-                        System.out.println(Story.infoMenu + "\n" + Story.infoBanner + Story.infoMenu);
-                        System.out.println(bundle.getString("help_menu"));
+                        System.out.println(TextColor.RED+Story.infoMenu + "\n" + Story.infoBanner + Story.infoMenu);
+                        System.out.println(TextColor.WHITE+bundle.getString("help_menu"));
                         Scanner helpScanner = new Scanner(System.in);
                         if (helpScanner.hasNextLine()) {
                             for (int i = 0; i < 70; ++i) System.out.println();
@@ -175,7 +175,7 @@ public class GameController {
                     case "map":
                         werewolfCanAttack = false;
                         GameMap.showMap();
-                        System.out.println("\n\n" + bundle.getString("return_to_game"));
+                        System.out.println(TextColor.YELLOW+"\n\n" + bundle.getString("return_to_game"));
                         Scanner mapScanner = new Scanner(System.in);
                         if (mapScanner.hasNextLine()) {
                             for (int i = 0; i < 70; ++i) System.out.println();
@@ -183,7 +183,7 @@ public class GameController {
                         }
                     case "quit":
 //                        System.out.println("Quitting the game...Thanks for playing!");
-                        System.out.println(bundle.getString("quit_menu1"));
+                        System.out.println(TextColor.WHITE+bundle.getString("quit_menu1"));
                         System.exit(0);
                         break;
                     case "music":
@@ -192,7 +192,7 @@ public class GameController {
 
                     default:
 //                        System.out.println("That is not a valid input!");
-                        System.out.println(bundle.getString("invalid_input1"));
+                        System.out.println(TextColor.RED+bundle.getString("invalid_input1"));
                         werewolfCanAttack = false;
                         break;
                 }

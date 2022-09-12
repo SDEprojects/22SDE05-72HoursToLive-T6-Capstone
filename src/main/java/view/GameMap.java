@@ -20,8 +20,8 @@ public class GameMap {
                 "                           \n";
 
         String mapMenu = "===========================\n";
-        System.out.println(mapMenu + mapBanner + mapMenu);
-        System.out.println(bundle.getString("map"));
+        System.out.println(TextColor.RED+mapMenu + mapBanner + mapMenu);
+        System.out.println(TextColor.WHITE+bundle.getString("map"));
 
         String room = RoomMovement.currentRoom;
         HashMap<String, Room> allRooms = RoomMovement.getAllRooms();

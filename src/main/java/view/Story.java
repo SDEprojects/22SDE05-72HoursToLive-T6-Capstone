@@ -41,20 +41,21 @@ public class Story {
                         "                                                                                                                                           \n";
 
 
-        System.out.println(menu + titleBanner + menu);
+        System.out.println(TextColor.RED+menu + titleBanner + menu);
         sleep(1); //change to 3000
-        System.out.println(bundle.getString("title_screen"));
+        System.out.println( TextColor.WHITE+bundle.getString("title_screen") +TextColor.RESET);
         while (true) {
             String intro = scanner.next();
             for (int i = 0; i < 70; ++i) System.out.println();
             if (intro.equalsIgnoreCase("play")) {
-                System.out.println(bundle.getString("start_game"));
+                System.out.println(TextColor.WHITE + bundle.getString("start_game"));
                 sleep(1000);
                 break;
             } else if (intro.equalsIgnoreCase("help")) {
-                System.out.println(infoMenu + "\n" + infoBanner + infoMenu);
-                System.out.println(bundle.getString("help_intro"));
-                System.out.println(bundle.getString("help_menu"));
+                System.out.println(TextColor.RED + infoMenu + "\n" + infoBanner + infoMenu);
+                System.out.println(TextColor.WHITE +bundle.getString("help_intro"));
+                System.out.println(TextColor.WHITE +bundle.getString("help_menu"));
+                System.out.println(TextColor.YELLOW+bundle.getString("press_enter2")+TextColor.RESET);
                 String readString = scanner.nextLine();
                 if (scanner.hasNextLine()) {
                     for (int i = 0; i < 70; ++i) System.out.println();
@@ -67,11 +68,11 @@ public class Story {
                 titleScreen();
                 break;
             } else if (intro.equalsIgnoreCase("quit")) {
-                System.out.println(bundle.getString("quit_menu1"));
+                System.out.println(TextColor.WHITE+bundle.getString("quit_menu1"));
                 sleep(1000);
                 System.exit(0);
             } else {
-                System.out.println(bundle.getString("invalid_input3"));
+                System.out.println(TextColor.RED+bundle.getString("invalid_input3"));
                 sleep(1600);
                 titleScreen();
                 break;
@@ -83,27 +84,30 @@ public class Story {
     public void selectDifficulty() {
         while (true) {
             for (int i = 0; i < 70; ++i) System.out.println();
-            System.out.println(bundle.getString("select_level"));
+//            System.out.println(bundle.getString("select_level"));
+            System.out.println(TextColor.WHITE + "Select a difficulty: " + TextColor.GREEN + "Easy, "
+                    + TextColor.RESET + TextColor.BLUE + "Medium, " + TextColor.RESET + TextColor.YELLOW + "Hard, " + TextColor.RED + "Impossible."+TextColor.RESET);
+
             for (int i = 0; i < 3; ++i) System.out.println();
             String choice = scanner.next();
             if (choice.equalsIgnoreCase("easy")) {
-                System.out.println(bundle.getString("level_easy"));
+                System.out.println(TextColor.GREEN + bundle.getString("level_easy"));
                 difficulty = 0;
                 sleep(1000);
             } else if (choice.equalsIgnoreCase("medium")) {
-                System.out.println(bundle.getString("level_medium"));
+                System.out.println(TextColor.BLUE + bundle.getString("level_medium"));
                 sleep(1000);
                 difficulty = 4;
             } else if (choice.equalsIgnoreCase("hard")) {
-                System.out.println(bundle.getString("level_hard"));
+                System.out.println(TextColor.YELLOW +bundle.getString("level_hard"));
                 sleep(1000);
                 difficulty = 7;
             } else if (choice.equalsIgnoreCase("impossible")) {
-                System.out.println(bundle.getString("level_impossible"));
+                System.out.println(TextColor.RED + bundle.getString("level_impossible"));
                 sleep(1000);
                 difficulty = 11;
             } else {
-                System.out.println(bundle.getString("invalid_input4"));
+                System.out.println(TextColor.RED+bundle.getString("invalid_input4"));
                 sleep(1500);
                 continue;
             }
@@ -127,21 +131,21 @@ public class Story {
             for (int i = 0; i < 70; ++i) System.out.println();
 
             String menu = "========================================================================\n";
-            System.out.println("\n" + menu + "\n" + storyBanner + menu);
-            System.out.println(bundle.getString("intro_text1"));
+            System.out.println(TextColor.RED +"\n" + menu + "\n" + storyBanner + menu);
+            System.out.println(TextColor.WHITE+bundle.getString("intro_text1") +TextColor.RESET);
             for (int i = 0; i < 5; ++i) System.out.println();
             String intro = scanner.next();
             if (intro.equalsIgnoreCase("skip")) {
 
-                System.out.println(bundle.getString("skip_intro"));
+                System.out.println(TextColor.WHITE+bundle.getString("skip_intro"));
                 sleep(1425);
-                System.out.println(bundle.getString("start_game"));
+                System.out.println(TextColor.WHITE+bundle.getString("start_game"));
                 sleep(1425);
                 for (int i = 0; i < 70; ++i) System.out.println();
                 break;
             } else if (intro.equalsIgnoreCase("read")) {
                 for (int i = 0; i < 70; ++i) System.out.println();
-                System.out.println(bundle.getString("press_enter"));
+                System.out.println(TextColor.YELLOW+bundle.getString("press_enter"));
                 sleep(1000);
                 runThread();
                 while (true) {
@@ -152,12 +156,12 @@ public class Story {
                     }
                 }
                 sleep(100);
-                System.out.println(bundle.getString("start_game"));
+                System.out.println(TextColor.WHITE+bundle.getString("start_game"));
                 sleep(425);
                 for (int i = 0; i < 70; ++i) System.out.println();
                 break;
             } else {
-                System.out.println(bundle.getString("invalid_input2"));
+                System.out.println(TextColor.RED+bundle.getString("invalid_input2"));
                 sleep(1500);
             }
         }
@@ -168,11 +172,11 @@ public class Story {
             @Override
             public void run() {
                 while (isRunning) {
-                    storyline(bundle.getString("storyline"), 120);
+                    storyline(TextColor.WHITE+bundle.getString("storyline"), 120);
 
                     if (isRunning) {
                         sleep(700);
-                        System.out.println(bundle.getString("press_enter1"));
+                        System.out.println(TextColor.YELLOW+bundle.getString("press_enter1"));
                     }
                     break;
                 }
