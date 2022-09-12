@@ -36,7 +36,7 @@ public class GameMap {
 
 
         String menu = "==========================";
-        System.out.printf("\n%-33s %-13s","",roomList.get(13));
+        System.out.printf("\n%-33s %-13s","",TextColor.GREEN + roomList.get(13));
         System.out.printf("\n%s %12s %12s\n", menu, menu, menu);
         System.out.printf("%-5s %-12s %22s %30s","",roomList.get(9),roomList.get(10),roomList.get(4));
         System.out.printf("\n%s %12s %12s\n", menu, menu, menu);
@@ -47,6 +47,6 @@ public class GameMap {
         System.out.printf("%-7s %-12s %23s %25s","",roomList.get(7),roomList.get(1),roomList.get(5));
         System.out.printf("\n%s %12s %12s\n", menu, menu, menu);
         System.out.printf("%-7s %-11s %27s %25s","",roomList.get(2),roomList.get(6),roomList.get(15));
-        System.out.printf("\n%s %12s %12s", menu, menu, menu);
+        System.out.printf("\n%s %12s %12s", menu, menu, menu + TextColor.RESET);
     }
 }
