@@ -28,7 +28,7 @@ where you use the blood to exit the portal.
 - Follow the prompts on the screen to play your game
   
 **Code Design Pattern:**
-- This code was architected with the Model-View-Controller Design Pattern in mind.
+This code was architected with the Model-View-Controller Design Pattern in mind.
 - Model classes include:
   - Character, Room, RoomMovement, Soldier, Werewolf, & WerewolfKing.
 - View classes include:  
