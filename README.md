@@ -42,21 +42,20 @@ This code was architected with the Model-View-Controller Design Pattern in mind.
 Future releases of the game would include:
 - The ability to pause and resume the game.
 - A graphic user interface (GUI) version of the game
+  
 **Support:**
 For support in regards to this project,  reach out to a team member through
-blair.hendrickson.4@gmail.com,  robtai29@gmail.com,  adewalesalami2@yahoo.com
-or ebaddae@gmail.com
+henblair@amazon.com, tairobea@amazon.com, adsalami@amazon.com, ebenadda@amazon.com 
   
 **Contributing:**
   
 The team is open to suggestions on how to improve the game. Reach out to a team
-member   through  blair.hendrickson.4@gmail.com,  robtai29@gmail.com,
-adewalesalami2@yahoo.com or ebaddae@gmail.com
+member   through henblair@amazon.com, tairobea@amazon.com, adsalami@amazon.com, ebenadda@amazon.com
 
   **Authors and acknowledgment:**
 
 This project was produced by the collaborative effort of Blair Hendrickson, Robert
-Tie, Adewale Salami, and Ebenezer Addae with supervision from Rennie Araucto and
+Tai, Adewale Salami, and Ebenezer Addae with supervision from Rennie Araucto and
 Technical advice from Tom Fulton.
   
 **Project Status:**
