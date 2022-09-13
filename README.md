@@ -70,8 +70,8 @@ intended features and plan to do so in the future.
 - When you are in the map you have to press enter to exit the map before
 putting in the next command
 - Windows users may not see text color: 
-  - <sub> If desired, you may request a new JAR file for Windows users. Please email a contributor to make this request.</sub>
+  - If desired, you may request a new JAR file for Windows users. Please email a contributor to make this request.
   
 - Typing music to turn on/off the sound does not work in the:
-  - <sub> Difficulty selection level</sub>
-  - <sub>Story line stage</sub> 
+  - Difficulty selection level
+  - Story line stage
