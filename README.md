@@ -58,5 +58,6 @@ intended features and plan to do so in the future.
 putting in the next command
 - Windows users may not see text color 
 - Typing music to turn on/off the sound does not work in the:
-  <sub> Difficulty selection level</sub>
-<sub>Story line stage</sub> 
+  
+  - <sub> Difficulty selection level</sub>
+  - <sub>Story line stage</sub> 
