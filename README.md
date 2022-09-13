@@ -58,7 +58,8 @@ intended features and plan to do so in the future.
 putting in the next command
 - Windows users may not see text color 
   
-- <sub> If desired, you may request a new JAR file for Windows users. PLease email a contributor to make this request.
+  - <sub> If desired, you may request a new JAR file for Windows users. PLease email a contributor to make this request.</sub>
+  
 - Typing music to turn on/off the sound does not work in the:
   
   - <sub> Difficulty selection level</sub>
