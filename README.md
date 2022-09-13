@@ -48,6 +48,7 @@ Tie, Adewale Salami, and Ebenezer Addae with supervision from Rennie Araucto and
 Technical advice from Tom Fulton.
   
 **Project Status:**
+  
 This project was part of a Capstone Project for an SDE apprenticeship training. Due
 to time and requirement constrains, members were not able to implement some
 intended features and plan to do so in the future.  
@@ -56,7 +57,7 @@ intended features and plan to do so in the future.
 
 - When you are in the map you have to press enter to exit the map before
 putting in the next command
-- Windows users may not see text color 
+- Windows users may not see text color: 
   - <sub> If desired, you may request a new JAR file for Windows users. Please email a contributor to make this request.</sub>
   
 - Typing music to turn on/off the sound does not work in the:
