@@ -30,14 +30,13 @@ where you use the blood to exit the portal.
 **Code Design Pattern:**
 - This code was architected with the Model-View-Controller Design Pattern in mind.
 - Model classes include:
-  - <sub> Character, Room, RoomMovement, Soldier, Werewolf, & WerewolfKing </sub>
+  - Character, Room, RoomMovement, Soldier, Werewolf, & WerewolfKing.
 - View classes include:  
-  - <sub> Art, GameMap, Music, Story, TextColor, & View </sub> 
+  - Art, GameMap, Music, Story, TextColor, & View.
 - Controller classes include:  
-  - GameController, GameSettings, InputScanner, Response, & Text Parser 
+  - GameController, GameSettings, InputScanner, Response, & Text Parser. 
 - A Client Class that is used to start/restart the game.
-
-  
+- A resource directory is also included for additional resources such as music, json files, & string contents.
   
 **Roadmap:**
 Future releases of the game would include:
