@@ -9,25 +9,26 @@ attacks. You may choose to fight back by typing “attack” or simply move on t
 next room by typing “go <direction>”. 
 After obtaining the werewolf kings blood sample, navigate back to the time portal
 where you use the blood to exit the portal. 
-At any point in the game, you can type
+**At any point in the game, you can type**
 - Help to see a list of menu options available to you.
 - Look to see a list of items available for your use.
 - Map to see a map of the game and what room you are presently in
 - Music to start or stop the music from playing
 - Pickup <item> to pick an add an item to your inventory
 - Equip <item> to utilize and item from your inventory
-To play the game using the jar file:
-1. Download the zip/jar file
-2. Extract/move the zip/jar file to a specified location
-3. Open a new terminal 
-4. Navigate to the location of your jar file in your terminal
-5. Type the command "java -jar 22SDE05-72HoursToLive.jar" and enter. 
-6. Follow the prompts on the screen to play your game
-Roadmap
+
+# To play the game using the jar file:
+- Download the zip/jar file
+- Extract/move the zip/jar file to a specified location
+- Open a new terminal 
+- Navigate to the location of your jar file in your terminal
+- Type the command "java -jar 22SDE05-72HoursToLive.jar" and enter. 
+- Follow the prompts on the screen to play your game
+# Roadmap
 Future releases of the game would include:
-1. The ability to pause and resume the game.
-2. A graphic user interface (GUI) version of the game
-Support
+- The ability to pause and resume the game.
+- A graphic user interface (GUI) version of the game
+# Support
 For support in regards to this project,  reach out to a team member through
 blair.hendrickson.4@gmail.com,  robtai29@gmail.com,  adewalesalami2@yahoo.com
 or ebaddae@gmail.com
