@@ -27,14 +27,14 @@ where you use the blood to exit the portal.
 - Type the command "java -jar 22SDE05-72HoursToLive.jar" and enter. 
 - Follow the prompts on the screen to play your game
   
-  **Code Design Pattern:**
+**Code Design Pattern:**
 - This code was architected with the Model-View-Controller Design Pattern in mind.
 - Model classes include:
   - <sub> Character, Room, RoomMovement, Soldier, Werewolf, & WerewolfKing </sub>
 - View classes include:  
   - <sub> Art, GameMap, Music, Story, TextColor, & View </sub> 
 - Controller classes include:  
-  - <sub> GameController, GameSettings, InputScanner, Response, & Text Parser </sub> 
+  - GameController, GameSettings, InputScanner, Response, & Text Parser 
 - A Client Class that is used to start/restart the game.
 
   
