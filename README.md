@@ -1,6 +1,6 @@
 # 22SDE05-Project2
 
-# Description
+** Description **
 72HoursToLive is a text-based adventure game. At the start of the game, you would
 find yourself in a random room. There is a total of 16 rooms. You goal would be to
 navigate to the throne room, kill the Werewolf King and obtain a sample of his
@@ -17,7 +17,7 @@ where you use the blood to exit the portal.
 - Pickup <item> to pick an add an item to your inventory
 - Equip <item> to utilize and item from your inventory
 
-# To play the game using the jar file:
+**To play the game using the jar file:**
 - Download the zip/jar file
 - Extract/move the zip/jar file to a specified location
 - Open a new terminal 
