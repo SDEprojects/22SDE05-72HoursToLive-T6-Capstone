@@ -11,7 +11,7 @@ next room by typing “go <direction>”.
 After obtaining the werewolf kings blood sample, navigate back to the time portal
 where you use the blood to exit the portal. 
 
-**At any point in the game, you can type**
+**At any point in the game, you can type:**
 - Help to see a list of menu options available to you.
 - Look to see a list of items available for your use.
 - Map to see a map of the game and what room you are presently in
@@ -26,22 +26,22 @@ where you use the blood to exit the portal.
 - Navigate to the location of your jar file in your terminal
 - Type the command "java -jar 22SDE05-72HoursToLive.jar" and enter. 
 - Follow the prompts on the screen to play your game
-**Roadmap**
+**Roadmap:**
 Future releases of the game would include:
 - The ability to pause and resume the game.
 - A graphic user interface (GUI) version of the game
-**Support**
+**Support:**
 For support in regards to this project,  reach out to a team member through
 blair.hendrickson.4@gmail.com,  robtai29@gmail.com,  adewalesalami2@yahoo.com
 or ebaddae@gmail.com
   
-**Contributing**
+**Contributing:**
   
 The team is open to suggestions on how to improve the game. Reach out to a team
 member   through  blair.hendrickson.4@gmail.com,  robtai29@gmail.com,
 adewalesalami2@yahoo.com or ebaddae@gmail.com
 
-  **Authors and acknowledgment**
+  **Authors and acknowledgment:**
 
 This project was produced by the collaborative effort of Blair Hendrickson, Robert
 Tie, Adewale Salami, and Ebenezer Addae with supervision from Rennie Araucto and
