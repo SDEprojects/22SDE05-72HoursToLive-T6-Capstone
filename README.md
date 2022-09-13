@@ -1,6 +1,6 @@
 # 22SDE05-Project2
 
-** Description **
+**Description**
 72HoursToLive is a text-based adventure game. At the start of the game, you would
 find yourself in a random room. There is a total of 16 rooms. You goal would be to
 navigate to the throne room, kill the Werewolf King and obtain a sample of his
@@ -9,6 +9,7 @@ attacks. You may choose to fight back by typing “attack” or simply move on t
 next room by typing “go <direction>”. 
 After obtaining the werewolf kings blood sample, navigate back to the time portal
 where you use the blood to exit the portal. 
+
 **At any point in the game, you can type**
 - Help to see a list of menu options available to you.
 - Look to see a list of items available for your use.
