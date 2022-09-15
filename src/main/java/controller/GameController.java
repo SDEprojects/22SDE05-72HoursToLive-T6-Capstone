@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class GameController {
+    //variables and object instances
     public static Soldier player = new Soldier();
     public static int timer = 0;
     public static boolean moonTrigger = true;
@@ -19,6 +20,12 @@ public class GameController {
     public static boolean wolfKingPrompt = true;
 
 
+    /**
+     *switch cases implemented to go through the user commands and go, use, move, look, or look at menu.
+     * validation to check if wolf attack, and full moon is possible.
+     * With the logic for music class. All the user needs to input is music, and it will implement the opposite of on/off.
+     * @throws IOException
+     */
     public void userChoice() throws IOException {
         while (player.getHealth() > 0 && timer < 24) {
             try {
@@ -47,11 +54,11 @@ public class GameController {
                     System.out.println(TextColor.RED + bundle.getString("hours_status1") + (72 - (timer * 3)) + " " + bundle.getString("hours_status2") + TextColor.RESET);
                     sleep(750);
                 }
-
+                //call the menu from view class
                 View.menu();
                 Room room = RoomMovement.roomSwitcher;
                 Response r1 = InputScanner.getValidResponse();
-                for (int i = 0; i < 70; ++i) System.out.println();
+                for (int i = 0; i < 70; ++i) System.out.println();// used to clear screen
 
                 if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal") && player.getInventory().contains(r1.getNoun())) {
                     if (r1.getNoun().equalsIgnoreCase("blood sample")) {
@@ -209,6 +216,11 @@ public class GameController {
         }
     }
 
+    /**
+     *
+     * @param room
+     * @return
+     */
     public static HashMap<String, List<Werewolf>> getMonsterMap(String room) {
         Random random = new Random();
         HashMap<String, Room> allMap = RoomMovement.getAllRooms();
@@ -224,6 +236,9 @@ public class GameController {
         return monsterMap;
     }
 
+    /**
+     * when the timer is divisible by 7 or 8 then all monsters get attack power to 15
+     */
     public void checkFullMoon() {
         if (timer > 0 && (timer % 7 == 0 || timer % 8 == 0)) {
             monsterMap.values().forEach(monsters -> {
@@ -239,7 +254,10 @@ public class GameController {
             });
         }
     }
-
+    /**
+     * method called throughout the program to freeze the console for a certain amount of time.
+     * @param timer - use to slow the program down and put output on a time based schedule
+     */
     public void sleep(int timer) {
         try {
             Thread.sleep(timer);

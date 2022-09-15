@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Werewolf extends Character{
 
-
+    //ctor
     public Werewolf() {
         this("A werewolf", "", 100, 10, new ArrayList<String>(), 10);
 

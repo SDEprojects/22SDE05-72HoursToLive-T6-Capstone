@@ -207,7 +207,10 @@ public class Story {
             sleep(speed);
         }
     }
-
+    /**
+     * method called throughout the program to freeze the console for a certain amount of time.
+     * @param timer - use to slow the program down and put output on a time based schedule
+     */
     private void sleep(int timer) {
         try {
             Thread.sleep(timer);

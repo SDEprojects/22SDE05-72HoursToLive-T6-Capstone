@@ -28,7 +28,10 @@ public class TextParser {
     private HashMap<String, HashSet<String>> itemMap;
 
 
-
+    /**
+     * read three separate json files as input streams in order to compare against user input
+     * @throws IOException
+     */
     public TextParser() throws IOException {
         TypeReference<HashMap<String, HashSet<String>>> typeRef = new TypeReference<HashMap<String, HashSet<String>>>() {};
 
@@ -44,6 +47,11 @@ public class TextParser {
     }
 
 
+    /**
+     * take user input and strip out the and compare to command map, location map, and item map keys.
+     * @param command
+     * @return
+     */
     public Response getCommands(String command){
         String[] args = command.toLowerCase().replaceAll("the", "").trim().split("\\s+");
 

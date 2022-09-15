@@ -12,6 +12,12 @@ public class Music {
     public Music() throws UnsupportedAudioFileException, IOException {
     }
 
+    /**
+     * method will play music and loop until playerSelectMusic() is called
+     * @throws IOException
+     * @throws UnsupportedAudioFileException
+     * @throws LineUnavailableException
+     */
     public void playMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
@@ -36,6 +42,12 @@ public class Music {
         thread.start();
     }
 
+    /**
+     * When called the music will do the opposite of what it's currently set to.
+     * @throws UnsupportedAudioFileException
+     * @throws LineUnavailableException
+     * @throws IOException
+     */
     public static void playerSelectMusic() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         Music music = new Music();
         if (Music.musicOn) {

@@ -12,6 +12,7 @@ public abstract class Character {
     private List<String> inventory;
     private int armorRating;
 
+    //CTORs for the characters
     public Character(){
         this("", "", 100, 10, new ArrayList<String>(), 10);
     }

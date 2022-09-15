@@ -14,15 +14,30 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class GameSettings {
+    //variables
     public static String roomName;
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
 
+    /**
+     * Create a gameStory object that will read in the titlescreen, difficulty selectory, and intro text.
+     * @throws UnsupportedAudioFileException
+     * @throws LineUnavailableException
+     * @throws IOException
+     */
     public void readGameStory() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         Story gameStory = new Story();
         gameStory.titleScreen();
         gameStory.selectDifficulty();
         gameStory.introText();
     }
+
+    /**
+     * Create an emptyInventory Array list to set the players inventory to empty at the start of the game
+     *Set the player stats from the game controller class. The player is a character.
+     * Also implement ending game qualifiers inside a while loop.If no ending game qualifiers then call
+     * game controller for user input
+     * @throws IOException
+     */
     public void startGame() throws IOException {
         List<String> emptyInventory = new ArrayList<>();
         GameController.wolfKingPrompt = true;
@@ -60,6 +75,12 @@ public class GameSettings {
             }
         }
     }
+
+    /**
+     * output game over screens and give the user a chance to play another game. or exit
+     * the game which is exiting the entire program.
+     * End game method to
+     */
     public void endGame() {
         System.out.println(TextColor.WHITE+bundle.getString("game_over1"));
         sleep(1000);
@@ -86,6 +107,11 @@ public class GameSettings {
             }
         }
     }
+
+    /**
+     * method called throughout the program to freeze the console for a certain amount of time.
+     * @param timer - use to slow the program down and put output on a time based schedule
+     */
     public void sleep(int timer) {
         try {
             Thread.sleep(timer);
