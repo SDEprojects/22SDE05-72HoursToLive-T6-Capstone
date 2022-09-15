@@ -40,6 +40,12 @@ public class RoomMovement {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * This method will populate the rooms with items that are not the Trophy and blood sample.
+     *
+     * @param numItems
+     */
     private static void populateRoomWithItems(int numItems){
         ArrayList<String> keyList = new ArrayList<>(itemMap.keySet());
         Random random = new Random();
@@ -79,6 +85,11 @@ public class RoomMovement {
     }
 
 
+    /**
+     * method switches the current room with another room. It is being called by the game controller.
+     * @param location
+     * @throws IOException
+     */
     public static void switchRooms(String location) throws IOException {
         currentRoom = roomSwitcher.getConnectedRooms().get(location);
         Room room = allRooms.get(currentRoom);

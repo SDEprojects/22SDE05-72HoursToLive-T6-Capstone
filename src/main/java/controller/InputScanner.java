@@ -10,6 +10,12 @@ import java.util.*;
 public class InputScanner {
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
 
+    /**
+     * get user responses and parse the multi-word sentence using the TextParser class
+     * compares the directions with the array list valid directions to validate the word after Go
+     * @return
+     * @throws IOException
+     */
     public static Response getValidResponse() throws IOException {
         Room room = RoomMovement.roomSwitcher;
         Scanner scanner = new Scanner(System.in);
@@ -47,7 +53,10 @@ public class InputScanner {
         }
         return r1;
     }
-
+    /**
+     * method called throughout the program to freeze the console for a certain amount of time.
+     * @param timer - use to slow the program down and put output on a time based schedule
+     */
     private static void sleep(int timer) {
         try {
             Thread.sleep(timer);

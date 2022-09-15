@@ -14,6 +14,10 @@ public class WerewolfKing extends Werewolf{
         this.getInventory().add("blood sample");
     }
 
+    /**
+     * 50 percent chance that the special attack will be implemented
+     * @param enemy
+     */
     @Override
     public void attack(Character enemy){
         super.attack(enemy);
@@ -23,6 +27,10 @@ public class WerewolfKing extends Werewolf{
 
     }
 
+    /**
+     * werewolf king has a chance to deflect the user's attack if health is less than 70 and val = 1
+     * @param enemy
+     */
     @Override
     public void gotAttacked(Character enemy){
         int val = random.nextInt(5) + 1;
@@ -35,6 +43,10 @@ public class WerewolfKing extends Werewolf{
     }
 
 
+    /**
+     * werewolf king can clear the user's inventory
+     * @param enemy
+     */
     public void specialAttack(Character enemy){
         if(enemy.getInventory().size() > 0) {
             System.out.println(bundle.getString("werewolfKing_destroys1"));
