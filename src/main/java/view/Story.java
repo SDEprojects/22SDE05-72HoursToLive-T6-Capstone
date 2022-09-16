@@ -58,7 +58,7 @@ public class Story {
                 System.out.println(TextColor.YELLOW+bundle.getString("press_enter2")+TextColor.RESET);
                 String readString = scanner.nextLine();
                 if (scanner.hasNextLine()) {
-                    for (int i = 0; i < 70; ++i) System.out.println();
+                    for (int i = 0; i < 70; ++i) System.out.println();//clear screen for loop
                     titleScreen();
                     break;
                 }
