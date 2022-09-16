@@ -4,11 +4,12 @@ import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ResourceBundle;
 
 
 public class Music {
     public static boolean musicOn = true;
-
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
     public Music() throws UnsupportedAudioFileException, IOException {
     }
 
@@ -52,10 +53,10 @@ public class Music {
         Music music = new Music();
         if (Music.musicOn) {
             Music.musicOn = false;
-            System.out.println(TextColor.WHITE + "\nMusic turned off.\n");
+            System.out.println(TextColor.WHITE + bundle.getString("music_off"));
         } else {
             Music.musicOn = true;
-            System.out.println(TextColor.WHITE + "\nMusic turned on.\n");
+            System.out.println(TextColor.WHITE + bundle.getString("music_on"));
             music.playMusic();
         }
     }
