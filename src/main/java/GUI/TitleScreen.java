@@ -2,6 +2,8 @@ package main.java.GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -22,11 +24,17 @@ public class TitleScreen extends JFrame{
     URL titleImageStream = ClassLoader.getSystemClassLoader().getResource("Images/TitleScreen.jpeg");
     JPanel imagePanel;
 
+    JPanel difficultyPanel;
+    JButton easyButton = new JButton("Easy");
+    JButton mediumButton = new JButton("Medium");
+    JButton hardButton = new JButton("Hard");
+    JButton impossibleButton = new JButton("Impossible");
+
 
     public TitleScreen() throws IOException, FontFormatException {
         // sets new frame, size, default close operation, not resizeable
         frame = new JFrame("72 Hours to Live");
-        frame.setSize(1000, 1200);
+        frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setResizable(false);
@@ -45,12 +53,12 @@ public class TitleScreen extends JFrame{
 
         //creates new game button and panel
         newGamePanel = new JPanel();
-        newGamePanel.setBounds(0,900,1000, 100);
+        newGamePanel.setBounds(0,800,1000, 100);
         newGamePanel.setOpaque(false);
         newGameButton = new JButton("START GAME");
         newGameButton.setForeground(Color.red);
         newGameButton.setBackground(Color.black);
-        newGameButton.setFont(new Font("Helvetica", Font.BOLD, 30));
+        newGameButton.setFont(new Font("Helvetica", Font.BOLD, 28));
         newGameButton.setOpaque(false);
         newGameButton.setBorderPainted(false);
         newGamePanel.add(newGameButton);
@@ -79,13 +87,49 @@ public class TitleScreen extends JFrame{
         optionButtons.add(quitButton);
         optionButtons.setLayout(new GridLayout(1, 3));
 
+        //*************************************************************************
+        //Adding difficulty JPanel
+        difficultyPanel = new JPanel();
+        difficultyPanel.setBounds(0, 600, 1000, 50);
+        difficultyPanel.setOpaque(false);
+        difficultyPanel.setLayout(new GridLayout(1, 4));
+
+        easyButton.setForeground(Color.green);
+        easyButton.setOpaque(false);
+        easyButton.setBorderPainted(false);
+        easyButton.setFont(new Font("Helvetica", Font.BOLD, 20));
+        easyButton.setVisible(false);
+
+        mediumButton.setForeground(Color.yellow);
+        mediumButton.setOpaque(false);
+        mediumButton.setBorderPainted(false);
+        mediumButton.setFont(new Font("Helvetica", Font.BOLD, 20));
+        mediumButton.setVisible(false);
+
+        hardButton.setForeground(Color.orange);
+        hardButton.setOpaque(false);
+        hardButton.setBorderPainted(false);
+        hardButton.setFont(new Font("Helvetica", Font.BOLD, 20));
+        hardButton.setVisible(false);
+
+        impossibleButton.setForeground(Color.red);
+        impossibleButton.setOpaque(false);
+        impossibleButton.setBorderPainted(false);
+        impossibleButton.setFont(new Font("Helvetica", Font.BOLD, 20));
+        impossibleButton.setVisible(false);
+
+        difficultyPanel.add(easyButton);
+        difficultyPanel.add(mediumButton);
+        difficultyPanel.add(hardButton);
+        difficultyPanel.add(impossibleButton);
+        //*********************************************************************************
+
         imagePanel = new JPanel();
         imagePanel.setBackground(Color.black);
-        imagePanel.setBounds(0,0,1000,1200);
+        imagePanel.setBounds(0,0,1000,1000);
         ImageIcon img = new ImageIcon(titleImageStream);
-        img.setImage(img.getImage().getScaledInstance(1000, 1200, Image.SCALE_DEFAULT));
+        img.setImage(img.getImage().getScaledInstance(1000, 1000, Image.SCALE_DEFAULT));
         imagePanel.add(new JLabel(img));
-
 
         //creates Jpanel that allows other panels to move within it
         JPanel contentPanel = new JPanel();
@@ -97,10 +141,27 @@ public class TitleScreen extends JFrame{
         contentPanel.add(titlePanel);
         contentPanel.add(newGamePanel);
         contentPanel.add(optionButtons);
+        contentPanel.add(difficultyPanel);
         contentPanel.add(imagePanel);
+
 
         //adding content panel to JFrame
         frame.add(contentPanel);
+
+        newGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                helpButton.setVisible(false);
+                musicButton.setVisible(false);
+                quitButton.setVisible(false);
+                newGameButton.setVisible(false);
+                easyButton.setVisible(true);
+                mediumButton.setVisible(true);
+                hardButton.setVisible(true);
+                impossibleButton.setVisible(true);
+
+            }
+        });
     }
 
 }
