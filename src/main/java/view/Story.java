@@ -58,7 +58,7 @@ public class Story {
                 System.out.println(TextColor.YELLOW+bundle.getString("press_enter2")+TextColor.RESET);
                 String readString = scanner.nextLine();
                 if (scanner.hasNextLine()) {
-                    for (int i = 0; i < 70; ++i) System.out.println();
+                    for (int i = 0; i < 70; ++i) System.out.println();//clear screen for loop
                     titleScreen();
                     break;
                 }
@@ -207,7 +207,10 @@ public class Story {
             sleep(speed);
         }
     }
-
+    /**
+     * method called throughout the program to freeze the console for a certain amount of time.
+     * @param timer - use to slow the program down and put output on a time based schedule
+     */
     private void sleep(int timer) {
         try {
             Thread.sleep(timer);

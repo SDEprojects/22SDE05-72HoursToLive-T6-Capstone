@@ -21,24 +21,32 @@ public class Soldier extends Character{
         armor = false;
     }
 
+    /**
+     * method used to attack the enemy. Uses the character class method to track the werewolf's health
+     * @param enemy
+     */
     @Override
     public void attack(Character enemy){
-        System.out.println(TextColor.GREEN+"You strike the werewolf with all your might!");
+        System.out.println(TextColor.GREEN+bundle.getString("soldier_attack"));
         super.attack(enemy);
-        System.out.println(TextColor.GREEN+"The werewolf's health is: " + enemy.getHealth() + "!\n");
+        System.out.println(TextColor.GREEN+bundle.getString("werewolf_health") + enemy.getHealth() + "!\n");
         sleep(750);
     }
 
+    /**
+     * configures enemies attack dmg based upon RNG and story difficulty
+     * @param enemy
+     */
     @Override
     public void gotAttacked(Character enemy){
         if (!visible){
-            System.out.println(getName() + " has invisible cloak");
+            System.out.println(getName() + bundle.getString("soldier_invisible"));
             return;
         }
         int attack = enemy.getAttackPower();
         if (armor == true){
             armor = false;
-            System.out.println(getName() + "was protect by armor");
+            System.out.println(getName() + bundle.getString("armor_protection"));
             return;
         }
         Random r = new Random();
@@ -49,7 +57,12 @@ public class Soldier extends Character{
     public void pickup(String item){
         getInventory().add(item);
     }
+
+    /**allow player to use the item to boost stats. Also deletes the item from the inventory after the use
+     * @param item
+     */
     public void useItems(String item) {
+        //use database structure to match the item from items json
         ArrayList<String> heavyArmor = new ArrayList<>(Arrays.asList("breastplate", "helmet", "shield", "greaves"));
         ArrayList<String> lightArmor = new ArrayList<>(Arrays.asList("boots", "gloves",
                 "pants", "shirt", "belt", "bracers", "cloak", "robe"));
@@ -102,7 +115,7 @@ public class Soldier extends Character{
             getInventory().remove("sword");
         }
         else{
-            System.out.println("Item does nothing!");
+            System.out.println(bundle.getString("item_useless"));
         }
     }
     @Override

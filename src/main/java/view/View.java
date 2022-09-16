@@ -8,6 +8,9 @@ import main.java.model.Soldier;
 public class View {
 
 
+    /**
+     * logic to get the full moon. The timer has to be divisible by 7.
+     */
     public static void menu() {
         String cyan = TextColor.CYAN;
         if (GameController.timer % 7 == 0 && GameController.timer > 0 && GameController.moonTrigger) {
