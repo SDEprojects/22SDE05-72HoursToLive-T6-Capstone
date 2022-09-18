@@ -1,5 +1,9 @@
 package main.java.GUI;
 
+import main.java.view.Music;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,7 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-public class TitleScreen extends JFrame{
+public class TitleScreen extends JFrame {
 
     JPanel newGamePanel;
     JFrame frame;
@@ -29,21 +33,19 @@ public class TitleScreen extends JFrame{
     JButton mediumButton = new JButton("Medium");
     JButton hardButton = new JButton("Hard");
     JButton impossibleButton = new JButton("Impossible");
+    Music music = new Music();
 
 
-    public TitleScreen() throws IOException, FontFormatException {
+    public TitleScreen() throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
         // sets new frame, size, default close operation, not resizeable
         frame = new JFrame("72 Hours to Live");
         frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        frame.setResizable(false);
-
 
 
         // creates the title panel, and sets title name/font
         titlePanel = new JPanel();
-        titlePanel.setBounds(0,100, 1000, 200);
+        titlePanel.setBounds(0, 100, 1000, 200);
         titlePanel.setBackground(Color.black);
         titlePanel.setOpaque(false);
         title = new JLabel("72 Hours To Live ");
@@ -53,7 +55,7 @@ public class TitleScreen extends JFrame{
 
         //creates new game button and panel
         newGamePanel = new JPanel();
-        newGamePanel.setBounds(0,800,1000, 100);
+        newGamePanel.setBounds(0, 800, 1000, 100);
         newGamePanel.setOpaque(false);
         newGameButton = new JButton("START GAME");
         newGameButton.setForeground(Color.red);
@@ -126,7 +128,7 @@ public class TitleScreen extends JFrame{
 
         imagePanel = new JPanel();
         imagePanel.setBackground(Color.black);
-        imagePanel.setBounds(0,0,1000,1000);
+        imagePanel.setBounds(0, 0, 1000, 1000);
         ImageIcon img = new ImageIcon(titleImageStream);
         img.setImage(img.getImage().getScaledInstance(1000, 1000, Image.SCALE_DEFAULT));
         imagePanel.add(new JLabel(img));
@@ -147,21 +149,31 @@ public class TitleScreen extends JFrame{
 
         //adding content panel to JFrame
         frame.add(contentPanel);
+        frame.setVisible(true);
+        frame.setResizable(false);
+        music.playMusic();
 
-        newGameButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                helpButton.setVisible(false);
-                musicButton.setVisible(false);
-                quitButton.setVisible(false);
-                newGameButton.setVisible(false);
-                easyButton.setVisible(true);
-                mediumButton.setVisible(true);
-                hardButton.setVisible(true);
-                impossibleButton.setVisible(true);
+//BUTTON ACTION LISTENERS
+        newGameButton.addActionListener(e -> {
+//            helpButton.setVisible(false);
+//            musicButton.setVisible(false);
+//            quitButton.setVisible(false);
+            newGameButton.setVisible(false);
+            easyButton.setVisible(true);
+            mediumButton.setVisible(true);
+            hardButton.setVisible(true);
+            impossibleButton.setVisible(true);
 
+        });
+
+        musicButton.addActionListener(e -> {
+            try {
+                Music.playerSelectMusic();
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
+                throw new RuntimeException(ex);
             }
         });
-    }
 
+        quitButton.addActionListener(e -> System.exit(0));
+    }
 }
