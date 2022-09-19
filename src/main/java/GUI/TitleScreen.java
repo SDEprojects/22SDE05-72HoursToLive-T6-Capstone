@@ -27,7 +27,6 @@ public class TitleScreen extends JFrame {
     Font titleFont = Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(75f);
     URL titleImageStream = ClassLoader.getSystemClassLoader().getResource("Images/TitleScreen.jpeg");
     JPanel imagePanel;
-
     JPanel difficultyPanel;
     JButton easyButton = new JButton("Easy");
     JButton mediumButton = new JButton("Medium");
@@ -39,6 +38,7 @@ public class TitleScreen extends JFrame {
     public TitleScreen() throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
         // sets new frame, size, default close operation, not resizeable
         frame = new JFrame("72 Hours to Live");
+        frame.setBackground(Color.black);
         frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -64,31 +64,6 @@ public class TitleScreen extends JFrame {
         newGameButton.setOpaque(false);
         newGameButton.setBorderPainted(false);
         newGamePanel.add(newGameButton);
-
-        //creates options buttons and panel
-        optionButtons = new JPanel();
-        optionButtons.setBounds(0, 0, 1000, 50);
-        optionButtons.setOpaque(false);
-        musicButton.setForeground(Color.red);
-        musicButton.setBackground(Color.black);
-        musicButton.setOpaque(false);
-        musicButton.setBorderPainted(false);
-        musicButton.setFont(new Font("Helvetica", Font.BOLD, 20));
-        optionButtons.add(musicButton);
-        helpButton.setForeground(Color.red);
-        helpButton.setBackground(Color.black);
-        helpButton.setOpaque(false);
-        helpButton.setBorderPainted(false);
-        helpButton.setFont(new Font("Helvetica", Font.BOLD, 20));
-        optionButtons.add(helpButton);
-        quitButton.setForeground(Color.red);
-        quitButton.setBackground(Color.black);
-        quitButton.setOpaque(false);
-        quitButton.setBorderPainted(false);
-        quitButton.setFont(new Font("Helvetica", Font.BOLD, 20));
-        optionButtons.add(quitButton);
-        optionButtons.setLayout(new GridLayout(1, 3));
-
         //*************************************************************************
         //Adding difficulty JPanel
         difficultyPanel = new JPanel();
@@ -142,12 +117,36 @@ public class TitleScreen extends JFrame {
         //adding all panels to content panel
         contentPanel.add(titlePanel);
         contentPanel.add(newGamePanel);
-        contentPanel.add(optionButtons);
         contentPanel.add(difficultyPanel);
         contentPanel.add(imagePanel);
 
+        //creates options buttons and panel
+        optionButtons = new JPanel();
+        optionButtons.setBounds(0, 0, 1000, 50);
+        optionButtons.setBackground(Color.black);
+        optionButtons.setOpaque(false);
+        musicButton.setForeground(Color.red);
+        musicButton.setBackground(Color.black);
+        musicButton.setOpaque(false);
+        musicButton.setBorderPainted(false);
+        musicButton.setFont(new Font("Helvetica", Font.BOLD, 20));
+        optionButtons.add(musicButton);
+        helpButton.setForeground(Color.red);
+        helpButton.setBackground(Color.black);
+        helpButton.setOpaque(false);
+        helpButton.setBorderPainted(false);
+        helpButton.setFont(new Font("Helvetica", Font.BOLD, 20));
+        optionButtons.add(helpButton);
+        quitButton.setForeground(Color.red);
+        quitButton.setBackground(Color.black);
+        quitButton.setOpaque(false);
+        quitButton.setBorderPainted(false);
+        quitButton.setFont(new Font("Helvetica", Font.BOLD, 20));
+        optionButtons.add(quitButton);
+        optionButtons.setLayout(new GridLayout(1, 3));
 
         //adding content panel to JFrame
+        frame.add(optionButtons);
         frame.add(contentPanel);
         frame.setVisible(true);
         frame.setResizable(false);
@@ -155,9 +154,6 @@ public class TitleScreen extends JFrame {
 
 //BUTTON ACTION LISTENERS
         newGameButton.addActionListener(e -> {
-//            helpButton.setVisible(false);
-//            musicButton.setVisible(false);
-//            quitButton.setVisible(false);
             newGameButton.setVisible(false);
             easyButton.setVisible(true);
             mediumButton.setVisible(true);
