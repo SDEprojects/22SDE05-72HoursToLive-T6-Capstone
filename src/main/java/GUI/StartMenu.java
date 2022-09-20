@@ -126,24 +126,40 @@ public class StartMenu extends JFrame {
         });
 
         easyButton.addActionListener(e -> {
-            new GamePlay(frame);
-            contentPanel.setVisible(false);
+            frame.remove(contentPanel);
             GUI.optionButtons.setOpaque(true);
+            try {
+                new GamePlay(frame);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         mediumButton.addActionListener(e -> {
-            new GamePlay(frame);
-            contentPanel.setVisible(false);
+            frame.remove(contentPanel);
             GUI.optionButtons.setOpaque(true);
+            try {
+                new GamePlay(frame);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         hardButton.addActionListener(e -> {
-            new GamePlay(frame);
-            contentPanel.setVisible(false);
+            frame.remove(contentPanel);
             GUI.optionButtons.setOpaque(true);
+            try {
+                new GamePlay(frame);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         impossibleButton.addActionListener(e -> {
-            new GamePlay(frame);
-            contentPanel.setVisible(false);
+            frame.remove(contentPanel);
             GUI.optionButtons.setOpaque(true);
+            try {
+                new GamePlay(frame);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         });
     }
 }
