@@ -12,6 +12,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Client {
+    public static boolean psvmIsGUI = true;
 
     /* This is the main class of the game. It is responsible for starting the game. */
 //    public static void main(String[] args) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
@@ -32,6 +33,9 @@ public class Client {
     }
 
     public static void main(String[] args) throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
+        new GUI();
+    }
+    public static void repeatGameGUI() throws IOException, UnsupportedAudioFileException, LineUnavailableException, FontFormatException {
         new GUI();
     }
 }

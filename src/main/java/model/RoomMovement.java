@@ -2,6 +2,7 @@ package main.java.model;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import main.java.client.Client;
 import main.java.view.TextColor;
 
 import java.io.IOException;
@@ -72,6 +73,10 @@ public class RoomMovement {
         } while (currentRoom.equalsIgnoreCase("Throne Room"));
         Room room = allRooms.get(currentRoom);
         roomSwitcher = room;
+
+        if (Client.psvmIsGUI){
+// todo GUI output
+        } else
         textStream(TextColor.BLUE + bundle.getString("firstRoom_text1"),110);
         sleep(1000);
         System.out.println(TextColor.BLUE + bundle.getString("firstRoom_text2"));
@@ -94,6 +99,9 @@ public class RoomMovement {
         currentRoom = roomSwitcher.getConnectedRooms().get(location);
         Room room = allRooms.get(currentRoom);
         roomSwitcher = room;
+        if (Client.psvmIsGUI){
+// todo add GUI room switch logic
+        }
     }
 
 

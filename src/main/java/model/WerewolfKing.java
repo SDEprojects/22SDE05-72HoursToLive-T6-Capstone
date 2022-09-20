@@ -1,5 +1,7 @@
 package main.java.model;
 
+import main.java.client.Client;
+
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -36,7 +38,11 @@ public class WerewolfKing extends Werewolf{
         int val = random.nextInt(5) + 1;
 
         if (getHealth() < 70 && val == 1){
+            if (Client.psvmIsGUI){
+// todo return GUI text output
+            }else{
             System.out.println(bundle.getString("werewolfKing_deflects1"));
+            }
             return;
         }
         super.gotAttacked(enemy);
@@ -49,9 +55,14 @@ public class WerewolfKing extends Werewolf{
      */
     public void specialAttack(Character enemy){
         if(enemy.getInventory().size() > 0) {
-            System.out.println(bundle.getString("werewolfKing_destroys1"));
-            enemy.getInventory().clear();
-            sleep(1500);
+            if (Client.psvmIsGUI){
+                enemy.getInventory().clear();
+// todo clear inventory panel
+            }else {
+                System.out.println(bundle.getString("werewolfKing_destroys1"));
+                enemy.getInventory().clear();
+                sleep(1500);
+            }
         }
         }
 
