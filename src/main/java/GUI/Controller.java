@@ -129,8 +129,6 @@ public class Controller {
                 System.out.println(TextColor.RED + bundle.getString("hours_status1") + (72 - (timer * 3)) + " " + bundle.getString("hours_status2") + TextColor.RESET);
             }
             //call the menu from view class
-// todo needs to be replaced by GUI response not View.menu response
-            View.menu();
         }
     }
 
@@ -160,6 +158,8 @@ public class Controller {
                             endGame();
                         } else {
                             moonTrigger = true;
+// todo needs to be replaced by GUI response not View.menu response and sets moonTrigger to false
+                            View.menu();
                             werewolfCanAttack = true;
                             RoomMovement.switchRooms(r1.getLocation());
                             room = RoomMovement.roomSwitcher;
