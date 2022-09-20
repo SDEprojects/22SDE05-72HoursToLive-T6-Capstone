@@ -210,17 +210,6 @@ public class Controller {
                         }
                         werewolfCanAttack = true;
                         break;
-                    case "inventory":
-                        if (player.getInventory().size() < 1) {
-                            System.out.println(bundle.getString("inventory_0"));
-                        } else {
-                            System.out.println(bundle.getString("inventory_items"));
-                            for (String key : player.getInventory()) {
-                                System.out.println(key);
-                            }
-                        }
-                        werewolfCanAttack = false;
-                        break;
 // Shouldn't need default in switch case if response is not user defined
 //                    default:
 ////                        System.out.println("That is not a valid input!");
@@ -235,8 +224,7 @@ public class Controller {
     }
 
     /**
-     * @return
-     * @param: roomd
+     * returns hashmap of the monster map
      */
     public static HashMap<String, List<Werewolf>> getMonsterMap(String room) {
         Random random = new Random();
