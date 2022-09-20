@@ -12,19 +12,24 @@ import java.net.URL;
 
 public class StartMenu extends JFrame {
 
-    JPanel newGamePanel;
-    JPanel titlePanel;
-    JButton newGameButton;
-    JLabel title;
     InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream("Fonts/BloodyTerror-GOW9Z.ttf");
     Font titleFont = Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(75f);
     URL titleImageStream = ClassLoader.getSystemClassLoader().getResource("Images/TitleScreen.jpeg");
+
+    JPanel titlePanel;
+    JLabel title;
+
+    JPanel newGamePanel;
+    JButton newGameButton;
+
     JPanel imagePanel;
+
     JPanel difficultyPanel;
     JButton easyButton = new JButton("Easy");
     JButton mediumButton = new JButton("Medium");
     JButton hardButton = new JButton("Hard");
     JButton impossibleButton = new JButton("Impossible");
+
     Music music = new Music();
 
 
@@ -123,18 +128,22 @@ public class StartMenu extends JFrame {
         easyButton.addActionListener(e -> {
             new GamePlay(frame);
             contentPanel.setVisible(false);
+            GUI.optionButtons.setOpaque(true);
         });
         mediumButton.addActionListener(e -> {
             new GamePlay(frame);
             contentPanel.setVisible(false);
+            GUI.optionButtons.setOpaque(true);
         });
         hardButton.addActionListener(e -> {
             new GamePlay(frame);
             contentPanel.setVisible(false);
+            GUI.optionButtons.setOpaque(true);
         });
         impossibleButton.addActionListener(e -> {
             new GamePlay(frame);
             contentPanel.setVisible(false);
+            GUI.optionButtons.setOpaque(true);
         });
     }
 }

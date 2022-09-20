@@ -14,7 +14,7 @@ public class GUI {
 
 
     private final JFrame frame;
-    JPanel optionButtons;
+    static JPanel optionButtons;
     JButton musicButton = new JButton("MUSIC");
     JButton helpButton = new JButton("HELP");
     JButton quitButton = new JButton("QUIT");
@@ -33,18 +33,21 @@ public class GUI {
         optionButtons.setBounds(0, 0, 1000, 50);
         optionButtons.setBackground(Color.black);
         optionButtons.setOpaque(false);
+
         musicButton.setForeground(Color.red);
         musicButton.setBackground(Color.black);
         musicButton.setOpaque(false);
         musicButton.setBorderPainted(false);
         musicButton.setFont(new Font("Helvetica", Font.BOLD, 20));
         optionButtons.add(musicButton);
+
         helpButton.setForeground(Color.red);
         helpButton.setBackground(Color.black);
         helpButton.setOpaque(false);
         helpButton.setBorderPainted(false);
         helpButton.setFont(new Font("Helvetica", Font.BOLD, 20));
         optionButtons.add(helpButton);
+
         quitButton.setForeground(Color.red);
         quitButton.setBackground(Color.black);
         quitButton.setOpaque(false);
