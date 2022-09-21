@@ -7,11 +7,13 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class GUI {
 
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
 
     private final JFrame frame;
     static JPanel optionButtons;
@@ -56,10 +58,6 @@ public class GUI {
         optionButtons.add(quitButton);
         optionButtons.setLayout(new GridLayout(1, 3));
 
-
-
-
-
         // action listeners for music, help, and quit buttons
         musicButton.addActionListener(e -> {
             try {
@@ -69,7 +67,41 @@ public class GUI {
             }
         });
 
+
+        helpButton.addActionListener(e -> {
+
+            JFrame helpFrame = new JFrame("Help");
+            helpFrame.setSize(800, 800);
+            helpFrame.setVisible(true);
+            helpFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+            JPanel helpPanel = new JPanel();
+            helpPanel.setBounds(0, 0, 800, 800);
+            helpPanel.setBackground(Color.black);
+            helpPanel.setOpaque(true);
+            helpPanel.setLayout(new BorderLayout());
+
+            JTextArea helpText = new JTextArea();
+            helpText.setLineWrap(true);
+            helpText.setFont(new Font(Font.DIALOG, Font.BOLD, 24));
+            helpText.setBackground(Color.black);
+            helpText.setForeground(Color.red);
+            helpText.setWrapStyleWord(true);
+            helpText.setText(bundle.getString("help_menu"));
+            helpPanel.add(helpText, BorderLayout.NORTH);
+
+            JButton helpQuitButton = new JButton("Exit Help");
+            helpPanel.add(helpQuitButton, BorderLayout.SOUTH);
+
+            helpFrame.setContentPane(helpPanel);
+
+            helpQuitButton.addActionListener(evt -> {
+                helpFrame.dispose();
+            });
+        });
+
         quitButton.addActionListener(e -> System.exit(0));
+
         frame.add(optionButtons);
         new StartMenu(frame);
     }

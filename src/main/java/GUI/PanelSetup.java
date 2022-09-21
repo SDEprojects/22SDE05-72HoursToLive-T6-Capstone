@@ -148,7 +148,7 @@ public class PanelSetup extends JPanel{
     public static JPanel timePanel(int timer) {
         int currentTime = 72 - (timer * 3);
         JPanel timePanel = new JPanel();
-        timePanel.setBounds(700, 875, 300, 150);
+        timePanel.setBounds(700, 875, 300, 70);
         timePanel.setBackground(Color.darkGray);
         timePanel.setOpaque(true);
         Color timeColor;
