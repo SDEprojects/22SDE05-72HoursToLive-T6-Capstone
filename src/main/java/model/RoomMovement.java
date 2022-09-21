@@ -74,19 +74,19 @@ public class RoomMovement {
         Room room = allRooms.get(currentRoom);
         roomSwitcher = room;
 
-        if (Client.psvmIsGUI){
-// todo GUI output
-        } else
-        textStream(TextColor.BLUE + bundle.getString("firstRoom_text1"),110);
-        sleep(1000);
-        System.out.println(TextColor.BLUE + bundle.getString("firstRoom_text2"));
-        sleep(2000);
-        System.out.println(TextColor.BLUE + bundle.getString("firstRoom_text3"));
-        sleep(2350);
-        System.out.println(TextColor.BLUE + bundle.getString("firstRoom_text4") + TextColor.WHITE + room.getName()+ "." );
-        sleep(750);
-        System.out.println(TextColor.BLUE + room.getDescription() + TextColor.RESET + "\n");
-        sleep(550);
+//        if (Client.psvmIsGUI){
+//// todo GUI output
+//        } else
+//        textStream(TextColor.BLUE + bundle.getString("firstRoom_text1"),110);
+//        sleep(1000);
+//        System.out.println(TextColor.BLUE + bundle.getString("firstRoom_text2"));
+//        sleep(2000);
+//        System.out.println(TextColor.BLUE + bundle.getString("firstRoom_text3"));
+//        sleep(2350);
+//        System.out.println(TextColor.BLUE + bundle.getString("firstRoom_text4") + TextColor.WHITE + room.getName()+ "." );
+//        sleep(750);
+//        System.out.println(TextColor.BLUE + room.getDescription() + TextColor.RESET + "\n");
+//        sleep(550);
     }
 
 
