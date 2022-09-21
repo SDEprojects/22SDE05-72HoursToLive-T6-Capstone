@@ -1,5 +1,6 @@
 package main.java.model;
 
+import main.java.client.Client;
 import main.java.view.Story;
 import main.java.view.TextColor;
 
@@ -56,6 +57,10 @@ public class Soldier extends Character{
     }
     public void pickup(String item){
         getInventory().add(item);
+
+        if(Client.psvmIsGUI){
+// todo add gui logic to change inventory panel to add button for item
+        }
     }
 
     /**allow player to use the item to boost stats. Also deletes the item from the inventory after the use
@@ -81,41 +86,46 @@ public class Soldier extends Character{
         String[] weaponRandom = {bundle.getString("weapon_use1"), bundle.getString("weapon_use2"), bundle.getString("weapon_use3"),bundle.getString("weapon_use4"), bundle.getString("weapon_use5"), bundle.getString("weapon_use6"),bundle.getString("weapon_use7")};
         String weaponRandomResponse = weaponRandom[r.nextInt(weaponRandom.length)];
 
-        if (heavyArmor.contains(item)) {
-            System.out.println(TextColor.GREEN+bundle.getString("armor_use0") + item + armorRandomResponse+TextColor.RESET);
-            setArmorRating(getArmorRating() + r.nextInt(high - low) + low);
-            getInventory().remove(item);
-        } else if (damageItems.contains(item)) {
-            System.out.println(TextColor.GREEN+bundle.getString("weapon_use0") + item + weaponRandomResponse+TextColor.RESET);
-            setAttackPower(getAttackPower() + r.nextInt(high - med) + med);
-            getInventory().remove(item);
+        if (Client.psvmIsGUI){
+// todo add gui logic for equipping item following logic below
+        }
+        else {
+            if (heavyArmor.contains(item)) {
+                System.out.println(TextColor.GREEN+bundle.getString("armor_use0") + item + armorRandomResponse+TextColor.RESET);
+                setArmorRating(getArmorRating() + r.nextInt(high - low) + low);
+                getInventory().remove(item);
+            } else if (damageItems.contains(item)) {
+                System.out.println(TextColor.GREEN+bundle.getString("weapon_use0") + item + weaponRandomResponse+TextColor.RESET);
+                setAttackPower(getAttackPower() + r.nextInt(high - med) + med);
+                getInventory().remove(item);
 
-        } else if (lightArmor.contains(item)) {
-            System.out.println(TextColor.GREEN+bundle.getString("armor_use0") + item + armorRandomResponse+TextColor.RESET);
-            setArmorRating(getArmorRating() + r.nextInt(med - low) + low);
-            getInventory().remove(item);
-        } else if (item.equals("health potion")) {
-            System.out.println(TextColor.GREEN+bundle.getString("health_potion")+TextColor.RESET);
-            setHealth(100);
-            getInventory().remove("health potion");
+            } else if (lightArmor.contains(item)) {
+                System.out.println(TextColor.GREEN+bundle.getString("armor_use0") + item + armorRandomResponse+TextColor.RESET);
+                setArmorRating(getArmorRating() + r.nextInt(med - low) + low);
+                getInventory().remove(item);
+            } else if (item.equals("health potion")) {
+                System.out.println(TextColor.GREEN+bundle.getString("health_potion")+TextColor.RESET);
+                setHealth(100);
+                getInventory().remove("health potion");
 
-        } else if (item.equals("blood sample")) {
+            } else if (item.equals("blood sample")) {
                 System.out.println(TextColor.GREEN+bundle.getString("blood_sample"));
-        }
-        else if (item.equals("armor")){
-            armor = true;
-            System.out.println(bundle.getString("armor_eq"));
-            getInventory().remove("armor");
-        }else if (item.equals("invisibility cloak")){
-            visible = false;
-            System.out.println(bundle.getString("vanish"));
-            getInventory().remove("invisibility cloak");
-        }else if (item.equals("sword")){
-            setAttackPower(getAttackPower() + 20);
-            getInventory().remove("sword");
-        }
-        else{
-            System.out.println(bundle.getString("item_useless"));
+            }
+            else if (item.equals("armor")){
+                armor = true;
+                System.out.println(bundle.getString("armor_eq"));
+                getInventory().remove("armor");
+            }else if (item.equals("invisibility cloak")){
+                visible = false;
+                System.out.println(bundle.getString("vanish"));
+                getInventory().remove("invisibility cloak");
+            }else if (item.equals("sword")){
+                setAttackPower(getAttackPower() + 20);
+                getInventory().remove("sword");
+            }
+            else{
+                System.out.println(bundle.getString("item_useless"));
+            }
         }
     }
     @Override
