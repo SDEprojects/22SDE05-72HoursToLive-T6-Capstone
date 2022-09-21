@@ -15,13 +15,12 @@ public class Controller {
     public static Soldier player = new Soldier();
     public static int timer = 0;
     public static boolean moonTrigger = true;
-    private String currentRoom = RoomMovement.currentRoom;
-    private HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
+    private static String currentRoom = RoomMovement.currentRoom;
+    private final HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
     private static boolean werewolfCanAttack = true;
     private static boolean wolfKingPrompt = true;
     private static Random ran = new Random();
-
 
     /**
      * Create an emptyInventory Array list to set the players inventory to empty at the start of the game
@@ -51,7 +50,7 @@ public class Controller {
      * the game which is exiting the entire program.
      * End game method to
      */
-    public void endGame() {
+    public static void endGame() {
         System.out.println(TextColor.WHITE + bundle.getString("game_over1"));
         System.out.println(TextColor.WHITE + bundle.getString("game_over2") + TextColor.RESET);
 
@@ -61,7 +60,8 @@ public class Controller {
      * serves as the GUI facing component in place of the inputScanner and textParser
      * to pass commands to the userChoice method
      */
-    public void handleUserClick(Response buttonResponse) throws IOException {
+    public void handleUserClick(Response buttonResponse, Room room, Controller gameController) throws IOException {
+        String currentRoom = room.getName();
         if (Controller.player.getHealth() <= 0) {
             System.out.println(TextColor.RED + bundle.getString("player_dead1") + TextColor.RESET);
 // todo Add failure screen with 'you died'
@@ -74,7 +74,7 @@ public class Controller {
             endGame();
         }
         else {
-            userChoice(buttonResponse);
+            userChoice(buttonResponse, room, gameController);
 
             String[] werewolfAttack = {TextColor.RED + bundle.getString("werewolf_attack1"), bundle.getString("werewolf_attack2"), bundle.getString("werewolf_attack3") + TextColor.RESET};
             String werewolfAttackResponse = werewolfAttack[ran.nextInt(werewolfAttack.length)];
@@ -85,7 +85,7 @@ public class Controller {
                 System.out.println(TextColor.GREEN + bundle.getString("trophy_response2") + TextColor.RESET);
                 endGame();
             }
-            currentRoom = RoomMovement.currentRoom;
+//            currentRoom = RoomMovement.currentRoom;
             if (currentRoom.equalsIgnoreCase("Throne Room") && wolfKingPrompt) {
 // todo Replace with GUI output
                 System.out.println(TextColor.RED + bundle.getString("werewolfKing_attack1") + TextColor.RESET);
@@ -118,15 +118,13 @@ public class Controller {
      *
      * @throws IOException
      */
-    private void userChoice(Response buttonResponse) throws IOException {
-        while (player.getHealth() > 0 && timer < 24) {
+    private void userChoice(Response buttonResponse, Room room, Controller gameController) throws IOException {
             try {
-                Room room = RoomMovement.roomSwitcher;
+//                Room room = RoomMovement.roomSwitcher;
                 Response r1 = buttonResponse;
                 if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal") && player.getInventory().contains(r1.getNoun())) {
                     if (r1.getNoun().equalsIgnoreCase("blood sample")) {
                         player.pickup("Trophy");
-                        break;
                     }
                 }
                 switch (r1.getVerb()) {
@@ -138,13 +136,16 @@ public class Controller {
                         } else {
                             moonTrigger = true;
 // todo needs to be replaced by GUI response not View.menu response and sets moonTrigger to false
-                            View.menu();
+//                            View.menu();
                             werewolfCanAttack = true;
                             RoomMovement.switchRooms(r1.getLocation());
                             room = RoomMovement.roomSwitcher;
+                            UpdatePanel.updateLocation(room);
+                            UpdatePanel.updateCompass(room, gameController);
+                            UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
 // todo Replace with GUI output change picture, description output, locations panel, and make applicable items visible in RoomMovement class
-                            System.out.println(TextColor.BLUE + bundle.getString("go1") + room.getName() + "." + TextColor.RESET);
-                            System.out.println(TextColor.BLUE + room.getDescription() + "\n" + TextColor.RESET);
+//                            System.out.println(TextColor.BLUE + bundle.getString("go1") + room.getName() + "." + TextColor.RESET);
+//                            System.out.println(TextColor.BLUE + room.getDescription() + "\n" + TextColor.RESET);
                             break;
                         }
                     case "pickup":
@@ -197,10 +198,8 @@ public class Controller {
 //                        break;
                 }
             } catch (NullPointerException e) {
-                break;
             }
         }
-    }
 
     /**
      * returns hashmap of the monster map
