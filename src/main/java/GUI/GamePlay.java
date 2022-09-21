@@ -25,21 +25,19 @@ public class GamePlay {
 
     JPanel leftPanel;
     JPanel imagePanel;
-    JButton north = new JButton("N");
-    JButton south = new JButton("S");
-    JButton east = new JButton("E");
-    JButton west = new JButton("W");
     static JPanel gameDescriptionPanel;
 
     JPanel rightPanel;
-    JPanel healthPanel;
-    JPanel locationPanel;
+    static JPanel healthAndTimePanel;
+    static JPanel locationPanel;
     JPanel inventoryPanel;
     JPanel statPanel;
+    static JPanel compassPanel;
     JPanel timePanel;
     JTextArea textArea;
     JLabel lbl;
     JPanel mapButtonPanel;
+
 
     public GamePlay(JFrame frame) throws IOException {
         RoomMovement movement = Controller.startGame();
@@ -48,11 +46,11 @@ public class GamePlay {
 
         imagePanel = PanelSetup.imagePanel();
         gameDescriptionPanel = PanelSetup.gameDescriptionPanel(room);
-        healthPanel = PanelSetup.healthPanel(Controller.player.getHealth());
-        locationPanel = PanelSetup.locationPanel(room);
-        inventoryPanel = PanelSetup.inventoryPanel();
+        healthAndTimePanel = PanelSetup.healthAndTimePanel(Controller.player.getHealth(), Controller.timer);
         statPanel = PanelSetup.statPanel(Controller.player.getAttackPower(), Controller.player.getArmorRating());
-        timePanel = PanelSetup.timePanel(Controller.timer);
+        locationPanel = PanelSetup.locationPanel(room);
+        compassPanel = PanelSetup.compassPanel(gameController, room);
+        inventoryPanel = PanelSetup.inventoryPanel();
 
         leftPanel = new JPanel();
         leftPanel.setBounds(0, 50, 700, 950);
@@ -61,14 +59,6 @@ public class GamePlay {
 
         leftPanel.add(imagePanel);
         leftPanel.add(gameDescriptionPanel);
-
-
-//        lbl = new JLabel("Output : ");
-//        lbl.setFont(new Font("Verdana",Font.PLAIN,18));
-//        lbl.setVerticalAlignment(SwingConstants.BOTTOM);
-//        gameDescriptionPanel.add(lbl);
-
-
 
         rightPanel = new JPanel();
         rightPanel.setBounds(700, 50, 300, 950);
@@ -142,11 +132,11 @@ public class GamePlay {
         });
         /********************************/
 
-        rightPanel.add(healthPanel);
-        rightPanel.add(locationPanel);
-        rightPanel.add(inventoryPanel);
+        rightPanel.add(healthAndTimePanel);
         rightPanel.add(statPanel);
-        rightPanel.add(timePanel);
+        rightPanel.add(locationPanel);
+        rightPanel.add(compassPanel);
+        rightPanel.add(inventoryPanel);
         rightPanel.add(mapButtonPanel);
 
         frame.add(leftPanel);
