@@ -1,5 +1,8 @@
 package main.java.GUI;
 
+import main.java.model.Room;
+import main.java.model.RoomMovement;
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -34,13 +37,17 @@ public class GamePlay {
 
 
     public GamePlay(JFrame frame) throws IOException {
+        RoomMovement movement = Controller.startGame();
+        Controller gameController = new Controller();
+        Room room = RoomMovement.roomSwitcher;
+
         imagePanel = PanelSetup.imagePanel();
-        gameDescriptionPanel = PanelSetup.gameDescriptionPanel();
-        healthPanel = PanelSetup.healthPanel();
-        locationPanel = PanelSetup.locationPanel();
+        gameDescriptionPanel = PanelSetup.gameDescriptionPanel(room);
+        healthPanel = PanelSetup.healthPanel(Controller.player.getHealth());
+        locationPanel = PanelSetup.locationPanel(room);
         inventoryPanel = PanelSetup.inventoryPanel();
-        statPanel = PanelSetup.statPanel();
-        timePanel = PanelSetup.timePanel();
+        statPanel = PanelSetup.statPanel(Controller.player.getAttackPower(), Controller.player.getArmorRating());
+        timePanel = PanelSetup.timePanel(Controller.timer);
 
         leftPanel = new JPanel();
         leftPanel.setBounds(0, 50, 700, 950);

@@ -20,7 +20,7 @@ public class Controller {
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
     private static boolean werewolfCanAttack = true;
     private static boolean wolfKingPrompt = true;
-    private Random ran = new Random();
+    private static Random ran = new Random();
 
 
     /**
@@ -31,7 +31,7 @@ public class Controller {
      *
      * @throws IOException
      */
-    public void startGame() throws IOException {
+    public static RoomMovement startGame() throws IOException {
         List<String> emptyInventory = new ArrayList<>();
         Controller.wolfKingPrompt = true;
         Controller.player.setHealth(100);
@@ -42,6 +42,8 @@ public class Controller {
 
         RoomMovement movement = new RoomMovement();
         movement.firstRoom();
+
+        return movement;
     }
 
     /**
@@ -52,30 +54,7 @@ public class Controller {
     public void endGame() {
         System.out.println(TextColor.WHITE + bundle.getString("game_over1"));
         System.out.println(TextColor.WHITE + bundle.getString("game_over2") + TextColor.RESET);
-//        Scanner scanner = new Scanner(System.in);
-//This will be replaced by a call to the proper ending scree (win, die, timeout) followed by play again
-//        while (true) {
-//            String input = scanner.nextLine();
-//            if (input.equalsIgnoreCase("yes")) {
-//                try {
-//                    for (int i = 0; i < 70; ++i) System.out.println();
-//                    Client.repeatGameGUI();
-//                    break;
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                } catch (UnsupportedAudioFileException | LineUnavailableException | FontFormatException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }
-//            else if (input.equalsIgnoreCase("no")) {
-//                System.out.println(TextColor.WHITE+"\nGoodbye!");
-//                System.exit(0);
-//                break;
-//            }
-//            else {
-//                System.out.println(TextColor.RED+bundle.getString("replay")+TextColor.RESET);
-//            }
-//        }
+
     }
 
     /**
@@ -227,14 +206,13 @@ public class Controller {
      * returns hashmap of the monster map
      */
     public static HashMap<String, List<Werewolf>> getMonsterMap(String room) {
-        Random random = new Random();
         HashMap<String, Room> allMap = RoomMovement.getAllRooms();
         HashMap<String, List<Werewolf>> monsterMap = new HashMap<>();
         for (String key : allMap.keySet()) {
             monsterMap.put(key, new LinkedList<Werewolf>());
             if (key.equals("Throne Room")) {
                 monsterMap.get(key).add(new WerewolfKing());
-            } else if (random.nextBoolean() && !key.equals(room)) {
+            } else if (ran.nextBoolean() && !key.equals(room)) {
                 monsterMap.get(key).add(new Werewolf());
             }
         }
