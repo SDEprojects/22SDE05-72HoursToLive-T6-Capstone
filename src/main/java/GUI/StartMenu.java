@@ -31,6 +31,8 @@ public class StartMenu extends JFrame {
     JButton impossibleButton = new JButton("Impossible");
 
     Music music = new Music();
+    private JTextArea textArea;
+    private JLabel lbl;
 
 
     public StartMenu(JFrame frame) throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
@@ -113,7 +115,7 @@ public class StartMenu extends JFrame {
 
         //adding content panel to JFrame
         frame.add(contentPanel);
-        frame.setVisible(true);
+//        frame.setVisible(true);
         music.playMusic();
 
 //BUTTON ACTION LISTENERS
@@ -161,5 +163,7 @@ public class StartMenu extends JFrame {
                 throw new RuntimeException(ex);
             }
         });
+
+        frame.setVisible(true);
     }
 }

@@ -34,6 +34,8 @@ public class GamePlay {
     JPanel inventoryPanel;
     JPanel statPanel;
     JPanel timePanel;
+    JTextArea textArea;
+    JLabel lbl;
 
 
     public GamePlay(JFrame frame) throws IOException {
@@ -56,6 +58,14 @@ public class GamePlay {
 
         leftPanel.add(imagePanel);
         leftPanel.add(gameDescriptionPanel);
+
+
+//        lbl = new JLabel("Output : ");
+//        lbl.setFont(new Font("Verdana",Font.PLAIN,18));
+//        lbl.setVerticalAlignment(SwingConstants.BOTTOM);
+//        gameDescriptionPanel.add(lbl);
+
+
 
         rightPanel = new JPanel();
         rightPanel.setBounds(700, 50, 300, 950);

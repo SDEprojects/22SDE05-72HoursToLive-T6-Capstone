@@ -25,15 +25,20 @@ public class PanelSetup extends JPanel{
 
     public static JPanel gameDescriptionPanel(Room room) {
         JPanel gameDescriptionPanel = new JPanel();
-        gameDescriptionPanel.setBounds(0, 700, 700, 250);
+        gameDescriptionPanel.setBounds(0, 800, 700, 150);
         gameDescriptionPanel.setBackground(Color.black);
         gameDescriptionPanel.setOpaque(true);
         gameDescriptionPanel.setLayout(new BorderLayout());
-        JLabel test = new JLabel();
-        test.setText(room.getDescription());
-        test.setFont(new Font(Font.DIALOG, Font.BOLD, 13));
-        test.setForeground(Color.red);
-        gameDescriptionPanel.add(test, BorderLayout.CENTER);
+
+        //JTextArea implemented to wrap gameoutput and place in gamedescription panel
+        JTextArea text = new JTextArea();
+        text.setLineWrap(true);
+        text.setFont(new Font(Font.DIALOG, Font.BOLD, 13));
+        text.setBackground(Color.black);
+        text.setForeground(Color.red);
+        text.setWrapStyleWord(true);
+        text.setText(room.getDescription());
+        gameDescriptionPanel.add(text, BorderLayout.CENTER);
 
         return gameDescriptionPanel;
     }

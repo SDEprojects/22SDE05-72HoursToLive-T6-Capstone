@@ -56,6 +56,10 @@ public class GUI {
         optionButtons.add(quitButton);
         optionButtons.setLayout(new GridLayout(1, 3));
 
+
+
+
+
         // action listeners for music, help, and quit buttons
         musicButton.addActionListener(e -> {
             try {
@@ -66,7 +70,6 @@ public class GUI {
         });
 
         quitButton.addActionListener(e -> System.exit(0));
-
         frame.add(optionButtons);
         new StartMenu(frame);
     }
