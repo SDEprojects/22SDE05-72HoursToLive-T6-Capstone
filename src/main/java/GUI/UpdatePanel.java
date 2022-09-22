@@ -112,7 +112,7 @@ public class UpdatePanel {
     }
 
     public static void updateLocation(Room room) {
-        //todo Need to add item placement and werewolf placement
+        //todo Need to add item placement
         JPanel locationPanel = GamePlay.locationPanel;
         locationPanel.removeAll();
         String name = room.getName();
@@ -169,6 +169,8 @@ public class UpdatePanel {
         JButton empty5 = new JButton("");
         JPanel compassPanel = GamePlay.compassPanel;
         compassPanel.removeAll();
+        compassPanel.repaint();
+
         compassPanel.setBounds(700, 466, 300, 270);
         compassPanel.setBackground(Color.gray);
         compassPanel.setOpaque(true);

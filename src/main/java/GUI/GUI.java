@@ -103,6 +103,6 @@ public class GUI {
         quitButton.addActionListener(e -> System.exit(0));
 
         frame.add(optionButtons);
-        new StartMenu(frame);
+        new StartMenu();
     }
  }

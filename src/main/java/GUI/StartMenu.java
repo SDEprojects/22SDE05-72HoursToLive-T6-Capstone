@@ -41,7 +41,8 @@ public class StartMenu extends JFrame {
     private JLabel lbl;
 
 
-    public StartMenu(JFrame frame) throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
+    public StartMenu() throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
+        JFrame frame = GUI.frame;
         // creates the title panel, and sets title name/font
         titlePanel = new JPanel();
         titlePanel.setBounds(0, 100, 1000, 200);
@@ -68,7 +69,6 @@ public class StartMenu extends JFrame {
         difficultyPanel = new JPanel();
         difficultyPanel.setBounds(0, 600, 1000, 50);
         difficultyPanel.setOpaque(false);
-        difficultyPanel.setVisible(false);
         difficultyPanel.setLayout(new GridLayout(1, 4));
         // easy button
         easyButton.setForeground(Color.green);
@@ -95,6 +95,7 @@ public class StartMenu extends JFrame {
         difficultyPanel.add(mediumButton);
         difficultyPanel.add(hardButton);
         difficultyPanel.add(impossibleButton);
+        difficultyPanel.setVisible(false);
 
         //Creating intro screen
         introPanel = new JPanel();
@@ -175,7 +176,7 @@ public class StartMenu extends JFrame {
             frame.remove(contentPanel);
             GUI.optionButtons.setOpaque(true);
             try {
-                new GamePlay(frame);
+                new GamePlay();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

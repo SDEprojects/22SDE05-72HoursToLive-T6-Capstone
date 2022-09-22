@@ -1,5 +1,6 @@
 package main.java.GUI;
 
+import main.java.client.Client;
 import main.java.controller.Response;
 import main.java.model.Room;
 
@@ -8,10 +9,12 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 public class PanelSetup extends JPanel{
 
     static Font panelFont = new Font(Font.DIALOG, Font.BOLD, 12);
+    private static ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");;
 
     public static JPanel imagePanel(Room room, Controller gameController){
         JPanel imagePanel = new JPanel();
@@ -42,11 +45,13 @@ public class PanelSetup extends JPanel{
         text.setBackground(Color.black);
         text.setForeground(Color.red);
         text.setWrapStyleWord(true);
-        text.setText(room.getDescription());
-
-        //set text to console output
+        String firstRoomText = (bundle.getString("firstRoom_text1")) +
+                (bundle.getString("firstRoom_text2")) +
+                (bundle.getString("firstRoom_text3")) +
+                (bundle.getString("firstRoom_text4"));
         String description = room.getDescription();
-
+        String roomName = room.getName();
+        text.setText(firstRoomText + roomName + "\n\n" + description);
         gameDescriptionPanel.add(text, BorderLayout.CENTER);
 
         return gameDescriptionPanel;
