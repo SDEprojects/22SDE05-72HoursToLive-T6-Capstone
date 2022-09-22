@@ -18,7 +18,7 @@ public class UpdatePanel {
     public static void updateImagePanel(Room room, HashMap<String, List<Werewolf>> monsterMap) {
         JPanel imagePanel = GamePlay.imagePanel;
         imagePanel.removeAll();
-        imagePanel.setBounds(0, 50, 700, 700);
+        imagePanel.setBounds(0, 0, 700, 700);
         imagePanel.setBackground(Color.black);
         imagePanel.setOpaque(true);
         String currentRoom = room.getName();

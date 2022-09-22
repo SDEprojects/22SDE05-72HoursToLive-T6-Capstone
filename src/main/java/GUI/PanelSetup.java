@@ -15,7 +15,7 @@ public class PanelSetup extends JPanel{
 
     public static JPanel imagePanel(Room room, Controller gameController){
         JPanel imagePanel = new JPanel();
-        imagePanel.setBounds(0, 50, 700, 700);
+        imagePanel.setBounds(0, 0, 700, 700);
         imagePanel.setBackground(Color.black);
         imagePanel.setOpaque(true);
         String currentRoom = room.getName();

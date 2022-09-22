@@ -51,6 +51,7 @@ public class GamePlay {
         leftPanel = new JPanel();
         leftPanel.setBounds(0, 50, 700, 950);
         leftPanel.setBackground(Color.black);
+        leftPanel.setOpaque(false);
         leftPanel.setLayout(null);
 
         leftPanel.add(imagePanel);
@@ -58,7 +59,7 @@ public class GamePlay {
 
         rightPanel = new JPanel();
         rightPanel.setBounds(700, 50, 300, 950);
-        rightPanel.setBackground(Color.blue);
+        rightPanel.setBackground(Color.black);
         rightPanel.setLayout(null);
 
 

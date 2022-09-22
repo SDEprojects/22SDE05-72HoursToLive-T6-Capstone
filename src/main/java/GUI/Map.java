@@ -12,11 +12,18 @@ public class Map {
 
     public static JPanel getMap(){
         JPanel mapButtonPanel = new JPanel();
-        mapButtonPanel.setBounds(700, 945, 300, 75);
+        //imagePanel.setBounds(0, 0, 700, 700);
+        //mapButtonPanel.setBounds(700, 945, 300, 75);
+        mapButtonPanel.setBounds(350, 750, 50, 50);
         mapButtonPanel.setBackground(Color.gray);
-        mapButtonPanel.setOpaque(true);
+        mapButtonPanel.setOpaque(false);
 
         JButton mapButton = new JButton("MAP");
+        mapButton.setBackground(Color.black);
+        mapButton.setForeground(Color.red);
+        mapButton.setOpaque(false);
+        mapButton.setBorderPainted(false);
+        mapButton.setFont(new Font("Helvetica", Font.BOLD, 16));
         mapButtonPanel.add(mapButton);
 
         mapButton.addActionListener(e -> {
