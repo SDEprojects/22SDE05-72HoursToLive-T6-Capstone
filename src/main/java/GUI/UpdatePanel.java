@@ -2,15 +2,96 @@ package main.java.GUI;
 
 import main.java.controller.Response;
 import main.java.model.Room;
+import main.java.model.Werewolf;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 
 import static main.java.GUI.PanelSetup.panelFont;
 
 public class UpdatePanel {
+
+    public static void updateImagePanel(Room room, HashMap<String, List<Werewolf>> monsterMap) {
+        JPanel imagePanel = GamePlay.imagePanel;
+        imagePanel.removeAll();
+        imagePanel.setBounds(0, 0, 700, 700);
+        imagePanel.setBackground(Color.black);
+        imagePanel.setOpaque(true);
+        String currentRoom = room.getName();
+        String imgPath;
+//        if (!monsterMap.get(currentRoom).isEmpty()){
+//            imgPath = "Images/" + currentRoom + "_WW.jpeg";
+//            URL image = ClassLoader.getSystemClassLoader().getResource(imgPath);
+//            ImageIcon img = new ImageIcon(image);
+//            img.setImage(img.getImage().getScaledInstance(700, 700, Image.SCALE_DEFAULT));
+//
+//            imagePanel.add(new JLabel(img));
+//        }else {
+            imgPath = "Images/" + currentRoom + ".jpeg";
+            URL image = ClassLoader.getSystemClassLoader().getResource(imgPath);
+            ImageIcon img = new ImageIcon(image);
+            img.setImage(img.getImage().getScaledInstance(700, 700, Image.SCALE_DEFAULT));
+            imagePanel.add(new JLabel(img));
+//        }
+    }
+
+    public static void gameDescriptionPanel(){
+
+    }
+
+    public static void updateHealthAndTimePanel(int health, int timer) {
+        JPanel healthAndTimePanel = GamePlay.healthAndTimePanel;
+        healthAndTimePanel.removeAll();
+        healthAndTimePanel.setBounds(700, 50, 300, 75);
+        healthAndTimePanel.setBackground(Color.darkGray);
+        healthAndTimePanel.setOpaque(true);
+        healthAndTimePanel.setLayout(new GridLayout(2,1));
+
+        Color barColor;
+        if (health >= 60){
+            barColor= Color.green;
+        }else if(health >= 30){
+            barColor= Color.yellow;
+        }else {
+            barColor= Color.red;
+        }
+
+        JLabel currentHealth = new JLabel();
+        currentHealth.setText("Health= " + health);
+        currentHealth.setForeground(barColor);
+        currentHealth.setFont(panelFont);
+
+        healthAndTimePanel.add(currentHealth);
+//        JProgressBar healthBar = new JProgressBar(0,100);
+//        healthBar.setSize(300,75);
+//        healthBar.setValue(health);
+//        healthBar.setForeground(barColor);
+//        healthPanel.add(healthBar);
+
+        int currentTime = 72 - (timer * 3);
+        JPanel timePanel = new JPanel();
+        timePanel.setBounds(700, 875, 300, 150);
+        timePanel.setBackground(Color.darkGray);
+        timePanel.setOpaque(true);
+        Color timeColor;
+        if (currentTime >= 48){
+            timeColor= Color.green;
+        }else if(currentTime >= 24 && currentTime <= 47){
+            timeColor= Color.yellow;
+        }else {
+            timeColor= Color.red;
+        }
+        JLabel timeLabel = new JLabel();
+        timeLabel.setText("Time Left= " + currentTime + " hours!!");
+        timeLabel.setForeground(timeColor);
+        timeLabel.setFont(panelFont);
+
+        healthAndTimePanel.add(timeLabel);
+    }
 
     public static void updateLocation(Room room) {
         //todo Need to add item placement and werewolf placement
@@ -139,56 +220,9 @@ public class UpdatePanel {
 
     }
 
-    public static void updateHealthAndTimePanel(int health, int timer) {
-        JPanel healthAndTimePanel = GamePlay.healthAndTimePanel;
-        healthAndTimePanel.removeAll();
-        healthAndTimePanel.setBounds(700, 50, 300, 75);
-        healthAndTimePanel.setBackground(Color.darkGray);
-        healthAndTimePanel.setOpaque(true);
-        healthAndTimePanel.setLayout(new GridLayout(2,1));
+    public static void updateInventory(){
 
-        Color barColor;
-        if (health >= 60){
-            barColor= Color.green;
-        }else if(health >= 30){
-            barColor= Color.yellow;
-        }else {
-            barColor= Color.red;
-        }
-
-        JLabel currentHealth = new JLabel();
-        currentHealth.setText("Health= " + health);
-        currentHealth.setForeground(barColor);
-        currentHealth.setFont(panelFont);
-
-        healthAndTimePanel.add(currentHealth);
-//        JProgressBar healthBar = new JProgressBar(0,100);
-//        healthBar.setSize(300,75);
-//        healthBar.setValue(health);
-//        healthBar.setForeground(barColor);
-//        healthPanel.add(healthBar);
-
-        int currentTime = 72 - (timer * 3);
-        JPanel timePanel = new JPanel();
-        timePanel.setBounds(700, 875, 300, 150);
-        timePanel.setBackground(Color.darkGray);
-        timePanel.setOpaque(true);
-        Color timeColor;
-        if (currentTime >= 48){
-            timeColor= Color.green;
-        }else if(currentTime >= 24 && currentTime <= 47){
-            timeColor= Color.yellow;
-        }else {
-            timeColor= Color.red;
-        }
-        JLabel timeLabel = new JLabel();
-        timeLabel.setText("Time Left= " + currentTime + " hours!!");
-        timeLabel.setForeground(timeColor);
-        timeLabel.setFont(panelFont);
-
-        healthAndTimePanel.add(timeLabel);
     }
-
 }
 
 

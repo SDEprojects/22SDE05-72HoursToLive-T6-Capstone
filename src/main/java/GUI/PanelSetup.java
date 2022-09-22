@@ -6,21 +6,24 @@ import main.java.model.Room;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 
 public class PanelSetup extends JPanel{
 
     static Font panelFont = new Font(Font.DIALOG, Font.BOLD, 12);
 
-    public static JPanel imagePanel(){
+    public static JPanel imagePanel(Room room, Controller gameController){
         JPanel imagePanel = new JPanel();
-        imagePanel.setBounds(0, 50, 700, 700);
+        imagePanel.setBounds(0, 0, 700, 700);
         imagePanel.setBackground(Color.black);
         imagePanel.setOpaque(true);
-
-//        ImageIcon img = new ImageIcon(currentRoom);
-//        img.setImage(img.getImage().getScaledInstance(700, 700, Image.SCALE_DEFAULT));
-//        imagePanel.add(new JLabel(img));
+        String currentRoom = room.getName();
+        String imgPath = "Images/" + currentRoom + ".jpeg";
+        URL image = ClassLoader.getSystemClassLoader().getResource(imgPath);
+        ImageIcon img = new ImageIcon(image);
+        img.setImage(img.getImage().getScaledInstance(700, 700, Image.SCALE_DEFAULT));
+        imagePanel.add(new JLabel(img));
 
         return imagePanel;
     }
