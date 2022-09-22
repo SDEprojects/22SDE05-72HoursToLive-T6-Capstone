@@ -114,6 +114,7 @@ public class Controller {
 // todo Replace with GUI output change picture, description output, locations panel, and make applicable items visible in RoomMovement class
 //                            System.out.println(TextColor.BLUE + bundle.getString("go1") + room.getName() + "." + TextColor.RESET);
 //                            System.out.println(TextColor.BLUE + room.getDescription() + "\n" + TextColor.RESET);
+                            UpdatePanel.updateDescriptionPanel(room);
                             checkAttack(room);
                             break;
                         }

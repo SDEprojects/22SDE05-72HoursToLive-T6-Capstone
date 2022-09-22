@@ -223,6 +223,27 @@ public class UpdatePanel {
     public static void updateInventory(){
 
     }
+
+    public static void updateDescriptionPanel(Room room){
+        JPanel descriptionPanel = GamePlay.gameDescriptionPanel;
+        descriptionPanel.removeAll();
+        descriptionPanel.setBounds(0, 800, 700, 150);
+        descriptionPanel.setBackground(Color.black);
+        descriptionPanel.setOpaque(true);
+        descriptionPanel.setLayout(new BorderLayout());
+
+        //JTextArea implemented to wrap gameoutput and place in gamedescription panel
+        JTextArea text = new JTextArea();
+        text.setLineWrap(true);
+        text.setFont(new Font(Font.DIALOG, Font.BOLD, 13));
+        text.setBackground(Color.black);
+        text.setForeground(Color.red);
+        text.setWrapStyleWord(true);
+
+        String description = room.getDescription();
+        text.setText(description);
+        descriptionPanel.add(text, BorderLayout.CENTER);
+    }
 }
 
 

@@ -43,6 +43,10 @@ public class PanelSetup extends JPanel{
         text.setForeground(Color.red);
         text.setWrapStyleWord(true);
         text.setText(room.getDescription());
+
+        //set text to console output
+        String description = room.getDescription();
+
         gameDescriptionPanel.add(text, BorderLayout.CENTER);
 
         return gameDescriptionPanel;
