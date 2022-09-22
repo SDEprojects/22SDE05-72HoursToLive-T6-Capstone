@@ -18,12 +18,9 @@ public class StartMenu extends JFrame {
 
     JPanel titlePanel;
     JLabel title;
-
     JPanel newGamePanel;
     JButton newGameButton;
-
     JPanel imagePanel;
-
     JPanel difficultyPanel;
     JButton easyButton = new JButton("Easy");
     JButton mediumButton = new JButton("Medium");
@@ -115,7 +112,6 @@ public class StartMenu extends JFrame {
 
         //adding content panel to JFrame
         frame.add(contentPanel);
-//        frame.setVisible(true);
         music.playMusic();
 
 //BUTTON ACTION LISTENERS
