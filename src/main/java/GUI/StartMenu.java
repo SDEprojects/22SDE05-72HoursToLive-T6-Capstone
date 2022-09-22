@@ -1,6 +1,7 @@
 package main.java.GUI;
 
 import main.java.view.Music;
+import main.java.view.Story;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -126,7 +127,6 @@ public class StartMenu extends JFrame {
         img.setImage(img.getImage().getScaledInstance(1000, 1000, Image.SCALE_DEFAULT));
         imagePanel.add(new JLabel(img));
 
-
         //creates Jpanel that allows other panels to move within it
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(null);
@@ -140,7 +140,6 @@ public class StartMenu extends JFrame {
         contentPanel.add(introPanel);
         contentPanel.add(imagePanel);
 
-
         //adding content panel to JFrame
         frame.add(contentPanel);
         music.playMusic();
@@ -153,18 +152,22 @@ public class StartMenu extends JFrame {
         });
 
         easyButton.addActionListener(e -> {
+            Story.difficulty = 0;
             difficultyPanel.setVisible(false);
             introPanel.setVisible(true);
         });
         mediumButton.addActionListener(e -> {
+            Story.difficulty = 4;
             difficultyPanel.setVisible(false);
             introPanel.setVisible(true);
         });
         hardButton.addActionListener(e -> {
+            Story.difficulty = 7;
             difficultyPanel.setVisible(false);
             introPanel.setVisible(true);
         });
         impossibleButton.addActionListener(e -> {
+            Story.difficulty = 11;
             difficultyPanel.setVisible(false);
             introPanel.setVisible(true);
         });
@@ -177,9 +180,6 @@ public class StartMenu extends JFrame {
                 throw new RuntimeException(ex);
             }
         });
-
-
-
 
         frame.setVisible(true);
     }

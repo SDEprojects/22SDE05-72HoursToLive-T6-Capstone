@@ -33,7 +33,7 @@ public class Controller {
     public static RoomMovement startGame() throws IOException {
         List<String> emptyInventory = new ArrayList<>();
         Controller.wolfKingPrompt = true;
-        Controller.player.setHealth(100);
+        Controller.player.setHealth(10000);
         Controller.player.setAttackPower(10);
         Controller.player.setArmorRating(10);
         Controller.timer = 0;
@@ -87,6 +87,7 @@ public class Controller {
      */
     private void userChoice(Response buttonResponse, Room room, Controller gameController) throws IOException {
             try {
+                String currentRoom = room.getName();
 //                Room room = RoomMovement.roomSwitcher;
                 Response r1 = buttonResponse;
                 if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal") && player.getInventory().contains(r1.getNoun())) {
@@ -108,7 +109,7 @@ public class Controller {
                             RoomMovement.switchRooms(r1.getLocation());
                             room = RoomMovement.roomSwitcher;
                             UpdatePanel.updateLocation(room);
-                            UpdatePanel.updateCompass(room, gameController);
+                            UpdatePanel.updateCompass(room, gameController, monsterMap);
                             UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
                             UpdatePanel.updateImagePanel(room, monsterMap);
 // todo Replace with GUI output change picture, description output, locations panel, and make applicable items visible in RoomMovement class
@@ -143,6 +144,8 @@ public class Controller {
                         player.attack(w1);
                         if (w1.getHealth() <= 0) {
                             monsterMap.get(currentRoom).remove(0);
+                            UpdatePanel.updateImagePanel(room, monsterMap);
+                            UpdatePanel.updateCompass(room, gameController, monsterMap);
 // todo Remove werewolf from location picture
                             if (w1.getInventory().size() > 0) {
                                 for (String item : w1.getInventory()) {
