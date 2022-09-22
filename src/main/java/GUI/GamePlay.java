@@ -14,10 +14,6 @@ import java.util.ResourceBundle;
 
 public class GamePlay {
 
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
-
-    URL hallwayImage = ClassLoader.getSystemClassLoader().getResource("Images/Hallway.jpeg");
-
     JPanel leftPanel;
     static JPanel imagePanel;
     static JPanel gameDescriptionPanel;
@@ -28,9 +24,6 @@ public class GamePlay {
     JPanel inventoryPanel;
     JPanel statPanel;
     static JPanel compassPanel;
-    JPanel timePanel;
-    JTextArea textArea;
-    JLabel lbl;
     JPanel mapButtonPanel;
 
 

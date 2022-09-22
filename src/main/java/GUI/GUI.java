@@ -71,12 +71,12 @@ public class GUI {
         helpButton.addActionListener(e -> {
 
             JFrame helpFrame = new JFrame("Help");
-            helpFrame.setSize(800, 800);
+            helpFrame.setSize(1000, 800);
             helpFrame.setVisible(true);
             helpFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
             JPanel helpPanel = new JPanel();
-            helpPanel.setBounds(0, 0, 800, 800);
+            helpPanel.setBounds(0, 0, 1000, 800);
             helpPanel.setBackground(Color.black);
             helpPanel.setOpaque(true);
             helpPanel.setLayout(new BorderLayout());
