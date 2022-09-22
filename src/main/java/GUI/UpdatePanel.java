@@ -285,6 +285,7 @@ public class UpdatePanel {
     public static void updateDescriptionPanelText(String string){
         JPanel descriptionPanel = GamePlay.gameDescriptionPanel;
         descriptionPanel.removeAll();
+        descriptionPanel.repaint();
         descriptionPanel.setBounds(0, 800, 700, 150);
         descriptionPanel.setBackground(Color.black);
         descriptionPanel.setOpaque(true);
@@ -301,6 +302,8 @@ public class UpdatePanel {
 
         text.setText(string);
         descriptionPanel.add(text, BorderLayout.CENTER);
+
+        GUI.frame.setVisible(true);
     }
 }
 
