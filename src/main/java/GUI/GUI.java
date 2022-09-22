@@ -15,7 +15,7 @@ public class GUI {
 
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
 
-    private final JFrame frame;
+    public static JFrame frame;
     static JPanel optionButtons;
     JButton musicButton = new JButton("MUSIC");
     JButton helpButton = new JButton("HELP");

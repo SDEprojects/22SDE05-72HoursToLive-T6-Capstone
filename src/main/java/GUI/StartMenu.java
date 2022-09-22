@@ -1,6 +1,7 @@
 package main.java.GUI;
 
 import main.java.view.Music;
+import main.java.view.Story;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -124,6 +125,7 @@ public class StartMenu extends JFrame {
         });
 
         easyButton.addActionListener(e -> {
+            Story.difficulty = 0;
             frame.remove(contentPanel);
             GUI.optionButtons.setOpaque(true);
             try {
@@ -133,6 +135,7 @@ public class StartMenu extends JFrame {
             }
         });
         mediumButton.addActionListener(e -> {
+            Story.difficulty = 4;
             frame.remove(contentPanel);
             GUI.optionButtons.setOpaque(true);
             try {
@@ -142,6 +145,7 @@ public class StartMenu extends JFrame {
             }
         });
         hardButton.addActionListener(e -> {
+            Story.difficulty = 7;
             frame.remove(contentPanel);
             GUI.optionButtons.setOpaque(true);
             try {
@@ -151,6 +155,7 @@ public class StartMenu extends JFrame {
             }
         });
         impossibleButton.addActionListener(e -> {
+            Story.difficulty = 11;
             frame.remove(contentPanel);
             GUI.optionButtons.setOpaque(true);
             try {
