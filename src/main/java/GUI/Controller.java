@@ -175,7 +175,7 @@ public class Controller {
 
     private void checkAttack(Room room) {
         String currentRoom = room.getName();
-        String[] werewolfAttack = {TextColor.RED + bundle.getString("werewolf_attack1"), bundle.getString("werewolf_attack2"), bundle.getString("werewolf_attack3") + TextColor.RESET};
+        String[] werewolfAttack = {bundle.getString("werewolf_attack1"),bundle.getString("werewolf_attack2"),bundle.getString("werewolf_attack3")};
         String werewolfAttackResponse = werewolfAttack[ran.nextInt(werewolfAttack.length)];
         checkFullMoon();
         if (GameController.player.getInventory().contains("Trophy")) {
@@ -193,8 +193,9 @@ public class Controller {
         if (!monsterMap.get(currentRoom).isEmpty() && werewolfCanAttack) {
             Werewolf wolf = monsterMap.get(currentRoom).get(0);
             wolf.attack(player);
-            //todo add gamedescription output call
+            //todo add gamedescription output call for wolf attack
             UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
+            UpdatePanel.updateDescriptionPanelText(wolf.getName() + " " + werewolfAttackResponse );
 // todo Replace with GUI output i.e. make werewolf visible out decrease and health panel decrease
             System.out.println(TextColor.RED + wolf.getName() + " " + werewolfAttackResponse + TextColor.RESET);
             System.out.println(TextColor.YELLOW + bundle.getString("health_status1") + player.getHealth() + "!\n" + TextColor.RESET);

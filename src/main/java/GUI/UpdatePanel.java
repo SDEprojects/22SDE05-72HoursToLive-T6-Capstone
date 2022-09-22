@@ -241,7 +241,30 @@ public class UpdatePanel {
         text.setWrapStyleWord(true);
 
         String description = room.getDescription();
-        text.setText(description);
+        String roomName = room.getName();
+        text.setText(roomName + ": " + description);
+        descriptionPanel.add(text, BorderLayout.CENTER);
+    }
+
+    //method to print out any string parameters into description panel
+    public static void updateDescriptionPanelText(String string){
+        JPanel descriptionPanel = GamePlay.gameDescriptionPanel;
+        descriptionPanel.removeAll();
+        descriptionPanel.setBounds(0, 800, 700, 150);
+        descriptionPanel.setBackground(Color.black);
+        descriptionPanel.setOpaque(true);
+        descriptionPanel.setLayout(new BorderLayout());
+
+        //JTextArea implemented to wrap gameoutput and place in gamedescription panel
+        JTextArea text = new JTextArea();
+        text.setLineWrap(true);
+        text.setFont(new Font(Font.DIALOG, Font.BOLD, 13));
+        text.setBackground(Color.black);
+        text.setForeground(Color.red);
+        text.setWrapStyleWord(true);
+
+
+        text.setText(string);
         descriptionPanel.add(text, BorderLayout.CENTER);
     }
 }
