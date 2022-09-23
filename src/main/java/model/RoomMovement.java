@@ -65,7 +65,6 @@ public class RoomMovement {
         }
     }
 
-
     /**
      * This method generates a random room that will be used as the FIRST room
      * the user starts in.
