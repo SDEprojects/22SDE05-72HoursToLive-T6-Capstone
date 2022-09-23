@@ -12,19 +12,10 @@ public class Map {
 
     public static JPanel getMap(){
         //JPanel for God Mode and Map
-        JPanel mapButtonPanel = new JPanel(new BorderLayout());
+        JPanel mapButtonPanel = new JPanel(new GridLayout(1,3));
         mapButtonPanel.setBounds(0, 750, 700, 50);
         mapButtonPanel.setBackground(Color.gray);
         mapButtonPanel.setOpaque(false);
-
-        //Map Button
-        JButton mapButton = new JButton("MAP");
-        mapButton.setBackground(Color.black);
-        mapButton.setForeground(Color.red);
-        mapButton.setOpaque(false);
-        mapButton.setBorderPainted(false);
-        mapButton.setFont(new Font("Helvetica", Font.BOLD, 16));
-        mapButtonPanel.add(mapButton, BorderLayout.EAST);
 
         //Super Soldier Button
         JButton godModeButton = new JButton("Super Soldier Activated");
@@ -33,15 +24,37 @@ public class Map {
         godModeButton.setOpaque(false);
         godModeButton.setBorderPainted(false);
         godModeButton.setFont(new Font("Helvetica", Font.BOLD, 16));
-        mapButtonPanel.add(godModeButton, BorderLayout.WEST);
+        mapButtonPanel.add(godModeButton);
+
+        //Map Button
+        JButton mapButton = new JButton("MAP");
+        mapButton.setBackground(Color.black);
+        mapButton.setForeground(Color.red);
+        mapButton.setOpaque(false);
+        mapButton.setBorderPainted(false);
+        mapButton.setFont(new Font("Helvetica", Font.BOLD, 16));
+        mapButtonPanel.add(mapButton);
+
+        //Just placeHolder
+        JButton tempButton = new JButton();
+        tempButton.setBackground(Color.black);
+        tempButton.setForeground(Color.black);
+        tempButton.setOpaque(false);
+        tempButton.setBorderPainted(false);
+        tempButton.setEnabled(false);
+        mapButtonPanel.add(tempButton);
+
 
         //Action Listener for Super Soldier
         godModeButton.addActionListener(e -> {
             Controller.player.setHealth(1000);
             Controller.player.setAttackPower(1000);
             Controller.timer = -10;
-            godModeButton.setForeground(Color.red);
             UpdatePanel.updateDescriptionPanelText("You found the ester egg. Super soldier mode activated!!!!");
+            UpdatePanel.updateHealthAndTimePanel(Controller.player.getHealth(),Controller.timer);
+            godModeButton.setEnabled(false);
+            godModeButton.setForeground(Color.red);
+            //TODO: Update for player stat
         });
 
         //Action Listener for Map
