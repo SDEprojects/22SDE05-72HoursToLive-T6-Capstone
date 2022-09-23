@@ -11,11 +11,22 @@ import java.util.HashMap;
 public class Map {
 
     public static JPanel getMap(){
-        JPanel mapButtonPanel = new JPanel();
-        mapButtonPanel.setBounds(325, 750, 50, 50);
+        //JPanel for God Mode and Map
+        JPanel mapButtonPanel = new JPanel(new GridLayout(1,3));
+        mapButtonPanel.setBounds(0, 750, 700, 50);
         mapButtonPanel.setBackground(Color.gray);
         mapButtonPanel.setOpaque(false);
 
+        //Super Soldier Button
+        JButton godModeButton = new JButton("Super Soldier Activated");
+        godModeButton.setBackground(Color.black);
+        godModeButton.setForeground(Color.black);
+        godModeButton.setOpaque(false);
+        godModeButton.setBorderPainted(false);
+        godModeButton.setFont(new Font("Helvetica", Font.BOLD, 16));
+        mapButtonPanel.add(godModeButton);
+
+        //Map Button
         JButton mapButton = new JButton("MAP");
         mapButton.setBackground(Color.black);
         mapButton.setForeground(Color.red);
@@ -24,6 +35,29 @@ public class Map {
         mapButton.setFont(new Font("Helvetica", Font.BOLD, 16));
         mapButtonPanel.add(mapButton);
 
+        //Just placeHolder
+        JButton tempButton = new JButton();
+        tempButton.setBackground(Color.black);
+        tempButton.setForeground(Color.black);
+        tempButton.setOpaque(false);
+        tempButton.setBorderPainted(false);
+        tempButton.setEnabled(false);
+        mapButtonPanel.add(tempButton);
+
+
+        //Action Listener for Super Soldier
+        godModeButton.addActionListener(e -> {
+            Controller.player.setHealth(1000);
+            Controller.player.setAttackPower(1000);
+            Controller.timer = -10;
+            UpdatePanel.updateDescriptionPanelText("You found the ester egg. Super soldier mode activated!!!!");
+            UpdatePanel.updateHealthAndTimePanel(Controller.player.getHealth(),Controller.timer);
+            godModeButton.setEnabled(false);
+            godModeButton.setForeground(Color.red);
+            //TODO: Update for player stat
+        });
+
+        //Action Listener for Map
         mapButton.addActionListener(e -> {
             JFrame mapFrame = new JFrame("Map");
             mapFrame.setSize(600, 300);

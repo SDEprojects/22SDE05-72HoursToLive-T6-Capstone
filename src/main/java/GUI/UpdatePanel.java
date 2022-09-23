@@ -57,10 +57,6 @@ public class UpdatePanel {
         GUI.frame.setVisible(true);
     }
 
-    public static void gameDescriptionPanel(){
-
-    }
-
     public static void updateHealthAndTimePanel(int health, int timer) {
         JPanel healthAndTimePanel = GamePlay.healthAndTimePanel;
         healthAndTimePanel.removeAll();

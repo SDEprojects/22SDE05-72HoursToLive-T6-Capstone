@@ -24,7 +24,8 @@ public class GamePlay {
     JPanel statPanel;
     static JPanel compassPanel;
 
-    JPanel mapButtonPanel;
+    JPanel mapAndGodModePanel;
+
 
 
     public GamePlay() throws IOException {
@@ -40,7 +41,7 @@ public class GamePlay {
         locationPanel = PanelSetup.locationPanel(room);
         compassPanel = PanelSetup.compassPanel(gameController, room);
         inventoryPanel = PanelSetup.inventoryPanel();
-        mapButtonPanel = Map.getMap();
+        mapAndGodModePanel = Map.getMap();
 
         leftPanel = new JPanel();
         leftPanel.setBounds(0, 50, 700, 950);
@@ -56,13 +57,12 @@ public class GamePlay {
         rightPanel.setBackground(Color.black);
         rightPanel.setLayout(null);
 
-
         rightPanel.add(healthAndTimePanel);
         rightPanel.add(statPanel);
         rightPanel.add(locationPanel);
         rightPanel.add(compassPanel);
         rightPanel.add(inventoryPanel);
-        rightPanel.add(mapButtonPanel);
+        rightPanel.add(mapAndGodModePanel);
 
         frame.add(leftPanel);
         frame.add(rightPanel);
