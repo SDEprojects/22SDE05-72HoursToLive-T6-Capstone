@@ -8,16 +8,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class GamePlay {
 
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
-
-    URL hallwayImage = ClassLoader.getSystemClassLoader().getResource("Images/Hallway.jpeg");
-
     JPanel leftPanel;
     static JPanel imagePanel;
     static JPanel gameDescriptionPanel;
@@ -28,13 +23,12 @@ public class GamePlay {
     JPanel inventoryPanel;
     JPanel statPanel;
     static JPanel compassPanel;
-    JPanel timePanel;
-    JTextArea textArea;
-    JLabel lbl;
+
     JPanel mapButtonPanel;
 
 
-    public GamePlay(JFrame frame) throws IOException {
+    public GamePlay() throws IOException {
+        JFrame frame = GUI.frame;
         RoomMovement movement = Controller.startGame();
         Controller gameController = new Controller();
         Room room = RoomMovement.roomSwitcher;

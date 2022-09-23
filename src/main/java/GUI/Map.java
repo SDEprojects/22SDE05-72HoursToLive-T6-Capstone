@@ -12,9 +12,7 @@ public class Map {
 
     public static JPanel getMap(){
         JPanel mapButtonPanel = new JPanel();
-        //imagePanel.setBounds(0, 0, 700, 700);
-        //mapButtonPanel.setBounds(700, 945, 300, 75);
-        mapButtonPanel.setBounds(350, 750, 50, 50);
+        mapButtonPanel.setBounds(325, 750, 50, 50);
         mapButtonPanel.setBackground(Color.gray);
         mapButtonPanel.setOpaque(false);
 

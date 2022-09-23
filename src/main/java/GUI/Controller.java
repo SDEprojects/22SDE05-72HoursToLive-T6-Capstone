@@ -33,7 +33,7 @@ public class Controller {
     public static RoomMovement startGame() throws IOException {
         List<String> emptyInventory = new ArrayList<>();
         Controller.wolfKingPrompt = true;
-        Controller.player.setHealth(100);
+        Controller.player.setHealth(10000);
         Controller.player.setAttackPower(10);
         Controller.player.setArmorRating(10);
         Controller.timer = 0;
@@ -61,7 +61,6 @@ public class Controller {
      * to pass commands to the userChoice method
      */
     public void handleUserClick(Response buttonResponse, Room room, Controller gameController) throws IOException {
-        String currentRoom = room.getName();
         if (Controller.player.getHealth() <= 0) {
             System.out.println(TextColor.RED + bundle.getString("player_dead1") + TextColor.RESET);
 // todo Add failure screen with 'you died'
@@ -87,11 +86,12 @@ public class Controller {
      */
     private void userChoice(Response buttonResponse, Room room, Controller gameController) throws IOException {
             try {
-//                Room room = RoomMovement.roomSwitcher;
+                String currentRoom = room.getName();
                 Response r1 = buttonResponse;
                 if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal") && player.getInventory().contains(r1.getNoun())) {
                     if (r1.getNoun().equalsIgnoreCase("blood sample")) {
                         player.pickup("Trophy");
+                        //todo add trophy check
                     }
                 }
                 switch (r1.getVerb()) {
@@ -108,12 +108,9 @@ public class Controller {
                             RoomMovement.switchRooms(r1.getLocation());
                             room = RoomMovement.roomSwitcher;
                             UpdatePanel.updateLocation(room);
-                            UpdatePanel.updateCompass(room, gameController);
+                            UpdatePanel.updateCompass(room, gameController, monsterMap);
                             UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
                             UpdatePanel.updateImagePanel(room, monsterMap);
-// todo Replace with GUI output change picture, description output, locations panel, and make applicable items visible in RoomMovement class
-//                            System.out.println(TextColor.BLUE + bundle.getString("go1") + room.getName() + "." + TextColor.RESET);
-//                            System.out.println(TextColor.BLUE + room.getDescription() + "\n" + TextColor.RESET);
                             UpdatePanel.updateDescriptionPanel(room);
                             checkAttack(room);
                             break;
@@ -143,23 +140,23 @@ public class Controller {
                         player.attack(w1);
                         if (w1.getHealth() <= 0) {
                             monsterMap.get(currentRoom).remove(0);
-// todo Remove werewolf from location picture
+                            UpdatePanel.updateImagePanel(room, monsterMap);
+                            UpdatePanel.updateCompass(room, gameController, monsterMap);
                             if (w1.getInventory().size() > 0) {
                                 for (String item : w1.getInventory()) {
                                     String[] werewolfKingDead = {bundle.getString("werewolfKing_dead1"), bundle.getString("werewolfKing_dead2"), bundle.getString("werewolfKing_dead3")};
                                     String werewolfKing_deadResponse = werewolfKingDead[ran.nextInt(werewolfKingDead.length)];
-// todo Replace with a GUI output
-                                    System.out.println(werewolfKing_deadResponse);
+                                    UpdatePanel.updateDescriptionPanelText(werewolfKing_deadResponse);
                                     room.getItems().add(item);
                                 }
                             } else {
                                 String[] werewolfDead = {bundle.getString("werewolf_dead1"), bundle.getString("werewolf_dead2"), bundle.getString("werewolf_dead3")};
                                 String werewolf_deadResponse = werewolfDead[ran.nextInt(werewolfDead.length)];
-// todo Replace with a GUI output
-                                System.out.println(werewolf_deadResponse);
+                                UpdatePanel.updateDescriptionPanelText(werewolf_deadResponse);
                             }
                         }
                         werewolfCanAttack = true;
+
                         checkAttack(room);
                         break;
 // Shouldn't need default in switch case if response is not user defined
@@ -184,10 +181,9 @@ public class Controller {
             System.out.println(TextColor.GREEN + bundle.getString("trophy_response2") + TextColor.RESET);
             endGame();
         }
-//            currentRoom = RoomMovement.currentRoom;
+// todo check why this isnt getting hit
         if (currentRoom.equalsIgnoreCase("Throne Room") && wolfKingPrompt) {
-// todo Replace with GUI output
-            System.out.println(TextColor.RED + bundle.getString("werewolfKing_attack1") + TextColor.RESET);
+            UpdatePanel.updateDescriptionPanelText(bundle.getString("werewolfKing_attack1"));
             wolfKingPrompt = false;
         }
         if (!monsterMap.get(currentRoom).isEmpty() && werewolfCanAttack) {
@@ -195,10 +191,7 @@ public class Controller {
             wolf.attack(player);
             //todo add gamedescription output call for wolf attack
             UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
-            UpdatePanel.updateDescriptionPanelText(wolf.getName() + " " + werewolfAttackResponse );
-// todo Replace with GUI output i.e. make werewolf visible out decrease and health panel decrease
-            System.out.println(TextColor.RED + wolf.getName() + " " + werewolfAttackResponse + TextColor.RESET);
-            System.out.println(TextColor.YELLOW + bundle.getString("health_status1") + player.getHealth() + "!\n" + TextColor.RESET);
+            UpdatePanel.appendDescriptionPanelText("\n" + wolf.getName() + " " + werewolfAttackResponse + '\n' + bundle.getString("health_status1") + player.getHealth() );
             werewolfCanAttack = false;
         }
         if (player.getHealth() <= 0 || timer >= 24) {
@@ -206,8 +199,7 @@ public class Controller {
             endGame();
         }
         if (timer > 19) {
-// todo Replace with GUI output
-            System.out.println(TextColor.RED + bundle.getString("hours_status1") + (72 - (timer * 3)) + " " + bundle.getString("hours_status2") + TextColor.RESET);
+            UpdatePanel.updateDescriptionPanelText(bundle.getString("hours_status1") + (72 - (timer * 3)) + " " + bundle.getString("hours_status2"));
         }
         //call the menu from view class
     }

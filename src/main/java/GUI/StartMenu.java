@@ -1,6 +1,7 @@
 package main.java.GUI;
 
 import main.java.view.Music;
+import main.java.view.Story;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -9,12 +10,16 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ResourceBundle;
 
 public class StartMenu extends JFrame {
 
     InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream("Fonts/BloodyTerror-GOW9Z.ttf");
     Font titleFont = Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(75f);
     URL titleImageStream = ClassLoader.getSystemClassLoader().getResource("Images/TitleScreen.jpeg");
+
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
+
 
     JPanel titlePanel;
     JLabel title;
@@ -27,12 +32,17 @@ public class StartMenu extends JFrame {
     JButton hardButton = new JButton("Hard");
     JButton impossibleButton = new JButton("Impossible");
 
+    JPanel introPanel;
+    JTextArea introText;
+    JButton introContinue = new JButton("Click here to continue........");
+
     Music music = new Music();
     private JTextArea textArea;
     private JLabel lbl;
 
 
-    public StartMenu(JFrame frame) throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
+    public StartMenu() throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
+        JFrame frame = GUI.frame;
         // creates the title panel, and sets title name/font
         titlePanel = new JPanel();
         titlePanel.setBounds(0, 100, 1000, 200);
@@ -65,30 +75,50 @@ public class StartMenu extends JFrame {
         easyButton.setOpaque(false);
         easyButton.setBorderPainted(false);
         easyButton.setFont(new Font("Helvetica", Font.BOLD, 20));
-        easyButton.setVisible(false);
         // med button
         mediumButton.setForeground(Color.yellow);
         mediumButton.setOpaque(false);
         mediumButton.setBorderPainted(false);
         mediumButton.setFont(new Font("Helvetica", Font.BOLD, 20));
-        mediumButton.setVisible(false);
         // hard button
         hardButton.setForeground(Color.orange);
         hardButton.setOpaque(false);
         hardButton.setBorderPainted(false);
         hardButton.setFont(new Font("Helvetica", Font.BOLD, 20));
-        hardButton.setVisible(false);
         // impossible button
         impossibleButton.setForeground(Color.red);
         impossibleButton.setOpaque(false);
         impossibleButton.setBorderPainted(false);
         impossibleButton.setFont(new Font("Helvetica", Font.BOLD, 20));
-        impossibleButton.setVisible(false);
         // adding difficulty buttons to panel
         difficultyPanel.add(easyButton);
         difficultyPanel.add(mediumButton);
         difficultyPanel.add(hardButton);
         difficultyPanel.add(impossibleButton);
+        difficultyPanel.setVisible(false);
+
+        //Creating intro screen
+        introPanel = new JPanel();
+        introPanel.setBounds(0, 650, 1000, 400);
+        introPanel.setOpaque(false);
+        introPanel.setVisible(false);
+        introText = new JTextArea();
+        introText.setBounds(0, 650, 1000, 400);
+        introText.setLineWrap(true);
+        introText.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
+        introText.setBackground(Color.black);
+        introText.setForeground(Color.red);
+        introText.setWrapStyleWord(true);
+        introText.setOpaque(false);
+        introText.setText(bundle.getString("storyline"));
+
+        introContinue.setForeground(Color.red);
+        introContinue.setOpaque(false);
+        introContinue.setBorderPainted(false);
+        introContinue.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+
+        introPanel.add(introText);
+        introPanel.add(introContinue);
 
         // Creating the background image for the title/intro
         imagePanel = new JPanel();
@@ -108,53 +138,45 @@ public class StartMenu extends JFrame {
         contentPanel.add(titlePanel);
         contentPanel.add(newGamePanel);
         contentPanel.add(difficultyPanel);
+        contentPanel.add(introPanel);
         contentPanel.add(imagePanel);
 
         //adding content panel to JFrame
         frame.add(contentPanel);
         music.playMusic();
 
-//BUTTON ACTION LISTENERS
+        //BUTTON ACTION LISTENERS
         newGameButton.addActionListener(e -> {
             newGameButton.setVisible(false);
-            easyButton.setVisible(true);
-            mediumButton.setVisible(true);
-            hardButton.setVisible(true);
+            difficultyPanel.setVisible(true);
             impossibleButton.setVisible(true);
         });
 
         easyButton.addActionListener(e -> {
-            frame.remove(contentPanel);
-            GUI.optionButtons.setOpaque(true);
-            try {
-                new GamePlay(frame);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+            Story.difficulty = 0;
+            difficultyPanel.setVisible(false);
+            introPanel.setVisible(true);
         });
         mediumButton.addActionListener(e -> {
-            frame.remove(contentPanel);
-            GUI.optionButtons.setOpaque(true);
-            try {
-                new GamePlay(frame);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+            Story.difficulty = 4;
+            difficultyPanel.setVisible(false);
+            introPanel.setVisible(true);
         });
         hardButton.addActionListener(e -> {
-            frame.remove(contentPanel);
-            GUI.optionButtons.setOpaque(true);
-            try {
-                new GamePlay(frame);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+            Story.difficulty = 7;
+            difficultyPanel.setVisible(false);
+            introPanel.setVisible(true);
         });
         impossibleButton.addActionListener(e -> {
+            Story.difficulty = 11;
+            difficultyPanel.setVisible(false);
+            introPanel.setVisible(true);
+        });
+        introContinue.addActionListener(e -> {
             frame.remove(contentPanel);
             GUI.optionButtons.setOpaque(true);
             try {
-                new GamePlay(frame);
+                new GamePlay();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

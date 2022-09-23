@@ -13,8 +13,10 @@ import java.util.List;
 
 import static main.java.GUI.PanelSetup.panelFont;
 
+
 public class UpdatePanel {
 
+    static JTextArea text;
     public static void updateImagePanel(Room room, HashMap<String, List<Werewolf>> monsterMap) {
         JPanel imagePanel = GamePlay.imagePanel;
         imagePanel.removeAll();
@@ -23,20 +25,36 @@ public class UpdatePanel {
         imagePanel.setOpaque(true);
         String currentRoom = room.getName();
         String imgPath;
-//        if (!monsterMap.get(currentRoom).isEmpty()){
-//            imgPath = "Images/" + currentRoom + "_WW.jpeg";
-//            URL image = ClassLoader.getSystemClassLoader().getResource(imgPath);
-//            ImageIcon img = new ImageIcon(image);
-//            img.setImage(img.getImage().getScaledInstance(700, 700, Image.SCALE_DEFAULT));
-//
-//            imagePanel.add(new JLabel(img));
-//        }else {
+        JPanel attackPanel = new JPanel();
+        attackPanel.setBounds(300, 800, 700, 100);
+        attackPanel.setOpaque(false);
+        JButton attackButton = new JButton("ATTACK");
+        attackButton.setForeground(Color.red);
+        attackButton.setBackground(Color.black);
+        attackButton.setFont(new Font("Helvetica", Font.BOLD, 28));
+        attackButton.setOpaque(false);
+        attackButton.setBorderPainted(false);
+        attackPanel.add(attackButton);
+
+        if (!monsterMap.get(currentRoom).isEmpty()){
+            imgPath = "Images/" + currentRoom + "_WW.jpeg";
+            URL image = ClassLoader.getSystemClassLoader().getResource(imgPath);
+            ImageIcon img = new ImageIcon(image);
+            img.setImage(img.getImage().getScaledInstance(700, 700, Image.SCALE_DEFAULT));
+            imagePanel.add(new JLabel(img));
+            imagePanel.add(attackPanel);
+            attackButton.setVisible(true);
+
+        }else {
             imgPath = "Images/" + currentRoom + ".jpeg";
             URL image = ClassLoader.getSystemClassLoader().getResource(imgPath);
             ImageIcon img = new ImageIcon(image);
             img.setImage(img.getImage().getScaledInstance(700, 700, Image.SCALE_DEFAULT));
             imagePanel.add(new JLabel(img));
-//        }
+            attackButton.setVisible(false);
+        }
+
+        GUI.frame.setVisible(true);
     }
 
     public static void gameDescriptionPanel(){
@@ -91,10 +109,12 @@ public class UpdatePanel {
         timeLabel.setFont(panelFont);
 
         healthAndTimePanel.add(timeLabel);
+
+        GUI.frame.setVisible(true);
     }
 
     public static void updateLocation(Room room) {
-        //todo Need to add item placement and werewolf placement
+        //todo Need to add item placement
         JPanel locationPanel = GamePlay.locationPanel;
         locationPanel.removeAll();
         String name = room.getName();
@@ -139,23 +159,26 @@ public class UpdatePanel {
         locationPanel.repaint();
     }
 
-    public static void updateCompass(Room room, Controller gameController) {
+    public static void updateCompass(Room room, Controller gameController, HashMap<String, List<Werewolf>> monsterMap) {
         JButton north = new JButton("N");
         JButton south = new JButton("S");
         JButton east = new JButton("E");
         JButton west = new JButton("W");
         JButton empty1 = new JButton("");
         JButton empty2 = new JButton("");
-        JButton empty3 = new JButton("");
+        JButton attackButton = new JButton("ATTACK!!");
         JButton empty4 = new JButton("");
         JButton empty5 = new JButton("");
         JPanel compassPanel = GamePlay.compassPanel;
         compassPanel.removeAll();
+        compassPanel.repaint();
+
         compassPanel.setBounds(700, 466, 300, 270);
         compassPanel.setBackground(Color.gray);
         compassPanel.setOpaque(true);
 
         HashMap connectedRooms = (HashMap) room.getConnectedRooms();
+        String currentRoom = room.getName();
 
         compassPanel.setLayout(new GridLayout(3, 3));
         compassPanel.add(empty1);
@@ -170,8 +193,13 @@ public class UpdatePanel {
         if (connectedRooms.get("west").toString().equals("None")) {
             west.setEnabled(false);
         }
-        compassPanel.add(empty3);
-        empty3.setVisible(false);
+        attackButton.setForeground(Color.red);
+        compassPanel.add(attackButton);
+        if (!monsterMap.get(currentRoom).isEmpty()){
+            attackButton.setVisible(true);
+        }else {
+            attackButton.setVisible(false);
+        }
         compassPanel.add(east);
         if (connectedRooms.get("east").toString().equals("None")) {
             east.setEnabled(false);
@@ -187,6 +215,7 @@ public class UpdatePanel {
 
         compassPanel.setForeground(Color.black);
         compassPanel.setFont(panelFont);
+        compassPanel.setVisible(true);
 
         north.addActionListener(e -> {
             try {
@@ -217,7 +246,15 @@ public class UpdatePanel {
             }
         });
 
+        attackButton.addActionListener(e -> {
+            try {
+                gameController.handleUserClick(new Response("attack", "", ""), room, gameController);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
+        GUI.frame.setVisible(true);
     }
 
     public static void updateInventory(){
@@ -233,11 +270,11 @@ public class UpdatePanel {
         descriptionPanel.setLayout(new BorderLayout());
 
         //JTextArea implemented to wrap gameoutput and place in gamedescription panel
-        JTextArea text = new JTextArea();
+        text = new JTextArea();
         text.setLineWrap(true);
         text.setFont(new Font(Font.DIALOG, Font.BOLD, 13));
         text.setBackground(Color.black);
-        text.setForeground(Color.red);
+        text.setForeground(Color.yellow);
         text.setWrapStyleWord(true);
 
         String description = room.getDescription();
@@ -250,23 +287,36 @@ public class UpdatePanel {
     public static void updateDescriptionPanelText(String string){
         JPanel descriptionPanel = GamePlay.gameDescriptionPanel;
         descriptionPanel.removeAll();
+        descriptionPanel.repaint();
         descriptionPanel.setBounds(0, 800, 700, 150);
         descriptionPanel.setBackground(Color.black);
         descriptionPanel.setOpaque(true);
         descriptionPanel.setLayout(new BorderLayout());
 
         //JTextArea implemented to wrap gameoutput and place in gamedescription panel
-        JTextArea text = new JTextArea();
+        text = new JTextArea();
         text.setLineWrap(true);
         text.setFont(new Font(Font.DIALOG, Font.BOLD, 13));
         text.setBackground(Color.black);
-        text.setForeground(Color.red);
+        text.setForeground(Color.yellow);
         text.setWrapStyleWord(true);
 
-
-        text.setText(string);
+        text.append(string);
         descriptionPanel.add(text, BorderLayout.CENTER);
+
+        GUI.frame.setVisible(true);
+    }
+
+
+    public static void appendDescriptionPanelText(String string){
+        JPanel descriptionPanel = GamePlay.gameDescriptionPanel;
+
+        text.append("\n" + string);
+
+        descriptionPanel.repaint();
+        GUI.frame.setVisible(true);
     }
 }
+
 
 

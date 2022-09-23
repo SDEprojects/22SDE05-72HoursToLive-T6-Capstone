@@ -15,7 +15,7 @@ public class GUI {
 
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
 
-    private final JFrame frame;
+    public static JFrame frame;
     static JPanel optionButtons;
     JButton musicButton = new JButton("MUSIC");
     JButton helpButton = new JButton("HELP");
@@ -71,12 +71,12 @@ public class GUI {
         helpButton.addActionListener(e -> {
 
             JFrame helpFrame = new JFrame("Help");
-            helpFrame.setSize(800, 800);
+            helpFrame.setSize(1000, 800);
             helpFrame.setVisible(true);
             helpFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
             JPanel helpPanel = new JPanel();
-            helpPanel.setBounds(0, 0, 800, 800);
+            helpPanel.setBounds(0, 0, 1000, 800);
             helpPanel.setBackground(Color.black);
             helpPanel.setOpaque(true);
             helpPanel.setLayout(new BorderLayout());
@@ -103,6 +103,6 @@ public class GUI {
         quitButton.addActionListener(e -> System.exit(0));
 
         frame.add(optionButtons);
-        new StartMenu(frame);
+        new StartMenu();
     }
  }
