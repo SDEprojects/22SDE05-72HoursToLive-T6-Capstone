@@ -33,7 +33,7 @@ public class Controller {
     public static RoomMovement startGame() throws IOException {
         List<String> emptyInventory = new ArrayList<>();
         Controller.wolfKingPrompt = true;
-        Controller.player.setHealth(10000);
+        Controller.player.setHealth(100);
         Controller.player.setAttackPower(10);
         Controller.player.setArmorRating(10);
         Controller.timer = 0;

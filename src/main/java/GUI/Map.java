@@ -11,19 +11,40 @@ import java.util.HashMap;
 public class Map {
 
     public static JPanel getMap(){
-        JPanel mapButtonPanel = new JPanel();
-        mapButtonPanel.setBounds(325, 750, 50, 50);
+        //JPanel for God Mode and Map
+        JPanel mapButtonPanel = new JPanel(new BorderLayout());
+        mapButtonPanel.setBounds(0, 750, 700, 50);
         mapButtonPanel.setBackground(Color.gray);
         mapButtonPanel.setOpaque(false);
 
+        //Map Button
         JButton mapButton = new JButton("MAP");
         mapButton.setBackground(Color.black);
         mapButton.setForeground(Color.red);
         mapButton.setOpaque(false);
         mapButton.setBorderPainted(false);
         mapButton.setFont(new Font("Helvetica", Font.BOLD, 16));
-        mapButtonPanel.add(mapButton);
+        mapButtonPanel.add(mapButton, BorderLayout.EAST);
 
+        //Super Soldier Button
+        JButton godModeButton = new JButton("Super Soldier Activated");
+        godModeButton.setBackground(Color.black);
+        godModeButton.setForeground(Color.black);
+        godModeButton.setOpaque(false);
+        godModeButton.setBorderPainted(false);
+        godModeButton.setFont(new Font("Helvetica", Font.BOLD, 16));
+        mapButtonPanel.add(godModeButton, BorderLayout.WEST);
+
+        //Action Listener for Super Soldier
+        godModeButton.addActionListener(e -> {
+            Controller.player.setHealth(1000);
+            Controller.player.setAttackPower(1000);
+            Controller.timer = -10;
+            godModeButton.setForeground(Color.red);
+            UpdatePanel.updateDescriptionPanelText("You found the ester egg. Super soldier mode activated!!!!");
+        });
+
+        //Action Listener for Map
         mapButton.addActionListener(e -> {
             JFrame mapFrame = new JFrame("Map");
             mapFrame.setSize(600, 300);
