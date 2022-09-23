@@ -5,6 +5,9 @@ import main.java.controller.Response;
 import main.java.model.*;
 import main.java.view.*;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.awt.*;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
@@ -63,7 +66,7 @@ public class Controller {
     public void handleUserClick(Response buttonResponse, Room room, Controller gameController) throws IOException {
         if (Controller.player.getHealth() <= 0) {
             System.out.println(TextColor.RED + bundle.getString("player_dead1") + TextColor.RESET);
-// todo Add failure screen with 'you died'
+// todo Add failure screen with 'you died' *******
             endGame();
         }
         else if (Controller.timer == 24) {
@@ -99,7 +102,7 @@ public class Controller {
                         timer++;
                         if (timer == 24) {
 // todo need to call failure screen with 'time ran out'
-                            endGame();
+                            new EndingMenu("time out");
                         } else {
                             moonTrigger = true;
 // todo needs to be replaced by GUI response not View.menu response and sets moonTrigger to false
@@ -166,40 +169,37 @@ public class Controller {
 //                        werewolfCanAttack = false;
 //                        break;
                 }
-            } catch (NullPointerException e) {
+            } catch (NullPointerException ignored) {
+            } catch (UnsupportedAudioFileException | LineUnavailableException | FontFormatException e) {
+                throw new RuntimeException(e);
             }
         }
 
-    private void checkAttack(Room room) {
+    private void checkAttack(Room room) throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
         String currentRoom = room.getName();
         String[] werewolfAttack = {bundle.getString("werewolf_attack1"),bundle.getString("werewolf_attack2"),bundle.getString("werewolf_attack3")};
         String werewolfAttackResponse = werewolfAttack[ran.nextInt(werewolfAttack.length)];
         checkFullMoon();
         if (GameController.player.getInventory().contains("Trophy")) {
-// todo Add success screen
-            System.out.println(TextColor.GREEN + bundle.getString("trophy_response1"));
-            System.out.println(TextColor.GREEN + bundle.getString("trophy_response2") + TextColor.RESET);
-            endGame();
+            new EndingMenu("win");
         }
-// todo check why this isnt getting hit
         if (currentRoom.equalsIgnoreCase("Throne Room") && wolfKingPrompt) {
             UpdatePanel.updateDescriptionPanelText(bundle.getString("werewolfKing_attack1"));
             wolfKingPrompt = false;
         }
+        //Gamedescription output call for wolf attack
         if (!monsterMap.get(currentRoom).isEmpty() && werewolfCanAttack) {
             Werewolf wolf = monsterMap.get(currentRoom).get(0);
             wolf.attack(player);
-            //todo add gamedescription output call for wolf attack
             UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
             UpdatePanel.appendDescriptionPanelText("\n" + wolf.getName() + " " + werewolfAttackResponse + '\n' + bundle.getString("health_status1") + player.getHealth() );
             werewolfCanAttack = false;
         }
-        if (player.getHealth() <= 0 || timer >= 24) {
-// todo Needs to call failure screen with 'you died output'
-            endGame();
+        if (player.getHealth() <= 0) {
+            new EndingMenu("wolf_win");
         }
         if (timer > 19) {
-            UpdatePanel.updateDescriptionPanelText(bundle.getString("hours_status1") + (72 - (timer * 3)) + " " + bundle.getString("hours_status2"));
+            UpdatePanel.appendDescriptionPanelText(bundle.getString("hours_status1") + (72 - (timer * 3)) + " " + bundle.getString("hours_status2"));
         }
         //call the menu from view class
     }
