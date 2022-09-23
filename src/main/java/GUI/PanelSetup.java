@@ -1,6 +1,5 @@
 package main.java.GUI;
 
-import main.java.client.Client;
 import main.java.controller.Response;
 import main.java.model.Room;
 
@@ -33,7 +32,7 @@ public class PanelSetup extends JPanel{
 
     public static JPanel gameDescriptionPanel(Room room) {
         JPanel gameDescriptionPanel = new JPanel();
-        gameDescriptionPanel.setBounds(0, 800, 700, 150);
+        gameDescriptionPanel.setBounds(0, 750, 700, 250);
         gameDescriptionPanel.setBackground(Color.black);
         gameDescriptionPanel.setOpaque(true);
         gameDescriptionPanel.setLayout(new BorderLayout());
@@ -43,7 +42,7 @@ public class PanelSetup extends JPanel{
         text.setLineWrap(true);
         text.setFont(new Font(Font.DIALOG, Font.BOLD, 13));
         text.setBackground(Color.black);
-        text.setForeground(Color.red);
+        text.setForeground(Color.yellow);
         text.setWrapStyleWord(true);
         String firstRoomText = (bundle.getString("firstRoom_text1")) +
                 (bundle.getString("firstRoom_text2")) +

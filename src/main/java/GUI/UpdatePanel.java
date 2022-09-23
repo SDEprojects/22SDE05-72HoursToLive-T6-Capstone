@@ -13,8 +13,10 @@ import java.util.List;
 
 import static main.java.GUI.PanelSetup.panelFont;
 
+
 public class UpdatePanel {
 
+    static JTextArea text;
     public static void updateImagePanel(Room room, HashMap<String, List<Werewolf>> monsterMap) {
         JPanel imagePanel = GamePlay.imagePanel;
         imagePanel.removeAll();
@@ -268,11 +270,11 @@ public class UpdatePanel {
         descriptionPanel.setLayout(new BorderLayout());
 
         //JTextArea implemented to wrap gameoutput and place in gamedescription panel
-        JTextArea text = new JTextArea();
+        text = new JTextArea();
         text.setLineWrap(true);
         text.setFont(new Font(Font.DIALOG, Font.BOLD, 13));
         text.setBackground(Color.black);
-        text.setForeground(Color.red);
+        text.setForeground(Color.yellow);
         text.setWrapStyleWord(true);
 
         String description = room.getDescription();
@@ -292,19 +294,29 @@ public class UpdatePanel {
         descriptionPanel.setLayout(new BorderLayout());
 
         //JTextArea implemented to wrap gameoutput and place in gamedescription panel
-        JTextArea text = new JTextArea();
+        text = new JTextArea();
         text.setLineWrap(true);
         text.setFont(new Font(Font.DIALOG, Font.BOLD, 13));
         text.setBackground(Color.black);
-        text.setForeground(Color.red);
+        text.setForeground(Color.yellow);
         text.setWrapStyleWord(true);
 
-
-        text.setText(string);
+        text.append(string);
         descriptionPanel.add(text, BorderLayout.CENTER);
 
         GUI.frame.setVisible(true);
     }
+
+
+    public static void appendDescriptionPanelText(String string){
+        JPanel descriptionPanel = GamePlay.gameDescriptionPanel;
+
+        text.append("\n" + string);
+
+        descriptionPanel.repaint();
+        GUI.frame.setVisible(true);
+    }
 }
+
 
 

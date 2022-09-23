@@ -91,6 +91,7 @@ public class Controller {
                 if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal") && player.getInventory().contains(r1.getNoun())) {
                     if (r1.getNoun().equalsIgnoreCase("blood sample")) {
                         player.pickup("Trophy");
+                        //todo add trophy check
                     }
                 }
                 switch (r1.getVerb()) {
@@ -155,6 +156,7 @@ public class Controller {
                             }
                         }
                         werewolfCanAttack = true;
+
                         checkAttack(room);
                         break;
 // Shouldn't need default in switch case if response is not user defined
@@ -179,7 +181,7 @@ public class Controller {
             System.out.println(TextColor.GREEN + bundle.getString("trophy_response2") + TextColor.RESET);
             endGame();
         }
-//            currentRoom = RoomMovement.currentRoom;
+// todo check why this isnt getting hit
         if (currentRoom.equalsIgnoreCase("Throne Room") && wolfKingPrompt) {
             UpdatePanel.updateDescriptionPanelText(bundle.getString("werewolfKing_attack1"));
             wolfKingPrompt = false;
@@ -189,7 +191,7 @@ public class Controller {
             wolf.attack(player);
             //todo add gamedescription output call for wolf attack
             UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
-            UpdatePanel.updateDescriptionPanelText(wolf.getName() + " " + werewolfAttackResponse + '\n' + bundle.getString("health_status1") + player.getHealth() );
+            UpdatePanel.appendDescriptionPanelText("\n" + wolf.getName() + " " + werewolfAttackResponse + '\n' + bundle.getString("health_status1") + player.getHealth() );
             werewolfCanAttack = false;
         }
         if (player.getHealth() <= 0 || timer >= 24) {
