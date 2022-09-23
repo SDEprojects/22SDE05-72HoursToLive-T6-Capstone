@@ -276,7 +276,7 @@ public class UpdatePanel {
         text.setBackground(Color.black);
         text.setForeground(Color.yellow);
         text.setWrapStyleWord(true);
-
+        text.setSelectedTextColor(Color.red);
         String description = room.getDescription();
         String roomName = room.getName();
         text.setText(roomName + ": " + description);
