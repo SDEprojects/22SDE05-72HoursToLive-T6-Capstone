@@ -1,6 +1,5 @@
 package main.java.model;
 
-import main.java.GUI.GUI;
 import main.java.GUI.UpdatePanel;
 import main.java.client.Client;
 import main.java.view.Story;

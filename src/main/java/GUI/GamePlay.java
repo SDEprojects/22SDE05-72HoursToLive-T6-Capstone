@@ -7,20 +7,18 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class GamePlay {
 
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
-    JPanel leftPanel;
+    static JPanel leftPanel;
+    static Container imageContainer;
     static JPanel imagePanel;
     static JPanel gameDescriptionPanel;
 
     JPanel rightPanel;
     static JPanel healthAndTimePanel;
     static JPanel locationPanel;
-    JPanel inventoryPanel;
+    static JPanel inventoryPanel;
     JPanel statPanel;
     static JPanel compassPanel;
 
@@ -30,11 +28,14 @@ public class GamePlay {
 
     public GamePlay() throws IOException {
         JFrame frame = GUI.frame;
-        RoomMovement movement = Controller.startGame();
+        Controller.startGame();
         Controller gameController = new Controller();
         Room room = RoomMovement.roomSwitcher;
 
-        imagePanel = PanelSetup.imagePanel(room, gameController);
+        imageContainer = new Container();
+        imageContainer.setBounds(0, 0, 700, 700);
+        imageContainer.setBackground(Color.black);
+        imagePanel = PanelSetup.imagePanel(room);
         gameDescriptionPanel = PanelSetup.gameDescriptionPanel(room);
         healthAndTimePanel = PanelSetup.healthAndTimePanel(Controller.player.getHealth(), Controller.timer);
         statPanel = PanelSetup.statPanel(Controller.player.getAttackPower(), Controller.player.getArmorRating());
@@ -43,13 +44,15 @@ public class GamePlay {
         inventoryPanel = PanelSetup.inventoryPanel();
         mapAndGodModePanel = Map.getMap();
 
+        imageContainer.add(imagePanel);
+
         leftPanel = new JPanel();
         leftPanel.setBounds(0, 50, 700, 950);
         leftPanel.setBackground(Color.black);
         leftPanel.setOpaque(false);
         leftPanel.setLayout(null);
 
-        leftPanel.add(imagePanel);
+        leftPanel.add(imageContainer);
         leftPanel.add(gameDescriptionPanel);
 
         rightPanel = new JPanel();
@@ -68,5 +71,13 @@ public class GamePlay {
         frame.add(rightPanel);
 
         frame.setVisible(true);
+    }
+
+    public static Container getImageContainer() {
+        return imageContainer;
+    }
+
+    public static void setImageContainer(Container imagePanel) {
+        GamePlay.imageContainer = imageContainer;
     }
 }
