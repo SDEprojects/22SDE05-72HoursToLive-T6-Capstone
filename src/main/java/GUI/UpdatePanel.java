@@ -7,9 +7,9 @@ import main.java.model.Werewolf;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import static main.java.GUI.PanelSetup.panelFont;
 
@@ -17,42 +17,38 @@ import static main.java.GUI.PanelSetup.panelFont;
 public class UpdatePanel {
 
     static JTextArea text;
+    private static ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");;
+
     public static void updateImagePanel(Room room, HashMap<String, List<Werewolf>> monsterMap) {
-        JPanel imagePanel = GamePlay.imagePanel;
-        imagePanel.removeAll();
+        Container imageContainer = GamePlay.getImageContainer();
+        imageContainer.removeAll();
+
+        BackgroundPanel imagePanel = new BackgroundPanel(room, monsterMap);
         imagePanel.setBounds(0, 0, 700, 700);
         imagePanel.setBackground(Color.black);
         imagePanel.setOpaque(true);
-        String currentRoom = room.getName();
-        String imgPath;
-        JPanel attackPanel = new JPanel();
-        attackPanel.setBounds(300, 800, 700, 100);
-        attackPanel.setOpaque(false);
-        JButton attackButton = new JButton("ATTACK");
-        attackButton.setForeground(Color.red);
-        attackButton.setBackground(Color.black);
-        attackButton.setFont(new Font("Helvetica", Font.BOLD, 28));
-        attackButton.setOpaque(false);
-        attackButton.setBorderPainted(false);
-        attackPanel.add(attackButton);
 
-        if (!monsterMap.get(currentRoom).isEmpty()){
-            imgPath = "Images/" + currentRoom + "_WW.jpeg";
-            URL image = ClassLoader.getSystemClassLoader().getResource(imgPath);
-            ImageIcon img = new ImageIcon(image);
-            img.setImage(img.getImage().getScaledInstance(700, 700, Image.SCALE_DEFAULT));
-            imagePanel.add(new JLabel(img));
-            imagePanel.add(attackPanel);
-            attackButton.setVisible(true);
+        List<String> roomItems = room.getItems();
+        if (roomItems.isEmpty()){
+            UpdatePanel.appendDescriptionPanelText(bundle.getString("look1"));
+        } else {
+            for (String item : roomItems) {
+                System.out.println(item);
+                JPanel newItem = new JPanel();
+                newItem.setBounds(0, 150, 100, 100);
+                newItem.setOpaque(false);
 
-        }else {
-            imgPath = "Images/" + currentRoom + ".jpeg";
-            URL image = ClassLoader.getSystemClassLoader().getResource(imgPath);
-            ImageIcon img = new ImageIcon(image);
-            img.setImage(img.getImage().getScaledInstance(700, 700, Image.SCALE_DEFAULT));
-            imagePanel.add(new JLabel(img));
-            attackButton.setVisible(false);
+                JButton showItem = new JButton(item);
+                showItem.setForeground(Color.cyan);
+                showItem.setBackground(Color.black);
+                showItem.setOpaque(false);
+                showItem.setBorderPainted(false);
+                newItem.add(showItem);
+                imagePanel.add(newItem);
+            }
         }
+        imageContainer.add(imagePanel);
+        imageContainer.repaint();
 
         GUI.frame.setVisible(true);
     }

@@ -5,9 +5,11 @@ import main.java.model.Room;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PanelSetup extends JPanel{
@@ -15,20 +17,35 @@ public class PanelSetup extends JPanel{
     static Font panelFont = new Font(Font.DIALOG, Font.BOLD, 12);
     private static ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");;
 
-    public static JPanel imagePanel(Room room, Controller gameController){
-        JPanel imagePanel = new JPanel();
+    public static JPanel imagePanel(Room room){
+        BackgroundPanel imagePanel = new BackgroundPanel(room);
         imagePanel.setBounds(0, 0, 700, 700);
         imagePanel.setBackground(Color.black);
         imagePanel.setOpaque(true);
-        String currentRoom = room.getName();
-        String imgPath = "Images/" + currentRoom + ".jpeg";
-        URL image = ClassLoader.getSystemClassLoader().getResource(imgPath);
-        ImageIcon img = new ImageIcon(image);
-        img.setImage(img.getImage().getScaledInstance(700, 700, Image.SCALE_DEFAULT));
-        imagePanel.add(new JLabel(img));
 
+        List<String> roomItems = room.getItems();
+        if (roomItems.isEmpty()){
+            UpdatePanel.appendDescriptionPanelText(bundle.getString("look1"));
+        } else {
+            for (String item : roomItems) {
+                System.out.println(item);
+                JPanel newItem = new JPanel();
+                newItem.setBounds(0, 150, 100, 100);
+                newItem.setOpaque(false);
+
+                JButton showItem = new JButton(item);
+                showItem.setForeground(Color.cyan);
+                showItem.setBackground(Color.black);
+                showItem.setOpaque(false);
+                showItem.setBorderPainted(false);
+                newItem.add(showItem);
+                imagePanel.add(newItem);
+            }
+        }
         return imagePanel;
     }
+
+
 
     public static JPanel gameDescriptionPanel(Room room) {
         JPanel gameDescriptionPanel = new JPanel();
@@ -262,4 +279,5 @@ public class PanelSetup extends JPanel{
 
 
 }
+
 
