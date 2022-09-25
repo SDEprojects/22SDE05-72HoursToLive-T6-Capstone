@@ -94,9 +94,43 @@ public class Soldier extends Character{
         String weaponRandomResponse = weaponRandom[r.nextInt(weaponRandom.length)];
 
         if (Client.psvmIsGUI){
-// todo add gui logic for equipping item following logic below
-        }
-        else {
+            if (heavyArmor.contains(item)) {
+                UpdatePanel.updateDescriptionPanelText(bundle.getString("armor_use0") + item + armorRandomResponse);
+                setArmorRating(getArmorRating() + r.nextInt(high - low) + low);
+                UpdatePanel.updateStatPanel(getAttackPower(), getArmorRating());
+                getInventory().remove(item);
+            } else if (damageItems.contains(item)) {
+                UpdatePanel.updateDescriptionPanelText(bundle.getString("weapon_use0") + item + weaponRandomResponse);
+                setAttackPower(getAttackPower() + r.nextInt(high - med) + med);
+                UpdatePanel.updateStatPanel(getAttackPower(), getArmorRating());
+                getInventory().remove(item);
+            } else if (lightArmor.contains(item)) {
+                UpdatePanel.updateDescriptionPanelText(bundle.getString("armor_use0") + item + armorRandomResponse);
+                setArmorRating(getArmorRating() + r.nextInt(med - low) + low);
+                UpdatePanel.updateStatPanel(getAttackPower(), getArmorRating());
+                getInventory().remove(item);
+            } else if (item.equals("health potion")) {
+                UpdatePanel.updateDescriptionPanelText(bundle.getString("health_potion") + item + armorRandomResponse);
+                setHealth(100);
+                UpdatePanel.updateStatPanel(getAttackPower(), getArmorRating());
+                getInventory().remove("health potion");
+
+            } else if (item.equals("blood sample")) {
+                UpdatePanel.updateDescriptionPanelText(bundle.getString("blood_sample"));
+            }
+            else if (item.equals("armor")){
+                armor = true;
+                UpdatePanel.updateDescriptionPanelText(bundle.getString("armor_eq"));
+                getInventory().remove("armor");
+            }else if (item.equals("sword")){
+                setAttackPower(getAttackPower() + 20);
+                getInventory().remove("sword");
+                UpdatePanel.updateStatPanel(getAttackPower(), getArmorRating());
+            }
+            else{
+                UpdatePanel.updateDescriptionPanelText(bundle.getString("item_useless"));
+            }
+        } else {
             if (heavyArmor.contains(item)) {
                 System.out.println(TextColor.GREEN+bundle.getString("armor_use0") + item + armorRandomResponse+TextColor.RESET);
                 setArmorRating(getArmorRating() + r.nextInt(high - low) + low);
