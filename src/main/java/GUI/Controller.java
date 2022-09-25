@@ -113,7 +113,7 @@ public class Controller {
                             UpdatePanel.updateLocation(room);
                             UpdatePanel.updateCompass(room, gameController, monsterMap);
                             UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
-                            UpdatePanel.updateImagePanel(room, monsterMap);
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController);
                             UpdatePanel.updateDescriptionPanel(room);
                             checkAttack(room);
                             break;
@@ -121,20 +121,22 @@ public class Controller {
                     case "pickup":
                         if (player.getInventory().size() > 2) {
                             werewolfCanAttack = false;
-// todo Replace with GUI output
-                            System.out.println(TextColor.RED + bundle.getString("pickup1") + TextColor.RESET);
+                            UpdatePanel.updateDescriptionPanelText(bundle.getString("pickup1"));
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController);
 
                         } else if (room.getItems().contains(r1.getNoun())) {
                             player.pickup(r1.getNoun());
                             room.getItems().remove(r1.getNoun());
                             werewolfCanAttack = true;
-// todo Replace with GUI output, add item as a button in inventory panel
-                            System.out.println(TextColor.GREEN + bundle.getString("pickup2") + r1.getNoun() + bundle.getString("pickup3") + TextColor.RESET);
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController);
+                            UpdatePanel.updateDescriptionPanelText(bundle.getString("pickup2") + r1.getNoun() + bundle.getString("pickup3"));
+                            UpdatePanel.updateInventory(room, player.getInventory(), gameController);
                         }
                         checkAttack(room);
                         break;
                     case "use":
                         player.useItems(r1.getNoun());
+                        UpdatePanel.updateInventory(room,player.getInventory(), gameController);
 // todo update the armor, attack
                         werewolfCanAttack = false;
                         break;
@@ -143,7 +145,7 @@ public class Controller {
                         player.attack(w1);
                         if (w1.getHealth() <= 0) {
                             monsterMap.get(currentRoom).remove(0);
-                            UpdatePanel.updateImagePanel(room, monsterMap);
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController);
                             UpdatePanel.updateCompass(room, gameController, monsterMap);
                             if (w1.getInventory().size() > 0) {
                                 for (String item : w1.getInventory()) {

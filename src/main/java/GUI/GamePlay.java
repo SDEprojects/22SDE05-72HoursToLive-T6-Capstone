@@ -19,7 +19,7 @@ public class GamePlay {
     static JPanel healthAndTimePanel;
     static JPanel locationPanel;
     static JPanel inventoryPanel;
-    JPanel statPanel;
+    static JPanel statPanel;
     static JPanel compassPanel;
 
     JPanel mapAndGodModePanel;
@@ -35,7 +35,7 @@ public class GamePlay {
         imageContainer = new Container();
         imageContainer.setBounds(0, 0, 700, 700);
         imageContainer.setBackground(Color.black);
-        imagePanel = PanelSetup.imagePanel(room);
+        imagePanel = PanelSetup.imagePanel(room, gameController);
         gameDescriptionPanel = PanelSetup.gameDescriptionPanel(room);
         healthAndTimePanel = PanelSetup.healthAndTimePanel(Controller.player.getHealth(), Controller.timer);
         statPanel = PanelSetup.statPanel(Controller.player.getAttackPower(), Controller.player.getArmorRating());
