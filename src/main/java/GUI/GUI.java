@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import static main.java.view.Music.playerSelectEffect;
 
 public class GUI {
 
@@ -20,6 +21,7 @@ public class GUI {
     JButton musicButton = new JButton("MUSIC");
     JButton helpButton = new JButton("HELP");
     JButton quitButton = new JButton("QUIT");
+    JButton sfxButton = new JButton("SoundFX");
 
 
     public GUI() throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
@@ -43,6 +45,13 @@ public class GUI {
         musicButton.setFont(new Font("Helvetica", Font.BOLD, 20));
         optionButtons.add(musicButton);
 
+        sfxButton.setForeground(Color.red);
+        sfxButton.setBackground(Color.black);
+        sfxButton.setOpaque(false);
+        sfxButton.setBorderPainted(false);
+        sfxButton.setFont(new Font("Helvetica", Font.BOLD, 20));
+        optionButtons.add(sfxButton);
+
         helpButton.setForeground(Color.red);
         helpButton.setBackground(Color.black);
         helpButton.setOpaque(false);
@@ -56,7 +65,7 @@ public class GUI {
         quitButton.setBorderPainted(false);
         quitButton.setFont(new Font("Helvetica", Font.BOLD, 20));
         optionButtons.add(quitButton);
-        optionButtons.setLayout(new GridLayout(1, 3));
+        optionButtons.setLayout(new GridLayout(1, 4));
 
         // action listeners for music, help, and quit buttons
         musicButton.addActionListener(e -> {
@@ -67,9 +76,10 @@ public class GUI {
             }
         });
 
+        sfxButton.addActionListener(e -> playerSelectEffect());
 
         helpButton.addActionListener(e -> {
-
+            Music.playStartAudio("man-down");
             JFrame helpFrame = new JFrame("Help");
             helpFrame.setSize(1000, 800);
             helpFrame.setVisible(true);

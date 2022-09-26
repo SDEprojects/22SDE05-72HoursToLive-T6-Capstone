@@ -17,7 +17,6 @@ public class Controller {
     //variables and object instances
     public static Soldier player = new Soldier();
     public static int timer = 0;
-    //public static boolean moonTrigger = true;
     private static String currentRoom = RoomMovement.currentRoom;
     final HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
@@ -81,6 +80,7 @@ public class Controller {
                 if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal") && player.getInventory().contains(r1.getNoun())) {
                     if (r1.getNoun().equalsIgnoreCase("blood sample")) {
                         new EndingMenu("win");
+                        Music.playStartAudio("win");
                     }
                 }
                 switch (r1.getVerb()) {
@@ -88,20 +88,18 @@ public class Controller {
                         timer++;
                         if (timer == 24) {
                             new EndingMenu("time out");
+                            Music.playStartAudio("time-up");
                         } else {
-                            //moonTrigger = true;
-// todo needs to be replaced by GUI response not View.menu response and sets moonTrigger to false
-//                            View.menu();
+
                             //check for the full moon
                             checkFullMoon();
                             if (Controller.timer % 7 == 0){
-                                System.out.println("Timer=" + Controller.timer);
-                                System.out.println("fullmoon");
-
                                 FullMoon.fullMoon();
+                                Music.playStartAudio("wolf-howl");
                             }
 
                             werewolfCanAttack = true;
+                            Music.playStartAudio("open-door");
                             RoomMovement.switchRooms(r1.getLocation());
                             room = RoomMovement.roomSwitcher;
                             UpdatePanel.updateLocation(room);
@@ -181,12 +179,14 @@ public class Controller {
         if (!monsterMap.get(currentRoom).isEmpty() && werewolfCanAttack) {
             Werewolf wolf = monsterMap.get(currentRoom).get(0);
             wolf.attack(player);
+            Music.playStartAudio("wolf-attack");
             UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
             UpdatePanel.appendDescriptionPanelText("\n" + wolf.getName() + " " + werewolfAttackResponse + '\n' + bundle.getString("health_status1") + player.getHealth() );
             werewolfCanAttack = false;
         }
         if (player.getHealth() <= 0) {
             new EndingMenu("wolf_win");
+            Music.playStartAudio("man-down");
         }
         if (timer > 19) {
             UpdatePanel.appendDescriptionPanelText(bundle.getString("hours_status1") + (72 - (timer * 3)) + " " + bundle.getString("hours_status2"));
