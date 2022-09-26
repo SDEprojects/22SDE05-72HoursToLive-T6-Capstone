@@ -20,8 +20,9 @@ public class UpdatePanel {
 
     static JTextArea text;
     private static ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
-    ;
-
+    /**
+     * Responsible for updating the gameplay initial panels
+     */
     public static void updateImagePanel(Room room, HashMap<String, List<Werewolf>> monsterMap, Controller gameController, List<String> inventory) {
         Container imageContainer = GamePlay.getImageContainer();
         imageContainer.removeAll();
@@ -125,11 +126,6 @@ public class UpdatePanel {
         currentHealth.setFont(panelFont);
 
         healthAndTimePanel.add(currentHealth);
-//        JProgressBar healthBar = new JProgressBar(0,100);
-//        healthBar.setSize(300,75);
-//        healthBar.setValue(health);
-//        healthBar.setForeground(barColor);
-//        healthPanel.add(healthBar);
 
         int currentTime = 72 - (timer * 3);
         JPanel timePanel = new JPanel();
@@ -260,7 +256,6 @@ public class UpdatePanel {
         north.addActionListener(e -> {
             try {
                 gameController.handleUserClick(new Response("go", "north", ""), room, gameController);
-                //Music.playStartAudio("open-door");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -268,7 +263,6 @@ public class UpdatePanel {
         south.addActionListener(e -> {
             try {
                 gameController.handleUserClick(new Response("go", "south", ""), room, gameController);
-                //Music.playStartAudio("open-door");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -276,7 +270,6 @@ public class UpdatePanel {
         east.addActionListener(e -> {
             try {
                 gameController.handleUserClick(new Response("go", "east", ""), room, gameController);
-                //Music.playStartAudio("open-door");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -284,7 +277,6 @@ public class UpdatePanel {
         west.addActionListener(e -> {
             try {
                 gameController.handleUserClick(new Response("go", "west", ""), room, gameController);
-                //Music.playStartAudio("open-door");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

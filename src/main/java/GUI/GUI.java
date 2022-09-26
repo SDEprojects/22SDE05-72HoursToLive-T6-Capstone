@@ -23,7 +23,9 @@ public class GUI {
     JButton quitButton = new JButton("QUIT");
     JButton sfxButton = new JButton("SoundFX");
 
-
+    /**
+     * Generates the main Frame in which the game is played from
+     */
     public GUI() throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
         // sets persistent frame, size, default close operation, not resizeable
         frame = new JFrame("72 Hours to Live");
@@ -79,7 +81,6 @@ public class GUI {
         sfxButton.addActionListener(e -> playerSelectEffect());
 
         helpButton.addActionListener(e -> {
-            Music.playStartAudio("man-down");
             JFrame helpFrame = new JFrame("Help");
             helpFrame.setSize(1000, 800);
             helpFrame.setVisible(true);

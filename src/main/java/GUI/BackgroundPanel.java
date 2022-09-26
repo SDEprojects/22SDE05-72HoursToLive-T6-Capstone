@@ -9,6 +9,10 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Class creates a panel with a background image that is painted so other items can be added to the
+ * panel as needed
+ */
 public class BackgroundPanel extends JPanel {
     Image image;
     public BackgroundPanel(Room room)

@@ -48,17 +48,6 @@ public class Controller {
     }
 
     /**
-     * output game over screens and give the user a chance to play another game. or exit
-     * the game which is exiting the entire program.
-     * End game method to
-     */
-    public static void endGame() {
-        System.out.println(TextColor.WHITE + bundle.getString("game_over1"));
-        System.out.println(TextColor.WHITE + bundle.getString("game_over2") + TextColor.RESET);
-
-    }
-
-    /**
      * serves as the GUI facing component in place of the inputScanner and textParser
      * to pass commands to the userChoice method
      */
@@ -165,7 +154,9 @@ public class Controller {
                 throw new RuntimeException(e);
             }
         }
-
+    /**
+     * Checks if a werewolf can attack and checks health and time after attack
+     */
     private void checkAttack(Room room) throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
         String currentRoom = room.getName();
         String[] werewolfAttack = {bundle.getString("werewolf_attack1"),bundle.getString("werewolf_attack2"),bundle.getString("werewolf_attack3")};

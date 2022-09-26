@@ -36,12 +36,10 @@ public class StartMenu extends JFrame {
     JTextArea introText;
     JButton introContinue = new JButton("Click here to continue........");
 
-    Music music = new Music();
-    private JTextArea textArea;
-    private JLabel lbl;
-
-
-    public StartMenu() throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
+    /**
+     * Generates the Title screen and difficulty selector and displays the introduction.
+     */
+    public StartMenu() throws IOException, FontFormatException{
         JFrame frame = GUI.frame;
         // creates the title panel, and sets title name/font
         titlePanel = new JPanel();
@@ -143,7 +141,6 @@ public class StartMenu extends JFrame {
 
         //adding content panel to JFrame
         frame.add(contentPanel);
-        music.playMusic();
 
         //BUTTON ACTION LISTENERS
         newGameButton.addActionListener(e -> {

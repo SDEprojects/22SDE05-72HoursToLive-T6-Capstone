@@ -16,6 +16,9 @@ public class PanelSetup extends JPanel{
     static Font panelFont = new Font(Font.DIALOG, Font.BOLD, 12);
     private static ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");;
 
+    /**
+     * Responsible for generating the gameplay initial panels
+     */
     public static JPanel imagePanel(Room room, Controller gameController){
         BackgroundPanel imagePanel = new BackgroundPanel(room);
         imagePanel.setBounds(0, 0, 700, 700);
@@ -103,11 +106,6 @@ public class PanelSetup extends JPanel{
         currentHealth.setFont(panelFont);
 
         healthAndTimePanel.add(currentHealth);
-//        JProgressBar healthBar = new JProgressBar(0,100);
-//        healthBar.setSize(300,75);
-//        healthBar.setValue(health);
-//        healthBar.setForeground(barColor);
-//        healthPanel.add(healthBar);
 
         int currentTime = 72 - (timer * 3);
         JPanel timePanel = new JPanel();
