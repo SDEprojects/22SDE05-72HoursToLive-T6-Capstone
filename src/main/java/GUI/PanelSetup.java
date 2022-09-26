@@ -6,6 +6,7 @@ import main.java.model.Room;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -30,11 +31,15 @@ public class PanelSetup extends JPanel{
                 newItem.setBounds(0, 150, 100, 100);
                 newItem.setOpaque(false);
 
+                URL imgPath = ClassLoader.getSystemClassLoader().getResource("Icons/" + item + ".png");
                 JButton showItem = new JButton(item);
                 showItem.setForeground(Color.cyan);
                 showItem.setBackground(Color.black);
                 showItem.setOpaque(false);
                 showItem.setBorderPainted(false);
+//                ImageIcon img = new ImageIcon(imgPath);
+//                img.setImage(img.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+//                showItem.add(new JLabel(img));
                 newItem.add(showItem);
                 imagePanel.add(newItem);
                 showItem.addActionListener(e -> {
