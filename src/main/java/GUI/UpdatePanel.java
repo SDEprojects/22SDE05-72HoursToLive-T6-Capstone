@@ -28,10 +28,13 @@ public class UpdatePanel {
         imagePanel.setBounds(0, 0, 700, 700);
         imagePanel.setBackground(Color.black);
         imagePanel.setOpaque(true);
+        String currentRoom = room.getName();
 
         List<String> roomItems = room.getItems();
         if (roomItems.isEmpty()) {
             UpdatePanel.appendDescriptionPanelText(bundle.getString("look1"));
+        } else if (room.getName().equals("Throne Room") && !monsterMap.get(currentRoom).isEmpty()) {
+            System.out.println("Throne room doesn't populate items");
         } else {
             for (String item : roomItems) {
                 JPanel newItem = new JPanel();
@@ -263,30 +266,44 @@ public class UpdatePanel {
         inventoryPanel.setBounds(700, 736, 300, 266);
         inventoryPanel.setBackground(Color.DARK_GRAY);
         inventoryPanel.setOpaque(true);
-        inventoryPanel.setLayout(new GridLayout(3, 2));
 
-        for (String item : inventory) {
+        JPanel containerPanel = new JPanel();
+        containerPanel.setBounds(700, 736, 300, 266);
+        containerPanel.setBackground(Color.DARK_GRAY);
+        containerPanel.setOpaque(true);
+        containerPanel.setLayout(new GridLayout(3, 2));
+
+        if (inventory.isEmpty()) {
             JPanel newItem = new JPanel();
+            newItem.add(new JLabel("No Inventory Items"));
             newItem.setOpaque(false);
+            containerPanel.add(newItem);
+        } else {
+            for (String item : inventory) {
+                JPanel newItem = new JPanel();
+                newItem.setOpaque(false);
 
-            JButton showItem = new JButton(item);
-            showItem.setForeground(Color.cyan);
-            showItem.setBackground(Color.black);
-            showItem.setOpaque(false);
-            showItem.setBorderPainted(false);
-            inventoryPanel.add(showItem);
-            newItem.add(showItem);
-            inventoryPanel.add(newItem);
+                JButton showItem = new JButton(item);
+                showItem.setForeground(Color.cyan);
+                showItem.setBackground(Color.black);
+                showItem.setOpaque(false);
+                showItem.setBorderPainted(false);
+                inventoryPanel.add(showItem);
+                newItem.add(showItem);
+                containerPanel.add(newItem);
 
-            showItem.addActionListener(e -> {
-                try {
-                    gameController.handleUserClick(new Response("use", "", item), room, gameController);
-                    showItem.setVisible(false);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            });
+                showItem.addActionListener(e -> {
+                    try {
+                        gameController.handleUserClick(new Response("use", "", item), room, gameController);
+                        showItem.setVisible(false);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+            }
         }
+        inventoryPanel.add(containerPanel);
+        inventoryPanel.repaint();
     }
 
     public static void updateDescriptionPanel(Room room) {
@@ -345,13 +362,13 @@ public class UpdatePanel {
         GUI.frame.setVisible(true);
     }
 
-    public static void updateStatPanel(int attack, int armor){
+    public static void updateStatPanel(int attack, int armor) {
         JPanel statPanel = GamePlay.statPanel;
         statPanel.removeAll();
         statPanel.setBounds(700, 125, 300, 75);
         statPanel.setBackground(Color.gray);
         statPanel.setOpaque(true);
-        statPanel.setLayout(new GridLayout(2,1));
+        statPanel.setLayout(new GridLayout(2, 1));
 
         JLabel attackPower = new JLabel();
         attackPower.setText("Attack Power= " + attack);
