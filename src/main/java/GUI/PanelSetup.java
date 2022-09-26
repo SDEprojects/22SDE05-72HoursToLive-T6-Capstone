@@ -5,9 +5,7 @@ import main.java.model.Room;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,7 +26,6 @@ public class PanelSetup extends JPanel{
             UpdatePanel.appendDescriptionPanelText(bundle.getString("look1"));
         } else {
             for (String item : roomItems) {
-                System.out.println(item);
                 JPanel newItem = new JPanel();
                 newItem.setBounds(0, 150, 100, 100);
                 newItem.setOpaque(false);
@@ -279,6 +276,13 @@ public class PanelSetup extends JPanel{
         inventoryPanel.setBounds(700, 736, 300, 266);
         inventoryPanel.setBackground(Color.DARK_GRAY);
         inventoryPanel.setOpaque(true);
+
+        JPanel containerPanel = new JPanel();
+        containerPanel.setBounds(700, 736, 300, 266);
+        containerPanel.setBackground(Color.DARK_GRAY);
+        containerPanel.setOpaque(true);
+        containerPanel.add(new JLabel("No Inventory Items"));
+        inventoryPanel.add(containerPanel);
 
         return inventoryPanel;
     }
