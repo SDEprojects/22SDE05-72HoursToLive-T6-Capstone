@@ -5,6 +5,9 @@ import main.java.controller.Response;
 import main.java.model.*;
 import main.java.view.*;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.awt.*;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
@@ -14,9 +17,8 @@ public class Controller {
     //variables and object instances
     public static Soldier player = new Soldier();
     public static int timer = 0;
-    public static boolean moonTrigger = true;
     private static String currentRoom = RoomMovement.currentRoom;
-    private final HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
+    final HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
     private static boolean werewolfCanAttack = true;
     private static boolean wolfKingPrompt = true;
@@ -46,69 +48,11 @@ public class Controller {
     }
 
     /**
-     * output game over screens and give the user a chance to play another game. or exit
-     * the game which is exiting the entire program.
-     * End game method to
-     */
-    public static void endGame() {
-        System.out.println(TextColor.WHITE + bundle.getString("game_over1"));
-        System.out.println(TextColor.WHITE + bundle.getString("game_over2") + TextColor.RESET);
-
-    }
-
-    /**
      * serves as the GUI facing component in place of the inputScanner and textParser
      * to pass commands to the userChoice method
      */
     public void handleUserClick(Response buttonResponse, Room room, Controller gameController) throws IOException {
-        String currentRoom = room.getName();
-        if (Controller.player.getHealth() <= 0) {
-            System.out.println(TextColor.RED + bundle.getString("player_dead1") + TextColor.RESET);
-// todo Add failure screen with 'you died'
-            endGame();
-        }
-        else if (Controller.timer == 24) {
-            System.out.println(TextColor.RED + bundle.getString("time_out1"));
-            System.out.println(TextColor.RED + bundle.getString("time_out2") + TextColor.RESET);
-// todo Add failure screen with 'timed out'
-            endGame();
-        }
-        else {
             userChoice(buttonResponse, room, gameController);
-
-            String[] werewolfAttack = {TextColor.RED + bundle.getString("werewolf_attack1"), bundle.getString("werewolf_attack2"), bundle.getString("werewolf_attack3") + TextColor.RESET};
-            String werewolfAttackResponse = werewolfAttack[ran.nextInt(werewolfAttack.length)];
-            checkFullMoon();
-            if (GameController.player.getInventory().contains("Trophy")) {
-// todo Add success screen
-                System.out.println(TextColor.GREEN + bundle.getString("trophy_response1"));
-                System.out.println(TextColor.GREEN + bundle.getString("trophy_response2") + TextColor.RESET);
-                endGame();
-            }
-//            currentRoom = RoomMovement.currentRoom;
-            if (currentRoom.equalsIgnoreCase("Throne Room") && wolfKingPrompt) {
-// todo Replace with GUI output
-                System.out.println(TextColor.RED + bundle.getString("werewolfKing_attack1") + TextColor.RESET);
-                wolfKingPrompt = false;
-            }
-            if (!monsterMap.get(currentRoom).isEmpty() && werewolfCanAttack) {
-                Werewolf wolf = monsterMap.get(currentRoom).get(0);
-                wolf.attack(player);
-// todo Replace with GUI output i.e. make werewolf visible out decrease and health panel decrease
-                System.out.println(TextColor.RED + wolf.getName() + " " + werewolfAttackResponse + TextColor.RESET);
-                System.out.println(TextColor.YELLOW + bundle.getString("health_status1") + player.getHealth() + "!\n" + TextColor.RESET);
-                werewolfCanAttack = false;
-            }
-            if (player.getHealth() <= 0 || timer >= 24) {
-// todo Needs to call failure screen with 'you died output'
-                endGame();
-            }
-            if (timer > 19) {
-// todo Replace with GUI output
-                System.out.println(TextColor.RED + bundle.getString("hours_status1") + (72 - (timer * 3)) + " " + bundle.getString("hours_status2") + TextColor.RESET);
-            }
-            //call the menu from view class
-        }
     }
 
     /**
@@ -120,51 +64,64 @@ public class Controller {
      */
     private void userChoice(Response buttonResponse, Room room, Controller gameController) throws IOException {
             try {
-//                Room room = RoomMovement.roomSwitcher;
+                String currentRoom = room.getName();
                 Response r1 = buttonResponse;
                 if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal") && player.getInventory().contains(r1.getNoun())) {
                     if (r1.getNoun().equalsIgnoreCase("blood sample")) {
-                        player.pickup("Trophy");
+                        new EndingMenu("win");
+                        Music.playStartAudio("win");
                     }
                 }
                 switch (r1.getVerb()) {
                     case "go":
                         timer++;
                         if (timer == 24) {
-// todo need to call failure screen with 'time ran out'
-                            endGame();
+                            new EndingMenu("time out");
+                            Music.playStartAudio("time-up");
                         } else {
-                            moonTrigger = true;
-// todo needs to be replaced by GUI response not View.menu response and sets moonTrigger to false
-//                            View.menu();
+
+                            //check for the full moon
+                            checkFullMoon();
+                            if (Controller.timer % 7 == 0){
+                                FullMoon.fullMoon();
+                                Music.playStartAudio("wolf-howl");
+                            }
+
                             werewolfCanAttack = true;
+                            Music.playStartAudio("open-door");
                             RoomMovement.switchRooms(r1.getLocation());
                             room = RoomMovement.roomSwitcher;
                             UpdatePanel.updateLocation(room);
-                            UpdatePanel.updateCompass(room, gameController);
+                            UpdatePanel.updateCompass(room, gameController, monsterMap);
                             UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
-// todo Replace with GUI output change picture, description output, locations panel, and make applicable items visible in RoomMovement class
-//                            System.out.println(TextColor.BLUE + bundle.getString("go1") + room.getName() + "." + TextColor.RESET);
-//                            System.out.println(TextColor.BLUE + room.getDescription() + "\n" + TextColor.RESET);
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController, player.getInventory());
+                            UpdatePanel.updateDescriptionPanel(room);
+                            UpdatePanel.updateInventory(room, player.getInventory(), gameController);
+                            checkAttack(room);
                             break;
                         }
                     case "pickup":
                         if (player.getInventory().size() > 2) {
                             werewolfCanAttack = false;
-// todo Replace with GUI output
-                            System.out.println(TextColor.RED + bundle.getString("pickup1") + TextColor.RESET);
+                            UpdatePanel.updateDescriptionPanelText(bundle.getString("pickup1"));
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController, player.getInventory());
+
 
                         } else if (room.getItems().contains(r1.getNoun())) {
                             player.pickup(r1.getNoun());
                             room.getItems().remove(r1.getNoun());
                             werewolfCanAttack = true;
-// todo Replace with GUI output, add item as a button in inventory panel
-                            System.out.println(TextColor.GREEN + bundle.getString("pickup2") + r1.getNoun() + bundle.getString("pickup3") + TextColor.RESET);
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController, player.getInventory());
+                            UpdatePanel.updateDescriptionPanelText(bundle.getString("pickup2") + r1.getNoun() + bundle.getString("pickup3"));
+                            UpdatePanel.updateInventory(room, player.getInventory(), gameController);
+                            UpdatePanel.updateCompass(room, gameController, monsterMap);
                         }
+                        checkAttack(room);
                         break;
                     case "use":
                         player.useItems(r1.getNoun());
-// todo update the armor, attack
+                        UpdatePanel.updateInventory(room,player.getInventory(), gameController);
+                        UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
                         werewolfCanAttack = false;
                         break;
                     case "attack":
@@ -172,34 +129,61 @@ public class Controller {
                         player.attack(w1);
                         if (w1.getHealth() <= 0) {
                             monsterMap.get(currentRoom).remove(0);
-// todo Remove werewolf from location picture
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController, player.getInventory());
+                            UpdatePanel.updateCompass(room, gameController, monsterMap);
                             if (w1.getInventory().size() > 0) {
                                 for (String item : w1.getInventory()) {
                                     String[] werewolfKingDead = {bundle.getString("werewolfKing_dead1"), bundle.getString("werewolfKing_dead2"), bundle.getString("werewolfKing_dead3")};
                                     String werewolfKing_deadResponse = werewolfKingDead[ran.nextInt(werewolfKingDead.length)];
-// todo Replace with a GUI output
-                                    System.out.println(werewolfKing_deadResponse);
+                                    UpdatePanel.updateDescriptionPanelText(werewolfKing_deadResponse);
                                     room.getItems().add(item);
                                 }
                             } else {
                                 String[] werewolfDead = {bundle.getString("werewolf_dead1"), bundle.getString("werewolf_dead2"), bundle.getString("werewolf_dead3")};
                                 String werewolf_deadResponse = werewolfDead[ran.nextInt(werewolfDead.length)];
-// todo Replace with a GUI output
-                                System.out.println(werewolf_deadResponse);
+                                UpdatePanel.updateDescriptionPanelText(werewolf_deadResponse);
                             }
                         }
                         werewolfCanAttack = true;
+
+                        checkAttack(room);
                         break;
-// Shouldn't need default in switch case if response is not user defined
-//                    default:
-////                        System.out.println("That is not a valid input!");
-//                        System.out.println(TextColor.RED + bundle.getString("invalid_input1"));
-//                        werewolfCanAttack = false;
-//                        break;
                 }
-            } catch (NullPointerException e) {
+            } catch (NullPointerException ignored) {
+            } catch (UnsupportedAudioFileException | LineUnavailableException | FontFormatException e) {
+                throw new RuntimeException(e);
             }
         }
+    /**
+     * Checks if a werewolf can attack and checks health and time after attack
+     */
+    private void checkAttack(Room room) throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
+        String currentRoom = room.getName();
+        String[] werewolfAttack = {bundle.getString("werewolf_attack1"),bundle.getString("werewolf_attack2"),bundle.getString("werewolf_attack3")};
+        String werewolfAttackResponse = werewolfAttack[ran.nextInt(werewolfAttack.length)];
+        checkFullMoon();
+        if (currentRoom.equalsIgnoreCase("Throne Room") && wolfKingPrompt) {
+            UpdatePanel.updateDescriptionPanelText(bundle.getString("werewolfKing_attack1"));
+            wolfKingPrompt = false;
+        }
+        //Gamedescription output call for wolf attack
+        if (!monsterMap.get(currentRoom).isEmpty() && werewolfCanAttack) {
+            Werewolf wolf = monsterMap.get(currentRoom).get(0);
+            wolf.attack(player);
+            Music.playStartAudio("wolf-attack");
+            UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
+            UpdatePanel.appendDescriptionPanelText("\n" + wolf.getName() + " " + werewolfAttackResponse + '\n' + bundle.getString("health_status1") + player.getHealth() );
+            werewolfCanAttack = false;
+        }
+        if (player.getHealth() <= 0) {
+            new EndingMenu("wolf_win");
+            Music.playStartAudio("man-down");
+        }
+        if (timer > 19) {
+            UpdatePanel.appendDescriptionPanelText(bundle.getString("hours_status1") + (72 - (timer * 3)) + " " + bundle.getString("hours_status2"));
+        }
+        //call the menu from view class
+    }
 
     /**
      * returns hashmap of the monster map
@@ -222,7 +206,7 @@ public class Controller {
      * when the timer is divisible by 7 or 8 then all monsters get attack power to 15
      */
     public void checkFullMoon() {
-        if (timer > 0 && (timer % 7 == 0 || timer % 8 == 0)) {
+        if (timer > 0 && timer % 7 == 0) {
             monsterMap.values().forEach(monsters -> {
                 monsters.forEach(monster -> {
                     monster.setAttackPower(15);

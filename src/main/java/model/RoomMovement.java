@@ -2,6 +2,7 @@ package main.java.model;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import main.java.GUI.UpdatePanel;
 import main.java.client.Client;
 import main.java.view.TextColor;
 
@@ -17,8 +18,10 @@ public class RoomMovement {
 
     //    Room room = new Room();
     ObjectMapper mapper = new ObjectMapper();
-    TypeReference<HashMap<String, Room>> typeRef  = new TypeReference<HashMap<String, Room>>() {};
-    TypeReference<HashMap<String, HashSet<String>>> typeRef2 = new TypeReference<HashMap<String, HashSet<String>>>() {};
+    TypeReference<HashMap<String, Room>> typeRef = new TypeReference<HashMap<String, Room>>() {
+    };
+    TypeReference<HashMap<String, HashSet<String>>> typeRef2 = new TypeReference<HashMap<String, HashSet<String>>>() {
+    };
 
     private static HashMap<String, HashSet<String>> itemMap;
     static HashMap<String, Room> allRooms;
@@ -47,14 +50,14 @@ public class RoomMovement {
      *
      * @param numItems
      */
-    private static void populateRoomWithItems(int numItems){
+    private static void populateRoomWithItems(int numItems) {
         ArrayList<String> keyList = new ArrayList<>(itemMap.keySet());
         Random random = new Random();
         keyList.remove("Trophy");
         keyList.remove("blood sample");
-        for (String key : allRooms.keySet()){
+        for (String key : allRooms.keySet()) {
             HashSet<String> itemSet = new HashSet<>();
-            while (itemSet.size() < numItems){
+            while (itemSet.size() < numItems) {
                 int pos = random.nextInt(keyList.size());
                 itemSet.add(keyList.get(pos));
             }
@@ -62,36 +65,42 @@ public class RoomMovement {
         }
     }
 
-
     /**
      * This method generates a random room that will be used as the FIRST room
      * the user starts in.
      */
-    public void firstRoom(){
+    public void firstRoom() {
         do {
             currentRoom = allRooms.keySet().toArray()[(int) (Math.random() * allRooms.size())] + "";
         } while (currentRoom.equalsIgnoreCase("Throne Room"));
         Room room = allRooms.get(currentRoom);
         roomSwitcher = room;
 
-//        if (Client.psvmIsGUI){
-//// todo GUI output
-//        } else
-//        textStream(TextColor.BLUE + bundle.getString("firstRoom_text1"),110);
-//        sleep(1000);
-//        System.out.println(TextColor.BLUE + bundle.getString("firstRoom_text2"));
-//        sleep(2000);
-//        System.out.println(TextColor.BLUE + bundle.getString("firstRoom_text3"));
-//        sleep(2350);
-//        System.out.println(TextColor.BLUE + bundle.getString("firstRoom_text4") + TextColor.WHITE + room.getName()+ "." );
-//        sleep(750);
-//        System.out.println(TextColor.BLUE + room.getDescription() + TextColor.RESET + "\n");
-//        sleep(550);
+        String text = (bundle.getString("firstRoom_text1")) +
+                (bundle.getString("firstRoom_text2")) +
+                (bundle.getString("firstRoom_text3")) +
+                (bundle.getString("firstRoom_text4"));
+
+        if (Client.psvmIsGUI) {
+            System.out.println("First Room");
+        } else {
+            textStream(TextColor.BLUE + bundle.getString("firstRoom_text1"), 110);
+            sleep(1000);
+            System.out.println(TextColor.BLUE + bundle.getString("firstRoom_text2"));
+            sleep(2000);
+            System.out.println(TextColor.BLUE + bundle.getString("firstRoom_text3"));
+            sleep(2350);
+            System.out.println(TextColor.BLUE + bundle.getString("firstRoom_text4") + TextColor.WHITE + room.getName() + ".");
+            sleep(750);
+            System.out.println(TextColor.BLUE + room.getDescription() + TextColor.RESET + "\n");
+            sleep(550);
+        }
     }
 
 
     /**
      * method switches the current room with another room. It is being called by the game controller.
+     *
      * @param location
      * @throws IOException
      */
@@ -99,14 +108,10 @@ public class RoomMovement {
         currentRoom = roomSwitcher.getConnectedRooms().get(location);
         Room room = allRooms.get(currentRoom);
         roomSwitcher = room;
-        if (Client.psvmIsGUI){
-// todo add GUI room switch logic
-        }
     }
 
 
-
-    public static HashMap<String, Room> getAllRooms(){
+    public static HashMap<String, Room> getAllRooms() {
         return allRooms;
     }
 
@@ -118,6 +123,7 @@ public class RoomMovement {
             throw new RuntimeException(e);
         }
     }
+
     private String textStream(String text, int speed) {
         for (int i = 0; i < text.length(); i++) {
             System.out.printf("%c", text.charAt(i));

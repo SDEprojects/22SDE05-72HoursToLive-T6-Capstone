@@ -9,12 +9,18 @@ import java.util.ResourceBundle;
 
 public class Music {
     public static boolean musicOn = true;
+    private static boolean effectsOn = true;
+
+
+
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
+
     public Music() throws UnsupportedAudioFileException, IOException {
     }
 
     /**
      * method will play music and loop until playerSelectMusic() is called
+     *
      * @throws IOException
      * @throws UnsupportedAudioFileException
      * @throws LineUnavailableException
@@ -23,7 +29,7 @@ public class Music {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
 
-        InputStream music = classLoader.getResourceAsStream("main/resources/sound.wav");
+        InputStream music = classLoader.getResourceAsStream("Sound/sound.wav");
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(music));
 
         Clip clip = AudioSystem.getClip();
@@ -45,6 +51,7 @@ public class Music {
 
     /**
      * When called the music will do the opposite of what it's currently set to.
+     *
      * @throws UnsupportedAudioFileException
      * @throws LineUnavailableException
      * @throws IOException
@@ -58,6 +65,42 @@ public class Music {
             Music.musicOn = true;
             System.out.println(TextColor.WHITE + bundle.getString("music_on"));
             music.playMusic();
+
         }
+    }
+    //method for playing any audio through resources folder
+    public static void playStartAudio(String string) {
+            //Music music = new Music();
+            if (Music.isEffectsOn()) {
+                chooseAudio(string);
+            }
+    }
+
+    public static void playerSelectEffect(){
+        if(Music.isEffectsOn()){
+            Music.setEffectsOn(false);
+        }else{
+            Music.setEffectsOn(true);
+        }
+    }
+        //Method to get any audio file and play
+    public static void chooseAudio(String string) {
+        try {
+            AudioInputStream audioInputStream = null;
+            audioInputStream = AudioSystem.getAudioInputStream(Music.class.getResource("/main/resources/Sound/" + string + ".wav"));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static boolean isEffectsOn() {
+        return effectsOn;
+    }
+
+    public static void setEffectsOn(boolean effectsOn) {
+        Music.effectsOn = effectsOn;
     }
 }

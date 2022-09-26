@@ -1,5 +1,6 @@
 package main.java.model;
 
+import main.java.GUI.UpdatePanel;
 import main.java.client.Client;
 
 import java.util.LinkedList;
@@ -39,9 +40,9 @@ public class WerewolfKing extends Werewolf{
 
         if (getHealth() < 70 && val == 1){
             if (Client.psvmIsGUI){
-// todo return GUI text output
-            }else{
-            System.out.println(bundle.getString("werewolfKing_deflects1"));
+                UpdatePanel.updateDescriptionPanelText(bundle.getString("werewolfKing_deflects1"));
+            }else {
+                System.out.println(bundle.getString("werewolfKing_deflects1"));
             }
             return;
         }
@@ -57,7 +58,7 @@ public class WerewolfKing extends Werewolf{
         if(enemy.getInventory().size() > 0) {
             if (Client.psvmIsGUI){
                 enemy.getInventory().clear();
-// todo clear inventory panel
+                UpdatePanel.updateDescriptionPanelText(bundle.getString("werewolfKing_destroys1"));
             }else {
                 System.out.println(bundle.getString("werewolfKing_destroys1"));
                 enemy.getInventory().clear();

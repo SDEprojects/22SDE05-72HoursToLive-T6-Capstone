@@ -6,28 +6,61 @@ import main.java.model.Room;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class PanelSetup extends JPanel{
 
     static Font panelFont = new Font(Font.DIALOG, Font.BOLD, 12);
+    private static ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");;
 
-    public static JPanel imagePanel(){
-        JPanel imagePanel = new JPanel();
-        imagePanel.setBounds(0, 50, 700, 700);
+    /**
+     * Responsible for generating the gameplay initial panels
+     */
+    public static JPanel imagePanel(Room room, Controller gameController){
+        BackgroundPanel imagePanel = new BackgroundPanel(room);
+        imagePanel.setBounds(0, 0, 700, 700);
         imagePanel.setBackground(Color.black);
         imagePanel.setOpaque(true);
 
-//        ImageIcon img = new ImageIcon(currentRoom);
-//        img.setImage(img.getImage().getScaledInstance(700, 700, Image.SCALE_DEFAULT));
-//        imagePanel.add(new JLabel(img));
+        List<String> roomItems = room.getItems();
+        if (roomItems.isEmpty()){
+            UpdatePanel.appendDescriptionPanelText(bundle.getString("look1"));
+        } else {
+            for (String item : roomItems) {
+                JPanel newItem = new JPanel();
+                newItem.setBounds(0, 150, 100, 100);
+                newItem.setOpaque(false);
 
+                URL imgPath = ClassLoader.getSystemClassLoader().getResource("Icons/" + item + ".png");
+                JButton showItem = new JButton();
+                showItem.setForeground(Color.cyan);
+                showItem.setBackground(Color.black);
+                showItem.setOpaque(false);
+                showItem.setBorderPainted(false);
+                ImageIcon img = new ImageIcon(imgPath);
+                img.setImage(img.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+                showItem.add(new JLabel(img));
+                newItem.add(showItem);
+                imagePanel.add(newItem);
+                showItem.addActionListener(e -> {
+                    try {
+                        gameController.handleUserClick(new Response("pickup", "", item), room, gameController);
+                        showItem.setVisible(false);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+            }
+        }
         return imagePanel;
     }
 
     public static JPanel gameDescriptionPanel(Room room) {
         JPanel gameDescriptionPanel = new JPanel();
-        gameDescriptionPanel.setBounds(0, 800, 700, 150);
+        gameDescriptionPanel.setBounds(0, 750, 700, 250);
         gameDescriptionPanel.setBackground(Color.black);
         gameDescriptionPanel.setOpaque(true);
         gameDescriptionPanel.setLayout(new BorderLayout());
@@ -37,9 +70,15 @@ public class PanelSetup extends JPanel{
         text.setLineWrap(true);
         text.setFont(new Font(Font.DIALOG, Font.BOLD, 13));
         text.setBackground(Color.black);
-        text.setForeground(Color.red);
+        text.setForeground(Color.yellow);
         text.setWrapStyleWord(true);
-        text.setText(room.getDescription());
+        String firstRoomText = (bundle.getString("firstRoom_text1")) +
+                (bundle.getString("firstRoom_text2")) +
+                (bundle.getString("firstRoom_text3")) +
+                (bundle.getString("firstRoom_text4"));
+        String description = room.getDescription();
+        String roomName = room.getName();
+        text.setText(firstRoomText + roomName + "\n\n" + description);
         gameDescriptionPanel.add(text, BorderLayout.CENTER);
 
         return gameDescriptionPanel;
@@ -67,11 +106,6 @@ public class PanelSetup extends JPanel{
         currentHealth.setFont(panelFont);
 
         healthAndTimePanel.add(currentHealth);
-//        JProgressBar healthBar = new JProgressBar(0,100);
-//        healthBar.setSize(300,75);
-//        healthBar.setValue(health);
-//        healthBar.setForeground(barColor);
-//        healthPanel.add(healthBar);
 
         int currentTime = 72 - (timer * 3);
         JPanel timePanel = new JPanel();
@@ -240,15 +274,35 @@ public class PanelSetup extends JPanel{
         return compassPanel;
     }
 
+    public static JPanel inventoryTitlePanel(){
+        JPanel inventoryTitlePanel = new JPanel();
+        inventoryTitlePanel.setBounds(700, 736, 300, 50);
+        inventoryTitlePanel.setBackground(Color.DARK_GRAY);
+        inventoryTitlePanel.setOpaque(true);
+        JLabel title = new JLabel("INVENTORY");
+        title.setFont(panelFont);
+        title.setForeground(Color.orange);
+        inventoryTitlePanel.add(title);
+
+        return inventoryTitlePanel;
+    }
     public static JPanel inventoryPanel() {
         JPanel inventoryPanel = new JPanel();
-        inventoryPanel.setBounds(700, 736, 300, 266);
+        inventoryPanel.setBounds(700, 786, 300, 216);
         inventoryPanel.setBackground(Color.DARK_GRAY);
         inventoryPanel.setOpaque(true);
+
+        JPanel containerPanel = new JPanel();
+        containerPanel.setBounds(700, 786, 300, 216);
+        containerPanel.setBackground(Color.DARK_GRAY);
+        containerPanel.setOpaque(true);
+        containerPanel.add(new JLabel("No Inventory Items"));
+        inventoryPanel.add(containerPanel);
 
         return inventoryPanel;
     }
 
 
 }
+
 
