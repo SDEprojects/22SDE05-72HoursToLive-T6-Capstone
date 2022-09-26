@@ -7,6 +7,7 @@ import main.java.model.Werewolf;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,7 +21,7 @@ public class UpdatePanel {
     private static ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
     ;
 
-    public static void updateImagePanel(Room room, HashMap<String, List<Werewolf>> monsterMap, Controller gameController) {
+    public static void updateImagePanel(Room room, HashMap<String, List<Werewolf>> monsterMap, Controller gameController, List<String> inventory) {
         Container imageContainer = GamePlay.getImageContainer();
         imageContainer.removeAll();
 
@@ -35,7 +36,7 @@ public class UpdatePanel {
             UpdatePanel.appendDescriptionPanelText(bundle.getString("look1"));
         } else if (room.getName().equals("Throne Room") && !monsterMap.get(currentRoom).isEmpty()) {
             System.out.println("Throne room doesn't populate items");
-        } else if (room.getName().equals("Throne Room") && monsterMap.get(currentRoom).isEmpty()) {
+        } else if (room.getName().equals("Throne Room") && monsterMap.get(currentRoom).isEmpty() && !inventory.contains("blood sample")) {
             roomItems.clear();
             roomItems.add("blood sample");
             for (String item : roomItems) {
@@ -43,11 +44,15 @@ public class UpdatePanel {
                 newItem.setBounds(0, 150, 100, 100);
                 newItem.setOpaque(false);
 
-                JButton showItem = new JButton(item);
+                URL imgPath = ClassLoader.getSystemClassLoader().getResource("Icons/" + item + ".png");
+                JButton showItem = new JButton();
                 showItem.setForeground(Color.cyan);
                 showItem.setBackground(Color.black);
                 showItem.setOpaque(false);
                 showItem.setBorderPainted(false);
+                ImageIcon img = new ImageIcon(imgPath);
+                img.setImage(img.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+                showItem.add(new JLabel(img));
                 newItem.add(showItem);
                 imagePanel.add(newItem);
 
@@ -60,29 +65,35 @@ public class UpdatePanel {
                     }
                 });
             }
+        } else if ((room.getName().equals("Throne Room") && monsterMap.get(currentRoom).isEmpty() && inventory.contains("blood sample"))) {
+            System.out.println("Blood Sample has been picked up");
         } else {
             for (String item : roomItems) {
-                    JPanel newItem = new JPanel();
-                    newItem.setBounds(0, 150, 100, 100);
-                    newItem.setOpaque(false);
+                JPanel newItem = new JPanel();
+                newItem.setBounds(0, 150, 100, 100);
+                newItem.setOpaque(false);
 
-                    JButton showItem = new JButton(item);
-                    showItem.setForeground(Color.cyan);
-                    showItem.setBackground(Color.black);
-                    showItem.setOpaque(false);
-                    showItem.setBorderPainted(false);
-                    newItem.add(showItem);
-                    imagePanel.add(newItem);
+                URL imgPath = ClassLoader.getSystemClassLoader().getResource("Icons/" + item + ".png");
+                JButton showItem = new JButton();
+                showItem.setForeground(Color.cyan);
+                showItem.setBackground(Color.black);
+                showItem.setOpaque(false);
+                showItem.setBorderPainted(false);
+                ImageIcon img = new ImageIcon(imgPath);
+                img.setImage(img.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+                showItem.add(new JLabel(img));
+                newItem.add(showItem);
+                imagePanel.add(newItem);
 
-                    showItem.addActionListener(e -> {
-                        try {
-                            gameController.handleUserClick(new Response("pickup", "", item), room, gameController);
-                            showItem.setVisible(false);
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                    });
-                }
+                showItem.addActionListener(e -> {
+                    try {
+                        gameController.handleUserClick(new Response("pickup", "", item), room, gameController);
+                        showItem.setVisible(false);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+            }
         }
         imageContainer.add(imagePanel);
         imageContainer.repaint();
@@ -288,12 +299,12 @@ public class UpdatePanel {
     public static void updateInventory(Room room, List<String> inventory, Controller gameController) {
         JPanel inventoryPanel = GamePlay.inventoryPanel;
         inventoryPanel.removeAll();
-        inventoryPanel.setBounds(700, 736, 300, 266);
+        inventoryPanel.setBounds(700, 786, 300, 216);
         inventoryPanel.setBackground(Color.DARK_GRAY);
         inventoryPanel.setOpaque(true);
 
         JPanel containerPanel = new JPanel();
-        containerPanel.setBounds(700, 736, 300, 266);
+        containerPanel.setBounds(700, 786, 300, 216);
         containerPanel.setBackground(Color.DARK_GRAY);
         containerPanel.setOpaque(true);
         containerPanel.setLayout(new GridLayout(3, 2));
