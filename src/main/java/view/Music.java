@@ -29,7 +29,7 @@ public class Music {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
 
-        InputStream music = classLoader.getResourceAsStream("main/resources/sound.wav");
+        InputStream music = classLoader.getResourceAsStream("Sound/sound.wav");
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(music));
 
         Clip clip = AudioSystem.getClip();
@@ -86,9 +86,8 @@ public class Music {
         //Method to get any audio file and play
     public static void chooseAudio(String string) {
         try {
-            Music music = new Music();
             AudioInputStream audioInputStream = null;
-            audioInputStream = AudioSystem.getAudioInputStream(Music.class.getResource("/main/resources/" + string + ".wav"));
+            audioInputStream = AudioSystem.getAudioInputStream(Music.class.getResource("/main/resources/Sound/" + string + ".wav"));
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();

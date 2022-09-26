@@ -81,7 +81,6 @@ public class GUI {
         sfxButton.addActionListener(e -> playerSelectEffect());
 
         helpButton.addActionListener(e -> {
-            Music.playStartAudio("man-down");
             JFrame helpFrame = new JFrame("Help");
             helpFrame.setSize(1000, 800);
             helpFrame.setVisible(true);

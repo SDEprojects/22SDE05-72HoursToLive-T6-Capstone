@@ -101,7 +101,6 @@ public class EndingMenu {
         continueGameButton.addActionListener(e -> {
             try {
                 frame.dispose();
-                playerSelectMusic();
                 repeatGameGUI();
             } catch (IOException | LineUnavailableException | UnsupportedAudioFileException | FontFormatException ex) {
                 throw new RuntimeException(ex);
