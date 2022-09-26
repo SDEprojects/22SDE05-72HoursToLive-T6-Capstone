@@ -17,7 +17,7 @@ public class Controller {
     //variables and object instances
     public static Soldier player = new Soldier();
     public static int timer = 0;
-    public static boolean moonTrigger = true;
+    //public static boolean moonTrigger = true;
     private static String currentRoom = RoomMovement.currentRoom;
     final HashMap<String, List<Werewolf>> monsterMap = getMonsterMap(currentRoom);
     private static final ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
@@ -48,6 +48,16 @@ public class Controller {
         return movement;
     }
 
+    /**
+     * output game over screens and give the user a chance to play another game. or exit
+     * the game which is exiting the entire program.
+     * End game method to
+     */
+    public static void endGame() {
+        System.out.println(TextColor.WHITE + bundle.getString("game_over1"));
+        System.out.println(TextColor.WHITE + bundle.getString("game_over2") + TextColor.RESET);
+
+    }
 
     /**
      * serves as the GUI facing component in place of the inputScanner and textParser
@@ -79,9 +89,18 @@ public class Controller {
                         if (timer == 24) {
                             new EndingMenu("time out");
                         } else {
-                            moonTrigger = true;
+                            //moonTrigger = true;
 // todo needs to be replaced by GUI response not View.menu response and sets moonTrigger to false
 //                            View.menu();
+                            //check for the full moon
+                            checkFullMoon();
+                            if (Controller.timer % 7 == 0){
+                                System.out.println("Timer=" + Controller.timer);
+                                System.out.println("fullmoon");
+
+                                FullMoon.fullMoon();
+                            }
+
                             werewolfCanAttack = true;
                             RoomMovement.switchRooms(r1.getLocation());
                             room = RoomMovement.roomSwitcher;
@@ -196,7 +215,7 @@ public class Controller {
      * when the timer is divisible by 7 or 8 then all monsters get attack power to 15
      */
     public void checkFullMoon() {
-        if (timer > 0 && (timer % 7 == 0 || timer % 8 == 0)) {
+        if (timer > 0 && timer % 7 == 0) {
             monsterMap.values().forEach(monsters -> {
                 monsters.forEach(monster -> {
                     monster.setAttackPower(15);
