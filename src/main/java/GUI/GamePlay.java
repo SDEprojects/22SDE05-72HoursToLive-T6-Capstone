@@ -14,6 +14,7 @@ public class GamePlay {
     static Container imageContainer;
     static JPanel imagePanel;
     static JPanel gameDescriptionPanel;
+    static JPanel inventoryTitlePanel;
 
     JPanel rightPanel;
     static JPanel healthAndTimePanel;
@@ -41,6 +42,7 @@ public class GamePlay {
         statPanel = PanelSetup.statPanel(Controller.player.getAttackPower(), Controller.player.getArmorRating());
         locationPanel = PanelSetup.locationPanel(room);
         compassPanel = PanelSetup.compassPanel(gameController, room);
+        inventoryTitlePanel = PanelSetup.inventoryTitlePanel();
         inventoryPanel = PanelSetup.inventoryPanel();
         mapAndGodModePanel = Map.getMap();
 
@@ -64,6 +66,7 @@ public class GamePlay {
         rightPanel.add(statPanel);
         rightPanel.add(locationPanel);
         rightPanel.add(compassPanel);
+        rightPanel.add(inventoryTitlePanel);
         rightPanel.add(inventoryPanel);
         rightPanel.add(mapAndGodModePanel);
 

@@ -32,14 +32,14 @@ public class PanelSetup extends JPanel{
                 newItem.setOpaque(false);
 
                 URL imgPath = ClassLoader.getSystemClassLoader().getResource("Icons/" + item + ".png");
-                JButton showItem = new JButton(item);
+                JButton showItem = new JButton();
                 showItem.setForeground(Color.cyan);
                 showItem.setBackground(Color.black);
                 showItem.setOpaque(false);
                 showItem.setBorderPainted(false);
-//                ImageIcon img = new ImageIcon(imgPath);
-//                img.setImage(img.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
-//                showItem.add(new JLabel(img));
+                ImageIcon img = new ImageIcon(imgPath);
+                img.setImage(img.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+                showItem.add(new JLabel(img));
                 newItem.add(showItem);
                 imagePanel.add(newItem);
                 showItem.addActionListener(e -> {
@@ -276,14 +276,26 @@ public class PanelSetup extends JPanel{
         return compassPanel;
     }
 
+    public static JPanel inventoryTitlePanel(){
+        JPanel inventoryTitlePanel = new JPanel();
+        inventoryTitlePanel.setBounds(700, 736, 300, 50);
+        inventoryTitlePanel.setBackground(Color.DARK_GRAY);
+        inventoryTitlePanel.setOpaque(true);
+        JLabel title = new JLabel("INVENTORY");
+        title.setFont(panelFont);
+        title.setForeground(Color.orange);
+        inventoryTitlePanel.add(title);
+
+        return inventoryTitlePanel;
+    }
     public static JPanel inventoryPanel() {
         JPanel inventoryPanel = new JPanel();
-        inventoryPanel.setBounds(700, 736, 300, 266);
+        inventoryPanel.setBounds(700, 786, 300, 216);
         inventoryPanel.setBackground(Color.DARK_GRAY);
         inventoryPanel.setOpaque(true);
 
         JPanel containerPanel = new JPanel();
-        containerPanel.setBounds(700, 736, 300, 266);
+        containerPanel.setBounds(700, 786, 300, 216);
         containerPanel.setBackground(Color.DARK_GRAY);
         containerPanel.setOpaque(true);
         containerPanel.add(new JLabel("No Inventory Items"));

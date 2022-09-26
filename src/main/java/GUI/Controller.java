@@ -88,7 +88,7 @@ public class Controller {
                             UpdatePanel.updateLocation(room);
                             UpdatePanel.updateCompass(room, gameController, monsterMap);
                             UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
-                            UpdatePanel.updateImagePanel(room, monsterMap, gameController);
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController, player.getInventory());
                             UpdatePanel.updateDescriptionPanel(room);
                             UpdatePanel.updateInventory(room, player.getInventory(), gameController);
                             checkAttack(room);
@@ -98,14 +98,14 @@ public class Controller {
                         if (player.getInventory().size() > 2) {
                             werewolfCanAttack = false;
                             UpdatePanel.updateDescriptionPanelText(bundle.getString("pickup1"));
-                            UpdatePanel.updateImagePanel(room, monsterMap, gameController);
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController, player.getInventory());
 
 
                         } else if (room.getItems().contains(r1.getNoun())) {
                             player.pickup(r1.getNoun());
                             room.getItems().remove(r1.getNoun());
                             werewolfCanAttack = true;
-                            UpdatePanel.updateImagePanel(room, monsterMap, gameController);
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController, player.getInventory());
                             UpdatePanel.updateDescriptionPanelText(bundle.getString("pickup2") + r1.getNoun() + bundle.getString("pickup3"));
                             UpdatePanel.updateInventory(room, player.getInventory(), gameController);
                             UpdatePanel.updateCompass(room, gameController, monsterMap);
@@ -123,7 +123,7 @@ public class Controller {
                         player.attack(w1);
                         if (w1.getHealth() <= 0) {
                             monsterMap.get(currentRoom).remove(0);
-                            UpdatePanel.updateImagePanel(room, monsterMap, gameController);
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController, player.getInventory());
                             UpdatePanel.updateCompass(room, gameController, monsterMap);
                             if (w1.getInventory().size() > 0) {
                                 for (String item : w1.getInventory()) {
