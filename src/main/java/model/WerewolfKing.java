@@ -58,7 +58,7 @@ public class WerewolfKing extends Werewolf{
         if(enemy.getInventory().size() > 0) {
             if (Client.psvmIsGUI){
                 enemy.getInventory().clear();
-// todo clear inventory panel
+                UpdatePanel.updateDescriptionPanelText(bundle.getString("werewolfKing_destroys1"));
             }else {
                 System.out.println(bundle.getString("werewolfKing_destroys1"));
                 enemy.getInventory().clear();

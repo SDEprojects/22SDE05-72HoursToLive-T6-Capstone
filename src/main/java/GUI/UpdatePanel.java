@@ -35,7 +35,9 @@ public class UpdatePanel {
             UpdatePanel.appendDescriptionPanelText(bundle.getString("look1"));
         } else if (room.getName().equals("Throne Room") && !monsterMap.get(currentRoom).isEmpty()) {
             System.out.println("Throne room doesn't populate items");
-        } else {
+        } else if (room.getName().equals("Throne Room") && monsterMap.get(currentRoom).isEmpty()) {
+            roomItems.clear();
+            roomItems.add("blood sample");
             for (String item : roomItems) {
                 JPanel newItem = new JPanel();
                 newItem.setBounds(0, 150, 100, 100);
@@ -58,6 +60,29 @@ public class UpdatePanel {
                     }
                 });
             }
+        } else {
+            for (String item : roomItems) {
+                    JPanel newItem = new JPanel();
+                    newItem.setBounds(0, 150, 100, 100);
+                    newItem.setOpaque(false);
+
+                    JButton showItem = new JButton(item);
+                    showItem.setForeground(Color.cyan);
+                    showItem.setBackground(Color.black);
+                    showItem.setOpaque(false);
+                    showItem.setBorderPainted(false);
+                    newItem.add(showItem);
+                    imagePanel.add(newItem);
+
+                    showItem.addActionListener(e -> {
+                        try {
+                            gameController.handleUserClick(new Response("pickup", "", item), room, gameController);
+                            showItem.setVisible(false);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    });
+                }
         }
         imageContainer.add(imagePanel);
         imageContainer.repaint();
