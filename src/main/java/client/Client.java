@@ -33,6 +33,8 @@ public class Client {
     }
 
     public static void main(String[] args) throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
+        Music music = new Music();
+        music.playMusic();
         new GUI();
     }
     public static void repeatGameGUI() throws IOException, UnsupportedAudioFileException, LineUnavailableException, FontFormatException {

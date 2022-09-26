@@ -20,8 +20,9 @@ public class UpdatePanel {
 
     static JTextArea text;
     private static ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
-    ;
-
+    /**
+     * Responsible for updating the gameplay initial panels
+     */
     public static void updateImagePanel(Room room, HashMap<String, List<Werewolf>> monsterMap, Controller gameController, List<String> inventory) {
         Container imageContainer = GamePlay.getImageContainer();
         imageContainer.removeAll();
@@ -125,11 +126,6 @@ public class UpdatePanel {
         currentHealth.setFont(panelFont);
 
         healthAndTimePanel.add(currentHealth);
-//        JProgressBar healthBar = new JProgressBar(0,100);
-//        healthBar.setSize(300,75);
-//        healthBar.setValue(health);
-//        healthBar.setForeground(barColor);
-//        healthPanel.add(healthBar);
 
         int currentTime = 72 - (timer * 3);
         JPanel timePanel = new JPanel();

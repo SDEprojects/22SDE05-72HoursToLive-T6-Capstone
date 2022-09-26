@@ -7,7 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * Responsible for generating the game map
+ */
 public class Map {
 
     public static JPanel getMap(){

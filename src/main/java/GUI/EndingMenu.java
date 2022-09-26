@@ -1,5 +1,7 @@
 package main.java.GUI;
 
+import main.java.view.Music;
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
@@ -9,6 +11,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import static main.java.client.Client.repeatGameGUI;
+import static main.java.view.Music.playerSelectMusic;
 
 public class EndingMenu {
 
@@ -23,7 +26,9 @@ public class EndingMenu {
     JButton continueGameButton;
     JPanel imagePanel;
     JButton quitGameButton;
-
+    /**
+     * Responsible for creating the end condition screen
+     */
     public EndingMenu(String string) throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
         URL img = null;
         String text = "";
@@ -96,6 +101,7 @@ public class EndingMenu {
         continueGameButton.addActionListener(e -> {
             try {
                 frame.dispose();
+                playerSelectMusic();
                 repeatGameGUI();
             } catch (IOException | LineUnavailableException | UnsupportedAudioFileException | FontFormatException ex) {
                 throw new RuntimeException(ex);

@@ -16,6 +16,9 @@ public class PanelSetup extends JPanel{
     static Font panelFont = new Font(Font.DIALOG, Font.BOLD, 12);
     private static ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");;
 
+    /**
+     * Responsible for generating the gameplay initial panels
+     */
     public static JPanel imagePanel(Room room, Controller gameController){
         BackgroundPanel imagePanel = new BackgroundPanel(room);
         imagePanel.setBounds(0, 0, 700, 700);

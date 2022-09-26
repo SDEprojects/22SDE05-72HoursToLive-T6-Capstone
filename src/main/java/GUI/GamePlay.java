@@ -22,11 +22,12 @@ public class GamePlay {
     static JPanel inventoryPanel;
     static JPanel statPanel;
     static JPanel compassPanel;
-
     JPanel mapAndGodModePanel;
 
-
-
+    /**
+     * Generates the core GUI gameplay layout and initial values and is used throughout
+     * the game until win/lose condition is met
+     */
     public GamePlay() throws IOException {
         JFrame frame = GUI.frame;
         Controller.startGame();
