@@ -3,6 +3,7 @@ package main.java.GUI;
 import main.java.controller.Response;
 import main.java.model.Room;
 import main.java.model.Werewolf;
+import main.java.view.Music;
 
 import javax.swing.*;
 import java.awt.*;
@@ -259,6 +260,7 @@ public class UpdatePanel {
         north.addActionListener(e -> {
             try {
                 gameController.handleUserClick(new Response("go", "north", ""), room, gameController);
+                //Music.playStartAudio("open-door");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -266,6 +268,7 @@ public class UpdatePanel {
         south.addActionListener(e -> {
             try {
                 gameController.handleUserClick(new Response("go", "south", ""), room, gameController);
+                //Music.playStartAudio("open-door");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -273,6 +276,7 @@ public class UpdatePanel {
         east.addActionListener(e -> {
             try {
                 gameController.handleUserClick(new Response("go", "east", ""), room, gameController);
+                //Music.playStartAudio("open-door");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -280,6 +284,7 @@ public class UpdatePanel {
         west.addActionListener(e -> {
             try {
                 gameController.handleUserClick(new Response("go", "west", ""), room, gameController);
+                //Music.playStartAudio("open-door");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -288,6 +293,7 @@ public class UpdatePanel {
         attackButton.addActionListener(e -> {
             try {
                 gameController.handleUserClick(new Response("attack", "", ""), room, gameController);
+                Music.playStartAudio("sword-strike");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
