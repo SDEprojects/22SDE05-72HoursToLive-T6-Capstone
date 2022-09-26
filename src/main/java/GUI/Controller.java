@@ -48,36 +48,13 @@ public class Controller {
         return movement;
     }
 
-    /**
-     * output game over screens and give the user a chance to play another game. or exit
-     * the game which is exiting the entire program.
-     * End game method to
-     */
-    public static void endGame() {
-        System.out.println(TextColor.WHITE + bundle.getString("game_over1"));
-        System.out.println(TextColor.WHITE + bundle.getString("game_over2") + TextColor.RESET);
-
-    }
 
     /**
      * serves as the GUI facing component in place of the inputScanner and textParser
      * to pass commands to the userChoice method
      */
     public void handleUserClick(Response buttonResponse, Room room, Controller gameController) throws IOException {
-        if (Controller.player.getHealth() <= 0) {
-            System.out.println(TextColor.RED + bundle.getString("player_dead1") + TextColor.RESET);
-// todo Add failure screen with 'you died' *******
-            endGame();
-        }
-        else if (Controller.timer == 24) {
-            System.out.println(TextColor.RED + bundle.getString("time_out1"));
-            System.out.println(TextColor.RED + bundle.getString("time_out2") + TextColor.RESET);
-// todo Add failure screen with 'timed out'
-            endGame();
-        }
-        else {
             userChoice(buttonResponse, room, gameController);
-        }
     }
 
     /**
@@ -93,15 +70,13 @@ public class Controller {
                 Response r1 = buttonResponse;
                 if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal") && player.getInventory().contains(r1.getNoun())) {
                     if (r1.getNoun().equalsIgnoreCase("blood sample")) {
-                        player.pickup("Trophy");
-                        //todo add trophy check
+                        new EndingMenu("win");
                     }
                 }
                 switch (r1.getVerb()) {
                     case "go":
                         timer++;
                         if (timer == 24) {
-// todo need to call failure screen with 'time ran out'
                             new EndingMenu("time out");
                         } else {
                             moonTrigger = true;
@@ -113,29 +88,34 @@ public class Controller {
                             UpdatePanel.updateLocation(room);
                             UpdatePanel.updateCompass(room, gameController, monsterMap);
                             UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
-                            UpdatePanel.updateImagePanel(room, monsterMap);
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController);
                             UpdatePanel.updateDescriptionPanel(room);
+                            UpdatePanel.updateInventory(room, player.getInventory(), gameController);
                             checkAttack(room);
                             break;
                         }
                     case "pickup":
                         if (player.getInventory().size() > 2) {
                             werewolfCanAttack = false;
-// todo Replace with GUI output
-                            System.out.println(TextColor.RED + bundle.getString("pickup1") + TextColor.RESET);
+                            UpdatePanel.updateDescriptionPanelText(bundle.getString("pickup1"));
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController);
+
 
                         } else if (room.getItems().contains(r1.getNoun())) {
                             player.pickup(r1.getNoun());
                             room.getItems().remove(r1.getNoun());
                             werewolfCanAttack = true;
-// todo Replace with GUI output, add item as a button in inventory panel
-                            System.out.println(TextColor.GREEN + bundle.getString("pickup2") + r1.getNoun() + bundle.getString("pickup3") + TextColor.RESET);
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController);
+                            UpdatePanel.updateDescriptionPanelText(bundle.getString("pickup2") + r1.getNoun() + bundle.getString("pickup3"));
+                            UpdatePanel.updateInventory(room, player.getInventory(), gameController);
+                            UpdatePanel.updateCompass(room, gameController, monsterMap);
                         }
                         checkAttack(room);
                         break;
                     case "use":
                         player.useItems(r1.getNoun());
-// todo update the armor, attack
+                        UpdatePanel.updateInventory(room,player.getInventory(), gameController);
+                        UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
                         werewolfCanAttack = false;
                         break;
                     case "attack":
@@ -143,7 +123,7 @@ public class Controller {
                         player.attack(w1);
                         if (w1.getHealth() <= 0) {
                             monsterMap.get(currentRoom).remove(0);
-                            UpdatePanel.updateImagePanel(room, monsterMap);
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController);
                             UpdatePanel.updateCompass(room, gameController, monsterMap);
                             if (w1.getInventory().size() > 0) {
                                 for (String item : w1.getInventory()) {
@@ -162,12 +142,6 @@ public class Controller {
 
                         checkAttack(room);
                         break;
-// Shouldn't need default in switch case if response is not user defined
-//                    default:
-////                        System.out.println("That is not a valid input!");
-//                        System.out.println(TextColor.RED + bundle.getString("invalid_input1"));
-//                        werewolfCanAttack = false;
-//                        break;
                 }
             } catch (NullPointerException ignored) {
             } catch (UnsupportedAudioFileException | LineUnavailableException | FontFormatException e) {
@@ -180,9 +154,6 @@ public class Controller {
         String[] werewolfAttack = {bundle.getString("werewolf_attack1"),bundle.getString("werewolf_attack2"),bundle.getString("werewolf_attack3")};
         String werewolfAttackResponse = werewolfAttack[ran.nextInt(werewolfAttack.length)];
         checkFullMoon();
-        if (GameController.player.getInventory().contains("Trophy")) {
-            new EndingMenu("win");
-        }
         if (currentRoom.equalsIgnoreCase("Throne Room") && wolfKingPrompt) {
             UpdatePanel.updateDescriptionPanelText(bundle.getString("werewolfKing_attack1"));
             wolfKingPrompt = false;

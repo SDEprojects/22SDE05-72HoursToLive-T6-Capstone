@@ -6,8 +6,8 @@ import main.java.model.Room;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PanelSetup extends JPanel{
@@ -16,17 +16,37 @@ public class PanelSetup extends JPanel{
     private static ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");;
 
     public static JPanel imagePanel(Room room, Controller gameController){
-        JPanel imagePanel = new JPanel();
+        BackgroundPanel imagePanel = new BackgroundPanel(room);
         imagePanel.setBounds(0, 0, 700, 700);
         imagePanel.setBackground(Color.black);
         imagePanel.setOpaque(true);
-        String currentRoom = room.getName();
-        String imgPath = "Images/" + currentRoom + ".jpeg";
-        URL image = ClassLoader.getSystemClassLoader().getResource(imgPath);
-        ImageIcon img = new ImageIcon(image);
-        img.setImage(img.getImage().getScaledInstance(700, 700, Image.SCALE_DEFAULT));
-        imagePanel.add(new JLabel(img));
 
+        List<String> roomItems = room.getItems();
+        if (roomItems.isEmpty()){
+            UpdatePanel.appendDescriptionPanelText(bundle.getString("look1"));
+        } else {
+            for (String item : roomItems) {
+                JPanel newItem = new JPanel();
+                newItem.setBounds(0, 150, 100, 100);
+                newItem.setOpaque(false);
+
+                JButton showItem = new JButton(item);
+                showItem.setForeground(Color.cyan);
+                showItem.setBackground(Color.black);
+                showItem.setOpaque(false);
+                showItem.setBorderPainted(false);
+                newItem.add(showItem);
+                imagePanel.add(newItem);
+                showItem.addActionListener(e -> {
+                    try {
+                        gameController.handleUserClick(new Response("pickup", "", item), room, gameController);
+                        showItem.setVisible(false);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+            }
+        }
         return imagePanel;
     }
 
@@ -257,9 +277,17 @@ public class PanelSetup extends JPanel{
         inventoryPanel.setBackground(Color.DARK_GRAY);
         inventoryPanel.setOpaque(true);
 
+        JPanel containerPanel = new JPanel();
+        containerPanel.setBounds(700, 736, 300, 266);
+        containerPanel.setBackground(Color.DARK_GRAY);
+        containerPanel.setOpaque(true);
+        containerPanel.add(new JLabel("No Inventory Items"));
+        inventoryPanel.add(containerPanel);
+
         return inventoryPanel;
     }
 
 
 }
+
 

@@ -65,7 +65,6 @@ public class RoomMovement {
         }
     }
 
-
     /**
      * This method generates a random room that will be used as the FIRST room
      * the user starts in.
@@ -83,7 +82,7 @@ public class RoomMovement {
                 (bundle.getString("firstRoom_text4"));
 
         if (Client.psvmIsGUI) {
-            System.out.println("text on screen");
+            System.out.println("First Room");
         } else {
             textStream(TextColor.BLUE + bundle.getString("firstRoom_text1"), 110);
             sleep(1000);

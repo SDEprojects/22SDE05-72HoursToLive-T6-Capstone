@@ -7,9 +7,9 @@ import main.java.model.Werewolf;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import static main.java.GUI.PanelSetup.panelFont;
 
@@ -17,42 +17,50 @@ import static main.java.GUI.PanelSetup.panelFont;
 public class UpdatePanel {
 
     static JTextArea text;
-    public static void updateImagePanel(Room room, HashMap<String, List<Werewolf>> monsterMap) {
-        JPanel imagePanel = GamePlay.imagePanel;
-        imagePanel.removeAll();
+    private static ResourceBundle bundle = ResourceBundle.getBundle("main.resources.strings");
+    ;
+
+    public static void updateImagePanel(Room room, HashMap<String, List<Werewolf>> monsterMap, Controller gameController) {
+        Container imageContainer = GamePlay.getImageContainer();
+        imageContainer.removeAll();
+
+        BackgroundPanel imagePanel = new BackgroundPanel(room, monsterMap);
         imagePanel.setBounds(0, 0, 700, 700);
         imagePanel.setBackground(Color.black);
         imagePanel.setOpaque(true);
         String currentRoom = room.getName();
-        String imgPath;
-        JPanel attackPanel = new JPanel();
-        attackPanel.setBounds(300, 800, 700, 100);
-        attackPanel.setOpaque(false);
-        JButton attackButton = new JButton("ATTACK");
-        attackButton.setForeground(Color.red);
-        attackButton.setBackground(Color.black);
-        attackButton.setFont(new Font("Helvetica", Font.BOLD, 28));
-        attackButton.setOpaque(false);
-        attackButton.setBorderPainted(false);
-        attackPanel.add(attackButton);
 
-        if (!monsterMap.get(currentRoom).isEmpty()){
-            imgPath = "Images/" + currentRoom + "_WW.jpeg";
-            URL image = ClassLoader.getSystemClassLoader().getResource(imgPath);
-            ImageIcon img = new ImageIcon(image);
-            img.setImage(img.getImage().getScaledInstance(700, 700, Image.SCALE_DEFAULT));
-            imagePanel.add(new JLabel(img));
-            imagePanel.add(attackPanel);
-            attackButton.setVisible(true);
+        List<String> roomItems = room.getItems();
+        if (roomItems.isEmpty()) {
+            UpdatePanel.appendDescriptionPanelText(bundle.getString("look1"));
+        } else if (room.getName().equals("Throne Room") && !monsterMap.get(currentRoom).isEmpty()) {
+            System.out.println("Throne room doesn't populate items");
+        } else {
+            for (String item : roomItems) {
+                JPanel newItem = new JPanel();
+                newItem.setBounds(0, 150, 100, 100);
+                newItem.setOpaque(false);
 
-        }else {
-            imgPath = "Images/" + currentRoom + ".jpeg";
-            URL image = ClassLoader.getSystemClassLoader().getResource(imgPath);
-            ImageIcon img = new ImageIcon(image);
-            img.setImage(img.getImage().getScaledInstance(700, 700, Image.SCALE_DEFAULT));
-            imagePanel.add(new JLabel(img));
-            attackButton.setVisible(false);
+                JButton showItem = new JButton(item);
+                showItem.setForeground(Color.cyan);
+                showItem.setBackground(Color.black);
+                showItem.setOpaque(false);
+                showItem.setBorderPainted(false);
+                newItem.add(showItem);
+                imagePanel.add(newItem);
+
+                showItem.addActionListener(e -> {
+                    try {
+                        gameController.handleUserClick(new Response("pickup", "", item), room, gameController);
+                        showItem.setVisible(false);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+            }
         }
+        imageContainer.add(imagePanel);
+        imageContainer.repaint();
 
         GUI.frame.setVisible(true);
     }
@@ -63,15 +71,15 @@ public class UpdatePanel {
         healthAndTimePanel.setBounds(700, 50, 300, 75);
         healthAndTimePanel.setBackground(Color.darkGray);
         healthAndTimePanel.setOpaque(true);
-        healthAndTimePanel.setLayout(new GridLayout(2,1));
+        healthAndTimePanel.setLayout(new GridLayout(2, 1));
 
         Color barColor;
-        if (health >= 60){
-            barColor= Color.green;
-        }else if(health >= 30){
-            barColor= Color.yellow;
-        }else {
-            barColor= Color.red;
+        if (health >= 60) {
+            barColor = Color.green;
+        } else if (health >= 30) {
+            barColor = Color.yellow;
+        } else {
+            barColor = Color.red;
         }
 
         JLabel currentHealth = new JLabel();
@@ -92,12 +100,12 @@ public class UpdatePanel {
         timePanel.setBackground(Color.darkGray);
         timePanel.setOpaque(true);
         Color timeColor;
-        if (currentTime >= 48){
-            timeColor= Color.green;
-        }else if(currentTime >= 24 && currentTime <= 47){
-            timeColor= Color.yellow;
-        }else {
-            timeColor= Color.red;
+        if (currentTime >= 48) {
+            timeColor = Color.green;
+        } else if (currentTime >= 24 && currentTime <= 47) {
+            timeColor = Color.yellow;
+        } else {
+            timeColor = Color.red;
         }
         JLabel timeLabel = new JLabel();
         timeLabel.setText("Time Left= " + currentTime + " hours!!");
@@ -110,7 +118,6 @@ public class UpdatePanel {
     }
 
     public static void updateLocation(Room room) {
-        //todo Need to add item placement
         JPanel locationPanel = GamePlay.locationPanel;
         locationPanel.removeAll();
         String name = room.getName();
@@ -191,9 +198,9 @@ public class UpdatePanel {
         }
         attackButton.setForeground(Color.red);
         compassPanel.add(attackButton);
-        if (!monsterMap.get(currentRoom).isEmpty()){
+        if (!monsterMap.get(currentRoom).isEmpty()) {
             attackButton.setVisible(true);
-        }else {
+        } else {
             attackButton.setVisible(false);
         }
         compassPanel.add(east);
@@ -253,11 +260,53 @@ public class UpdatePanel {
         GUI.frame.setVisible(true);
     }
 
-    public static void updateInventory(){
+    public static void updateInventory(Room room, List<String> inventory, Controller gameController) {
+        JPanel inventoryPanel = GamePlay.inventoryPanel;
+        inventoryPanel.removeAll();
+        inventoryPanel.setBounds(700, 736, 300, 266);
+        inventoryPanel.setBackground(Color.DARK_GRAY);
+        inventoryPanel.setOpaque(true);
 
+        JPanel containerPanel = new JPanel();
+        containerPanel.setBounds(700, 736, 300, 266);
+        containerPanel.setBackground(Color.DARK_GRAY);
+        containerPanel.setOpaque(true);
+        containerPanel.setLayout(new GridLayout(3, 2));
+
+        if (inventory.isEmpty()) {
+            JPanel newItem = new JPanel();
+            newItem.add(new JLabel("No Inventory Items"));
+            newItem.setOpaque(false);
+            containerPanel.add(newItem);
+        } else {
+            for (String item : inventory) {
+                JPanel newItem = new JPanel();
+                newItem.setOpaque(false);
+
+                JButton showItem = new JButton(item);
+                showItem.setForeground(Color.cyan);
+                showItem.setBackground(Color.black);
+                showItem.setOpaque(false);
+                showItem.setBorderPainted(false);
+                inventoryPanel.add(showItem);
+                newItem.add(showItem);
+                containerPanel.add(newItem);
+
+                showItem.addActionListener(e -> {
+                    try {
+                        gameController.handleUserClick(new Response("use", "", item), room, gameController);
+                        showItem.setVisible(false);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+            }
+        }
+        inventoryPanel.add(containerPanel);
+        inventoryPanel.repaint();
     }
 
-    public static void updateDescriptionPanel(Room room){
+    public static void updateDescriptionPanel(Room room) {
         JPanel descriptionPanel = GamePlay.gameDescriptionPanel;
         descriptionPanel.removeAll();
         descriptionPanel.setBounds(0, 800, 700, 150);
@@ -280,7 +329,7 @@ public class UpdatePanel {
     }
 
     //method to print out any string parameters into description panel
-    public static void updateDescriptionPanelText(String string){
+    public static void updateDescriptionPanelText(String string) {
         JPanel descriptionPanel = GamePlay.gameDescriptionPanel;
         descriptionPanel.removeAll();
         descriptionPanel.repaint();
@@ -304,13 +353,34 @@ public class UpdatePanel {
     }
 
 
-    public static void appendDescriptionPanelText(String string){
+    public static void appendDescriptionPanelText(String string) {
         JPanel descriptionPanel = GamePlay.gameDescriptionPanel;
 
         text.append("\n" + string);
 
         descriptionPanel.repaint();
         GUI.frame.setVisible(true);
+    }
+
+    public static void updateStatPanel(int attack, int armor) {
+        JPanel statPanel = GamePlay.statPanel;
+        statPanel.removeAll();
+        statPanel.setBounds(700, 125, 300, 75);
+        statPanel.setBackground(Color.gray);
+        statPanel.setOpaque(true);
+        statPanel.setLayout(new GridLayout(2, 1));
+
+        JLabel attackPower = new JLabel();
+        attackPower.setText("Attack Power= " + attack);
+        attackPower.setFont(panelFont);
+        attackPower.setForeground(Color.black);
+        JLabel armorRating = new JLabel();
+        armorRating.setText("Armor Rating= " + armor);
+        armorRating.setFont(panelFont);
+        armorRating.setForeground(Color.black);
+
+        statPanel.add(attackPower);
+        statPanel.add(armorRating);
     }
 }
 
