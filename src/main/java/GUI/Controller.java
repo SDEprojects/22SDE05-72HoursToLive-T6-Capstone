@@ -138,7 +138,7 @@ public class Controller {
             }
         }
 
-    public Room implementMove(Response buttonResponse, Room room) throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
+    protected Room implementMove(Response buttonResponse, Room room) throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
         timer++;
         if (timer == 24) {
             new EndingMenu("time out");
