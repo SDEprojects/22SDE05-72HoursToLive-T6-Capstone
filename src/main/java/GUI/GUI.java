@@ -82,22 +82,24 @@ public class GUI {
 
         helpButton.addActionListener(e -> {
             JFrame helpFrame = new JFrame("Help");
-            helpFrame.setSize(1000, 800);
+            helpFrame.setSize(1000, 550);
             helpFrame.setVisible(true);
+            helpFrame.setResizable(false);
             helpFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
             JPanel helpPanel = new JPanel();
-            helpPanel.setBounds(0, 0, 1000, 800);
+            helpPanel.setBounds(0, 0, 1000, 550);
             helpPanel.setBackground(Color.black);
             helpPanel.setOpaque(true);
             helpPanel.setLayout(new BorderLayout());
 
             JTextArea helpText = new JTextArea();
             helpText.setLineWrap(true);
-            helpText.setFont(new Font(Font.DIALOG, Font.BOLD, 24));
+            helpText.setFont(new Font(Font.DIALOG, Font.BOLD, 19));
             helpText.setBackground(Color.black);
-            helpText.setForeground(Color.red);
+            helpText.setForeground(Color.orange);
             helpText.setWrapStyleWord(true);
+            helpText.setEditable(false);
             helpText.setText(bundle.getString("help_menu"));
             helpPanel.add(helpText, BorderLayout.NORTH);
 

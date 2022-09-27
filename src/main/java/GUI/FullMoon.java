@@ -25,12 +25,14 @@ public class FullMoon {
         fullMoonTextLabel.setFont(fullMoonFont);
         fullMoonTextLabel.setForeground(Color.red);
         fullMoonTextLabel.setOpaque(false);
+        fullMoonTextLabel.setEditable(false);
 
         JTextArea fullMoonTextLabel1 = new JTextArea("The werewolves are more powerful tonight! Be careful!");
         fullMoonTextLabel1.setBounds(5, 350,600,100);
         fullMoonTextLabel1.setFont(fullMoonFont1);
         fullMoonTextLabel1.setForeground(Color.red);
         fullMoonTextLabel1.setOpaque(false);
+        fullMoonTextLabel1.setEditable(false);
 
 
         fullMoonImageLabel.add(fullMoonTextLabel);
