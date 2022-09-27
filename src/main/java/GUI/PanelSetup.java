@@ -72,6 +72,7 @@ public class PanelSetup extends JPanel{
         text.setBackground(Color.black);
         text.setForeground(Color.yellow);
         text.setWrapStyleWord(true);
+        text.setEditable(false);
         String firstRoomText = (bundle.getString("firstRoom_text1")) +
                 (bundle.getString("firstRoom_text2")) +
                 (bundle.getString("firstRoom_text3")) +
