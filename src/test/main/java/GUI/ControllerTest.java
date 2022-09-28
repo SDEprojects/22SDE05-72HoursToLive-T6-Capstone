@@ -12,6 +12,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -30,6 +31,7 @@ public class ControllerTest {
         connectedRooms.put("east", "Pantry");
         connectedRooms.put("west", "Parapet");
         java.util.List<String> items = new ArrayList<>();
+        items.add("blood sample");
 
         room.setName("Ballroom");
         room.setDescription("The Ball Room is a large formal room inside a building for holding large parties called balls. ");
@@ -68,6 +70,16 @@ public class ControllerTest {
         Room goWest = gameController.implementMove(new Response("go", "west", ""), room);
 
         assertEquals(westExpected, goWest.getName());
+
+    }
+
+    @Test
+    public void addToInventory(){
+        int expected = 1;
+        List<String> inventory = gameController.addToInventory(new Response("pickup", "", "blood sample"), room);
+
+        assertEquals(expected, inventory.size());
+        assertTrue(inventory.contains("blood sample"));
 
     }
 }
