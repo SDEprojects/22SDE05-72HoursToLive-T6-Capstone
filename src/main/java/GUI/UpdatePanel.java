@@ -196,10 +196,38 @@ public class UpdatePanel {
     }
 
     public static void updateCompass(Room room, Controller gameController, HashMap<String, List<Werewolf>> monsterMap) {
-        JButton north = new JButton("N");
-        JButton south = new JButton("S");
-        JButton east = new JButton("E");
-        JButton west = new JButton("W");
+        JButton north = new JButton ();
+        URL northIcon = ClassLoader.getSystemClassLoader().getResource("Icons/north_button.png");
+        north.setOpaque(true);
+        north.setBorderPainted(false);
+        ImageIcon northImage = new ImageIcon(northIcon);
+        northImage.setImage(northImage.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+        north.add(new JLabel(northImage));
+
+        JButton south = new JButton ();
+        URL southIcon = ClassLoader.getSystemClassLoader().getResource("Icons/south_button.png");
+        south.setOpaque(true);
+        south.setBorderPainted(false);
+        ImageIcon southImage = new ImageIcon(southIcon);
+        southImage.setImage(southImage.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+        south.add(new JLabel(southImage));
+
+        JButton east = new JButton ();
+        URL eastIcon = ClassLoader.getSystemClassLoader().getResource("Icons/east_button.png");
+        east.setOpaque(true);
+        east.setBorderPainted(false);
+        ImageIcon eastImage = new ImageIcon(eastIcon);
+        eastImage.setImage(eastImage.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+        east.add(new JLabel(eastImage));
+
+        JButton west = new JButton ();
+        URL westIcon = ClassLoader.getSystemClassLoader().getResource("Icons/west_button.png");
+        west.setOpaque(true);
+        west.setBorderPainted(false);
+        ImageIcon westImage = new ImageIcon(westIcon);
+        westImage.setImage(westImage.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+        west.add(new JLabel(westImage));
+
         JButton empty1 = new JButton("");
         JButton empty2 = new JButton("");
         JButton attackButton = new JButton("ATTACK!!");
@@ -213,20 +241,22 @@ public class UpdatePanel {
         compassPanel.setBackground(Color.gray);
         compassPanel.setOpaque(true);
 
-        HashMap connectedRooms = (HashMap) room.getConnectedRooms();
+        HashMap<String, String> connectedRooms = (HashMap) room.getConnectedRooms();
         String currentRoom = room.getName();
 
         compassPanel.setLayout(new GridLayout(3, 3));
         compassPanel.add(empty1);
         empty1.setVisible(false);
         compassPanel.add(north);
-        if (connectedRooms.get("north").toString().equals("None")) {
+        if (connectedRooms.get("north").equals("None")) {
+            north.setOpaque(false);
             north.setEnabled(false);
         }
         compassPanel.add(empty2);
         empty2.setVisible(false);
         compassPanel.add(west);
-        if (connectedRooms.get("west").toString().equals("None")) {
+        if (connectedRooms.get("west").equals("None")) {
+            west.setOpaque(false);
             west.setEnabled(false);
         }
         attackButton.setForeground(Color.red);
@@ -237,13 +267,15 @@ public class UpdatePanel {
             attackButton.setVisible(false);
         }
         compassPanel.add(east);
-        if (connectedRooms.get("east").toString().equals("None")) {
+        if (connectedRooms.get("east").equals("None")) {
+            east.setOpaque(false);
             east.setEnabled(false);
         }
         compassPanel.add(empty4);
         empty4.setVisible(false);
         compassPanel.add(south);
-        if (connectedRooms.get("south").toString().equals("None")) {
+        if (connectedRooms.get("south").equals("None")) {
+            south.setOpaque(false);
             south.setEnabled(false);
         }
         compassPanel.add(empty5);

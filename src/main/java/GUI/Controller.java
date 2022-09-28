@@ -81,7 +81,7 @@ public class Controller {
                         UpdatePanel.updateImagePanel(room, monsterMap, gameController, player.getInventory());
                         UpdatePanel.updateDescriptionPanel(room);
                         UpdatePanel.updateInventory(room, player.getInventory(), gameController);
-                        checkAttack(room);
+                        checkAttack(room, gameController);
                         break;
                     case "pickup":
                         if (player.getInventory().size() > 2) {
@@ -97,7 +97,7 @@ public class Controller {
                             UpdatePanel.updateInventory(room, newInventory, gameController);
                             UpdatePanel.updateCompass(room, gameController, monsterMap);
                         }
-                        checkAttack(room);
+                        checkAttack(room, gameController);
                         break;
                     case "use":
                         player.useItems(buttonResponse.getNoun());
@@ -127,7 +127,7 @@ public class Controller {
                         }
                         werewolfCanAttack = true;
 
-                        checkAttack(room);
+                        checkAttack(room, gameController);
                         break;
                 }
             } catch (NullPointerException ignored) {
@@ -169,7 +169,7 @@ public class Controller {
     /**
      * Checks if a werewolf can attack and checks health and time after attack
      */
-    private void checkAttack(Room room) throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
+    private void checkAttack(Room room, Controller gameController) throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
         String currentRoom = room.getName();
         String[] werewolfAttack = {bundle.getString("werewolf_attack1"),bundle.getString("werewolf_attack2"),bundle.getString("werewolf_attack3")};
         String werewolfAttackResponse = werewolfAttack[ran.nextInt(werewolfAttack.length)];
@@ -185,6 +185,7 @@ public class Controller {
             Music.playStartAudio("wolf-attack");
             UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
             UpdatePanel.appendDescriptionPanelText("\n" + wolf.getName() + " " + werewolfAttackResponse + '\n' + bundle.getString("health_status1") + player.getHealth() );
+            UpdatePanel.updateInventory(room, player.getInventory(), gameController);
             werewolfCanAttack = false;
         }
         if (player.getHealth() <= 0) {

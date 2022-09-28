@@ -1,6 +1,7 @@
 # 22SDE05-Project2
 
 **Description**
+
 72HoursToLive is an adventure game. At the start of the game, you will
 find yourself in a random room. There is a total of 16 rooms. Your goal will be to
 navigate to the throne room, kill the Werewolf King and obtain a sample of his
