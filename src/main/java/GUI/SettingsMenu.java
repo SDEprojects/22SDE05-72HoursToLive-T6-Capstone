@@ -13,8 +13,8 @@ import static main.java.view.Music.playerSelectEffect;
 public class SettingsMenu {
     JButton musicButton = new JButton("MUSIC");
     JButton sfxButton = new JButton("SoundFX");
-    JButton volumeDownButton = new JButton("Volume -");
-    JButton volumeUpButton = new JButton("Volume +");
+    JButton volumeDownButton = new JButton("Music Vol -");
+    JButton volumeUpButton = new JButton("Music Vol +");
 
     public SettingsMenu() {
 
