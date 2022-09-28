@@ -97,13 +97,13 @@ public class StartMenu extends JFrame {
 
         //Creating intro screen
         introPanel = new JPanel();
-        introPanel.setBounds(0, 650, 1000, 400);
+        introPanel.setBounds(0, 640, 1000, 400);
         introPanel.setOpaque(false);
         introPanel.setVisible(false);
 
         introText = new JTextPane();
-        introText.setBounds(0, 650, 1000, 400);
-        introText.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
+        introText.setBounds(0, 640, 1000, 400);
+        introText.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
         introText.setBackground(Color.black);
         introText.setForeground(Color.orange);
         introText.setOpaque(false);
