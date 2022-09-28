@@ -82,4 +82,23 @@ public class ControllerTest {
         assertTrue(inventory.contains("blood sample"));
 
     }
+
+    @Test
+    public void addToInventoryNegative(){
+        int expected = 1;
+        List<String> inventory = gameController.addToInventory(new Response("pickup","","belt"), room);
+        gameController.addToInventory(new Response("pickup","","shirt"), room);
+
+        assertNotEquals(expected,inventory.size());
+
+    }
+    @Test
+    public void addToInventoryContainsNegative(){
+        List<String> inventory = gameController.addToInventory(new Response("pickup","","belt"), room);
+        gameController.addToInventory(new Response("pickup","","shirt"), room);
+        gameController.addToInventory(new Response("pickup","","ring"), room);
+        gameController.addToInventory(new Response("pickup","","sword"), room);
+
+        assertFalse(inventory.contains("blood sample"));
+    }
 }

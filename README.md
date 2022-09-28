@@ -1,23 +1,20 @@
 # 22SDE05-Project2
 
 **Description**
-
-72HoursToLive is a text-based adventure game. At the start of the game, you would
-find yourself in a random room. There is a total of 16 rooms. You goal would be to
+72HoursToLive is an adventure game. At the start of the game, you will
+find yourself in a random room. There is a total of 16 rooms. Your goal will be to
 navigate to the throne room, kill the Werewolf King and obtain a sample of his
 blood. As you navigate through the rooms, you may encounter several werewolf
-attacks. You may choose to fight back by typing “attack” or simply move on to the
-next room by typing “go <direction>”. 
-After obtaining the werewolf kings blood sample, navigate back to the time portal
-where you use the blood to exit the portal. 
+attacks. You may choose to fight back by pressing “attack” or simply move on to the
+next room by pressing directional buttons. 
+After obtaining the Werewolf King's blood sample, navigate back to the time portal
+where you use the blood-sample to exit the portal. 
 
-**At any point in the game, you can type:**
-- Help to see a list of menu options available to you.
-- Look to see a list of items available for your use.
-- Map to see a map of the game and what room you are presently in
-- Music to start or stop the music from playing
-- Pickup <item> to pick an add an item to your inventory
-- Equip <item> to utilize and item from your inventory
+**At any point in the game, you can press the following buttons:**
+- "Help" to see a list of options available to you.
+- "Map" to see a map of the rooms.
+- "Settings" to manipulate sound effects and music.
+- "Quit" to exit the game.
 
 **To play the game using the jar file:**
 - Download the zip/jar file
@@ -33,44 +30,30 @@ This code was architected with the Model-View-Controller Design Pattern in mind.
   - Character, Room, RoomMovement, Soldier, Werewolf, & WerewolfKing.
 - View classes include:  
   - Art, GameMap, Music, Story, TextColor, & View.
-- Controller classes include:  
-  - GameController, GameSettings, InputScanner, Response, & Text Parser. 
+- GUI classes include:  
+  - BackgroundPanel, Controller, EndingMenu, FullMoon, GamePlay, GUI, Map, PanelSetup, SettingsMenu, StartMenu, UpdatePanel 
 - A Client Class that is used to start/restart the game.
-- A resource directory is also included for additional resources such as music, json files, & string contents.
+- A resource directory is also included for additional resources such as music, json files, & string contents, and images
   
 **Roadmap:**
 Future releases of the game would include:
-- The ability to pause and resume the game.
-- A graphic user interface (GUI) version of the game
+- The ability to save and load the game
   
 **Support:**
-For support in regards to this project,  reach out to a team member through
-henblair@amazon.com, tairobea@amazon.com, adsalami@amazon.com, ebenadda@amazon.com 
+For support in regard to this project,  reach out to a team member through the following GitHub accounts:
+henblair, robtai29, adsalami, ebenadda, ruanek, sandesh2041, averagetec
+
   
 **Contributing:**
-  
-The team is open to suggestions on how to improve the game. Reach out to a team
-member   through henblair@amazon.com, tairobea@amazon.com, adsalami@amazon.com, ebenadda@amazon.com
+We are open to suggestions on how to improve the game. Reach out to a team member through the following GitHub accounts:
+henblair, robtai29, adsalami, ebenadda, ruanek, sandesh2041, averagetec
 
-  **Authors and acknowledgment:**
-
+**Authors and acknowledgment:**
 This project was produced by the collaborative effort of Blair Hendrickson, Robert
-Tai, Adewale Salami, and Ebenezer Addae with supervision from Rennie Araucto and
-Technical advice from Tom Fulton.
+Tai, Adewale Salami, and Ebenezer Addae, Kyle Ruane, Sam Maskey, and Jay Flowers.
   
 **Project Status:**
-  
 This project was part of a Capstone Project for an SDE apprenticeship training. Due
 to time and requirement constrains, members were not able to implement some
-intended features and plan to do so in the future.  
+intended features and plan to do so in the future.
 
-**Additional Notes:**
-
-- When you are in the map you have to press enter to exit the map before
-putting in the next command
-- Windows users may not see text color: 
-  - If desired, you may request a new JAR file for Windows users. Please email a contributor to make this request.
-  
-- Typing music to turn on/off the sound does not work in the:
-  - Difficulty selection level
-  - Story line stage
