@@ -91,12 +91,10 @@ public class Controller {
 
 
                         } else if (room.getItems().contains(buttonResponse.getNoun())) {
-                            player.pickup(buttonResponse.getNoun());
-                            room.getItems().remove(buttonResponse.getNoun());
-                            werewolfCanAttack = true;
-                            UpdatePanel.updateImagePanel(room, monsterMap, gameController, player.getInventory());
+                            List<String> newInventory = addToInventory(buttonResponse, room);
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController, newInventory);
                             UpdatePanel.updateDescriptionPanelText(bundle.getString("pickup2") + buttonResponse.getNoun() + bundle.getString("pickup3"));
-                            UpdatePanel.updateInventory(room, player.getInventory(), gameController);
+                            UpdatePanel.updateInventory(room, newInventory, gameController);
                             UpdatePanel.updateCompass(room, gameController, monsterMap);
                         }
                         checkAttack(room);
@@ -138,7 +136,7 @@ public class Controller {
             }
         }
 
-    public Room implementMove(Response buttonResponse, Room room) throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
+    protected Room implementMove(Response buttonResponse, Room room) throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
         timer++;
         if (timer == 24) {
             new EndingMenu("time out");
@@ -160,6 +158,14 @@ public class Controller {
         return room;
     }
 
+    protected List<String> addToInventory (Response buttonResponse, Room room){
+        player.pickup(buttonResponse.getNoun());
+        room.getItems().remove(buttonResponse.getNoun());
+        werewolfCanAttack = true;
+        List<String> inventory = player.getInventory();
+
+        return inventory;
+    }
     /**
      * Checks if a werewolf can attack and checks health and time after attack
      */
