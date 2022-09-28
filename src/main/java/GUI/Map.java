@@ -76,6 +76,7 @@ public class Map {
             mapPanel.add(new JLabel(img));
 
             mapFrame.add(mapPanel);
+            mapFrame.setLocationRelativeTo(GUI.frame);
         });
 
         return mapButtonPanel;

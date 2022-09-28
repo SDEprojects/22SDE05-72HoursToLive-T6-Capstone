@@ -94,5 +94,6 @@ public class SettingsMenu {
                 playerSelectEffect());
 
         settingsFrame.setContentPane(settingsPanel);
+        settingsFrame.setLocationRelativeTo(GUI.frame);
     }
 }

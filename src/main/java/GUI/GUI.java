@@ -99,6 +99,8 @@ public class GUI {
             helpQuitButton.addActionListener(evt -> {
                 helpFrame.dispose();
             });
+
+            helpFrame.setLocationRelativeTo(frame);
         });
 
         quitButton.addActionListener(e -> System.exit(0));
