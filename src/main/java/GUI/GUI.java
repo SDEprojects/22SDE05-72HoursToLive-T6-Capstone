@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
-import static main.java.view.Music.playerSelectEffect;
+
 
 public class GUI {
 
@@ -18,10 +18,11 @@ public class GUI {
 
     public static JFrame frame;
     static JPanel optionButtons;
-    JButton musicButton = new JButton("MUSIC");
     JButton helpButton = new JButton("HELP");
     JButton quitButton = new JButton("QUIT");
-    JButton sfxButton = new JButton("SoundFX");
+    JButton settingsButton = new JButton("Settings");
+
+
 
     /**
      * Generates the main Frame in which the game is played from
@@ -40,19 +41,12 @@ public class GUI {
         optionButtons.setBackground(Color.black);
         optionButtons.setOpaque(false);
 
-        musicButton.setForeground(Color.red);
-        musicButton.setBackground(Color.black);
-        musicButton.setOpaque(false);
-        musicButton.setBorderPainted(false);
-        musicButton.setFont(new Font("Helvetica", Font.BOLD, 20));
-        optionButtons.add(musicButton);
-
-        sfxButton.setForeground(Color.red);
-        sfxButton.setBackground(Color.black);
-        sfxButton.setOpaque(false);
-        sfxButton.setBorderPainted(false);
-        sfxButton.setFont(new Font("Helvetica", Font.BOLD, 20));
-        optionButtons.add(sfxButton);
+        settingsButton.setForeground(Color.red);
+        settingsButton.setBackground(Color.black);
+        settingsButton.setOpaque(false);
+        settingsButton.setBorderPainted(false);
+        settingsButton.setFont(new Font("Helvetica", Font.BOLD, 20));
+        optionButtons.add(settingsButton);
 
         helpButton.setForeground(Color.red);
         helpButton.setBackground(Color.black);
@@ -69,35 +63,31 @@ public class GUI {
         optionButtons.add(quitButton);
         optionButtons.setLayout(new GridLayout(1, 4));
 
-        // action listeners for music, help, and quit buttons
-        musicButton.addActionListener(e -> {
-            try {
-                Music.playerSelectMusic();
-            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
-                throw new RuntimeException(ex);
-            }
+        // action listeners for settings menu, help, and quit buttons
+        settingsButton.addActionListener(e ->{
+            new SettingsMenu();
+
         });
-
-        sfxButton.addActionListener(e -> playerSelectEffect());
-
         helpButton.addActionListener(e -> {
             JFrame helpFrame = new JFrame("Help");
-            helpFrame.setSize(1000, 800);
+            helpFrame.setSize(1000, 550);
             helpFrame.setVisible(true);
+            helpFrame.setResizable(false);
             helpFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
             JPanel helpPanel = new JPanel();
-            helpPanel.setBounds(0, 0, 1000, 800);
+            helpPanel.setBounds(0, 0, 1000, 550);
             helpPanel.setBackground(Color.black);
             helpPanel.setOpaque(true);
             helpPanel.setLayout(new BorderLayout());
 
             JTextArea helpText = new JTextArea();
             helpText.setLineWrap(true);
-            helpText.setFont(new Font(Font.DIALOG, Font.BOLD, 24));
+            helpText.setFont(new Font(Font.DIALOG, Font.BOLD, 19));
             helpText.setBackground(Color.black);
-            helpText.setForeground(Color.red);
+            helpText.setForeground(Color.orange);
             helpText.setWrapStyleWord(true);
+            helpText.setEditable(false);
             helpText.setText(bundle.getString("help_menu"));
             helpPanel.add(helpText, BorderLayout.NORTH);
 
@@ -109,6 +99,8 @@ public class GUI {
             helpQuitButton.addActionListener(evt -> {
                 helpFrame.dispose();
             });
+
+            helpFrame.setLocationRelativeTo(frame);
         });
 
         quitButton.addActionListener(e -> System.exit(0));

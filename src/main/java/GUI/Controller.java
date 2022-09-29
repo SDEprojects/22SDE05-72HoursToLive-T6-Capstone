@@ -65,41 +65,24 @@ public class Controller {
     private void userChoice(Response buttonResponse, Room room, Controller gameController) throws IOException {
             try {
                 String currentRoom = room.getName();
-                Response r1 = buttonResponse;
-                if (r1.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal") && player.getInventory().contains(r1.getNoun())) {
-                    if (r1.getNoun().equalsIgnoreCase("blood sample")) {
+                if (buttonResponse.getVerb().equalsIgnoreCase("use") && currentRoom.equalsIgnoreCase("Time Portal") && player.getInventory().contains(buttonResponse.getNoun())) {
+                    if (buttonResponse.getNoun().equalsIgnoreCase("blood sample")) {
                         new EndingMenu("win");
                         Music.playStartAudio("win");
                     }
                 }
-                switch (r1.getVerb()) {
+                switch (buttonResponse.getVerb()) {
                     case "go":
-                        timer++;
-                        if (timer == 24) {
-                            new EndingMenu("time out");
-                            Music.playStartAudio("time-up");
-                        } else {
+                        room = implementMove(buttonResponse, room);
 
-                            //check for the full moon
-                            checkFullMoon();
-                            if (Controller.timer % 7 == 0){
-                                FullMoon.fullMoon();
-                                Music.playStartAudio("wolf-howl");
-                            }
-
-                            werewolfCanAttack = true;
-                            Music.playStartAudio("open-door");
-                            RoomMovement.switchRooms(r1.getLocation());
-                            room = RoomMovement.roomSwitcher;
-                            UpdatePanel.updateLocation(room);
-                            UpdatePanel.updateCompass(room, gameController, monsterMap);
-                            UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
-                            UpdatePanel.updateImagePanel(room, monsterMap, gameController, player.getInventory());
-                            UpdatePanel.updateDescriptionPanel(room);
-                            UpdatePanel.updateInventory(room, player.getInventory(), gameController);
-                            checkAttack(room);
-                            break;
-                        }
+                        UpdatePanel.updateLocation(room);
+                        UpdatePanel.updateCompass(room, gameController, monsterMap);
+                        UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
+                        UpdatePanel.updateImagePanel(room, monsterMap, gameController, player.getInventory());
+                        UpdatePanel.updateDescriptionPanel(room);
+                        UpdatePanel.updateInventory(room, player.getInventory(), gameController);
+                        checkAttack(room, gameController);
+                        break;
                     case "pickup":
                         if (player.getInventory().size() > 2) {
                             werewolfCanAttack = false;
@@ -107,19 +90,17 @@ public class Controller {
                             UpdatePanel.updateImagePanel(room, monsterMap, gameController, player.getInventory());
 
 
-                        } else if (room.getItems().contains(r1.getNoun())) {
-                            player.pickup(r1.getNoun());
-                            room.getItems().remove(r1.getNoun());
-                            werewolfCanAttack = true;
-                            UpdatePanel.updateImagePanel(room, monsterMap, gameController, player.getInventory());
-                            UpdatePanel.updateDescriptionPanelText(bundle.getString("pickup2") + r1.getNoun() + bundle.getString("pickup3"));
-                            UpdatePanel.updateInventory(room, player.getInventory(), gameController);
+                        } else if (room.getItems().contains(buttonResponse.getNoun())) {
+                            List<String> newInventory = addToInventory(buttonResponse, room);
+                            UpdatePanel.updateImagePanel(room, monsterMap, gameController, newInventory);
+                            UpdatePanel.updateDescriptionPanelText(bundle.getString("pickup2") + buttonResponse.getNoun() + bundle.getString("pickup3"));
+                            UpdatePanel.updateInventory(room, newInventory, gameController);
                             UpdatePanel.updateCompass(room, gameController, monsterMap);
                         }
-                        checkAttack(room);
+                        checkAttack(room, gameController);
                         break;
                     case "use":
-                        player.useItems(r1.getNoun());
+                        player.useItems(buttonResponse.getNoun());
                         UpdatePanel.updateInventory(room,player.getInventory(), gameController);
                         UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
                         werewolfCanAttack = false;
@@ -146,7 +127,7 @@ public class Controller {
                         }
                         werewolfCanAttack = true;
 
-                        checkAttack(room);
+                        checkAttack(room, gameController);
                         break;
                 }
             } catch (NullPointerException ignored) {
@@ -154,10 +135,41 @@ public class Controller {
                 throw new RuntimeException(e);
             }
         }
+
+    protected Room implementMove(Response buttonResponse, Room room) throws IOException, FontFormatException, UnsupportedAudioFileException, LineUnavailableException {
+        timer++;
+        if (timer == 24) {
+            new EndingMenu("time out");
+            Music.playStartAudio("time-up");
+        } else {
+
+            //check for the full moon
+            checkFullMoon();
+            if (Controller.timer % 7 == 0) {
+                FullMoon.fullMoon();
+                Music.playStartAudio("wolf-howl");
+            }
+
+            werewolfCanAttack = true;
+            Music.playStartAudio("open-door");
+            RoomMovement.switchRooms(buttonResponse.getLocation());
+            room = RoomMovement.roomSwitcher;
+        }
+        return room;
+    }
+
+    protected List<String> addToInventory (Response buttonResponse, Room room){
+        player.pickup(buttonResponse.getNoun());
+        room.getItems().remove(buttonResponse.getNoun());
+        werewolfCanAttack = true;
+        List<String> inventory = player.getInventory();
+
+        return inventory;
+    }
     /**
      * Checks if a werewolf can attack and checks health and time after attack
      */
-    private void checkAttack(Room room) throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
+    private void checkAttack(Room room, Controller gameController) throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
         String currentRoom = room.getName();
         String[] werewolfAttack = {bundle.getString("werewolf_attack1"),bundle.getString("werewolf_attack2"),bundle.getString("werewolf_attack3")};
         String werewolfAttackResponse = werewolfAttack[ran.nextInt(werewolfAttack.length)];
@@ -173,6 +185,7 @@ public class Controller {
             Music.playStartAudio("wolf-attack");
             UpdatePanel.updateHealthAndTimePanel(player.getHealth(), timer);
             UpdatePanel.appendDescriptionPanelText("\n" + wolf.getName() + " " + werewolfAttackResponse + '\n' + bundle.getString("health_status1") + player.getHealth() );
+            UpdatePanel.updateInventory(room, player.getInventory(), gameController);
             werewolfCanAttack = false;
         }
         if (player.getHealth() <= 0) {

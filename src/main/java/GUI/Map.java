@@ -1,16 +1,15 @@
 package main.java.GUI;
 
-import main.java.model.Room;
-import main.java.model.RoomMovement;
-
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.net.URL;
+
 /**
  * Responsible for generating the game map
  */
 public class Map {
+
+    static URL mapImageStream = ClassLoader.getSystemClassLoader().getResource("Images/72HoursMap.jpeg");
 
     public static JPanel getMap(){
         //JPanel for God Mode and Map
@@ -51,70 +50,33 @@ public class Map {
         godModeButton.addActionListener(e -> {
             Controller.player.setHealth(1000);
             Controller.player.setAttackPower(1000);
+            Controller.player.setArmorRating(1000);
             Controller.timer = -10;
             UpdatePanel.updateDescriptionPanelText("You found the ester egg. Super soldier mode activated!!!!");
             UpdatePanel.updateHealthAndTimePanel(Controller.player.getHealth(),Controller.timer);
+            UpdatePanel.updateStatPanel(Controller.player.getAttackPower(),Controller.player.getArmorRating());
             godModeButton.setEnabled(false);
             godModeButton.setForeground(Color.red);
-            //TODO: Update for player stat
         });
 
         //Action Listener for Map
         mapButton.addActionListener(e -> {
             JFrame mapFrame = new JFrame("Map");
-            mapFrame.setSize(600, 300);
+            mapFrame.setSize(600, 700);
             mapFrame.setBackground(Color.black);
             mapFrame.setVisible(true);
             mapFrame.setResizable(false);
             mapFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-            String mapRoom = RoomMovement.currentRoom;
-            HashMap<String, Room> allRooms = RoomMovement.getAllRooms();
-            ArrayList<String> roomList = new ArrayList<>(allRooms.keySet());
-            int index = roomList.indexOf(mapRoom);
-            int size = roomList.get(index).length();
-            StringBuilder yourLocation = new StringBuilder();
-            for (int i = 0; i < size-9; i++){
-                yourLocation.append(" ");
-            }
-            roomList.set(index, "* YOU *" + yourLocation);
+            JPanel mapPanel = new JPanel();
+            mapPanel.setBackground(Color.black);
+            mapPanel.setBounds(0, 0, 600, 700);
+            ImageIcon img = new ImageIcon(mapImageStream);
+            img.setImage(img.getImage().getScaledInstance(600, 665, Image.SCALE_DEFAULT));
+            mapPanel.add(new JLabel(img));
 
-            JTextArea mapText = new JTextArea();
-            mapText.setLineWrap(true);
-            mapText.setFont(new Font(Font.DIALOG, Font.BOLD, 13));
-            mapText.setForeground(Color.red);
-            mapText.setBackground(Color.darkGray);
-            mapText.setWrapStyleWord(true);
-            mapText.setText("\t\t" + roomList.get(13));
-            mapText.append("\n\t\t===============");
-            mapText.append("\n" + roomList.get(9));
-            mapText.append("\t\t"+ roomList.get(10));
-            mapText.append("\t\t" + roomList.get(4));
-            mapText.append("\n===============");
-            mapText.append("\t============");
-            mapText.append("\t=============");
-            mapText.append("\n" + roomList.get(14));
-            mapText.append("\t\t"+ roomList.get(3));
-            mapText.append("\t\t" + roomList.get(12));
-            mapText.append("\n===============");
-            mapText.append("\t=============");
-            mapText.append("\t=============");
-            mapText.append("\n" + roomList.get(0));
-            mapText.append("\t\t"+ roomList.get(11));
-            mapText.append("\t\t" + roomList.get(8));
-            mapText.append("\n===============");
-            mapText.append("\t=============");
-            mapText.append("\t=============");
-            mapText.append("\n" + roomList.get(7));
-            mapText.append("\t\t"+ roomList.get(1));
-            mapText.append("\t\t" + roomList.get(5));
-            mapText.append("\n===============");
-            mapText.append("\t=============");
-            mapText.append("\t=============");
-            mapText.append("\n" + roomList.get(2));
-            mapText.append("\t\t"+ roomList.get(6));
-            mapText.append("\t\t" + roomList.get(15));
-            mapFrame.add(mapText, BorderLayout.CENTER);
+            mapFrame.add(mapPanel);
+            mapFrame.setLocationRelativeTo(GUI.frame);
         });
 
         return mapButtonPanel;
