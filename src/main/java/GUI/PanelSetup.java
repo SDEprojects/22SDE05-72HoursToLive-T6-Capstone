@@ -214,7 +214,7 @@ public class PanelSetup extends JPanel{
 
         JButton east = new JButton ();
         URL eastIcon = ClassLoader.getSystemClassLoader().getResource("Icons/east_button.png");
-        east.setOpaque(true);
+        east.setOpaque(false);
         east.setBorderPainted(false);
         ImageIcon eastImage = new ImageIcon(eastIcon);
         eastImage.setImage(eastImage.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
