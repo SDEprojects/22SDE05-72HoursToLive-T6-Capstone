@@ -230,7 +230,14 @@ public class UpdatePanel {
 
         JButton empty1 = new JButton("");
         JButton empty2 = new JButton("");
-        JButton attackButton = new JButton("ATTACK!!");
+        JButton attackButton = new JButton();
+        attackButton.setOpaque(false);
+        attackButton.setBorderPainted(false);
+        URL attackIcon = ClassLoader.getSystemClassLoader().getResource("Icons/attack_button.png");
+        ImageIcon attackImage = new ImageIcon(attackIcon);
+        attackImage.setImage(attackImage.getImage().getScaledInstance(85, 85, Image.SCALE_DEFAULT));
+        attackButton.add(new JLabel(attackImage));
+
         JButton empty4 = new JButton("");
         JButton empty5 = new JButton("");
         JPanel compassPanel = GamePlay.compassPanel;
